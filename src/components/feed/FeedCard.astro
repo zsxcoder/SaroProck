@@ -107,6 +107,7 @@ const { post, isLastItem = false } = Astro.props;
       <div class="border-t border-base-content/5 px-4 pt-2 pb-4">
         <InlineComments
           client:only="react"
+          path={`/post/${post.id}`}
         />
       </div>
     </div>
