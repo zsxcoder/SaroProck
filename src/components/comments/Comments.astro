@@ -1,20 +1,39 @@
 ---
-import CommentsWrapper from "./CommentsWrapper";
-
 interface Props {
-  identifier: string;
-  commentType: "blog" | "telegram";
-  displayMode?: "full" | "compact" | "guestbook";
+  identifier?: string;
+  title?: string;
+  url?: string;
+  isGuestbook?: boolean;
 }
 
-const { identifier, commentType, displayMode = "full" } = Astro.props;
+const { identifier, title, url, isGuestbook = false } = Astro.props;
 ---
 
 <div class="comments-container">
-  <CommentsWrapper
-    client:visible
-    identifier={identifier}
-    commentType={commentType}
-    displayMode={displayMode}
-  />
+  {!isGuestbook && (
+    <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+      <i class="ri-chat-3-line" />
+      评论区
+    </h2>
+  )}
+  <div class="divider -mt-2 mb-6" />
+  <div id="giscus-container" class="not-prose"></div>
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="zsxcoder/giscus-comments"
+    data-repo-id="R_kgDOQoZP0g"
+    data-category="SaroProck"
+    data-category-id="DIC_kwDOQoZP0s4C1JH8"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  >
+  </script>
 </div>

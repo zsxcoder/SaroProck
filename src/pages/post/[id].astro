@@ -1,9 +1,7 @@
 ---
-import Comments from "@components/comments/Comments.astro";
 import LinkPreview from "@components/feed/LinkPreview.astro";
 import PostMedia from "@components/post/PostMedia.astro";
 import Layout from "@layouts/Layout.astro";
-import LikeButton from "@/components/feed/LikeButton.tsx";
 import { getPostById } from "@/lib/telegram";
 
 const { id } = Astro.params;
@@ -100,19 +98,8 @@ if (!post) return Astro.redirect("/404");
             <div class="flex items-center space-x-1 text-sm">
               <i class="ri-bar-chart-line"></i><span>{post.views}</span>
             </div>
-            <div class="relative z-10 flex items-center space-x-1">
-              <LikeButton postId={post.id} client:visible />
-            </div>
           </div>
         </footer>
-
-        <div class="flex-shrink-0 pt-4">
-          <Comments
-            identifier={post.id}
-            commentType="telegram"
-            displayMode="full"
-          />
-        </div>
       </div>
     </div>
   </div>
