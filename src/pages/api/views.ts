@@ -1,14 +1,15 @@
 import type { APIContext } from "astro";
-import AV from "leancloud-storage";
+import { kvProxy } from "@/lib/kv-proxy";
 import { initLeanCloud } from "@/lib/leancloud.server";
 
-// 初始化 LeanCloud（仅服务器端）
+// 初始化 LeanCloud（仅服务器端）- 现在是兼容函数，不做任何操作
 initLeanCloud();
 
-// 每篇文章总浏览量
-const POST_VIEWS_CLASS = "PostViews";
-// 每日全站浏览量（按东八区日期聚合）
-const DAILY_VIEWS_CLASS = "DailyViews";
+// 使用 Cloudflare Worker KV 代理实现，本地开发使用内存存储
+
+// 本地开发使用的内存存储
+const localPostViewsStorage = new Map<string, number>();
+const localDailyViewsStorage = new Map<string, number>();
 
 function getAsiaShanghaiDateString() {
   const now = new Date();
@@ -32,10 +33,18 @@ export async function GET({ request }: APIContext): Promise<Response> {
   }
 
   try {
-    const query = new AV.Query(POST_VIEWS_CLASS);
-    query.equalTo("slug", slug);
-    const postViews = await query.first();
-    const totalViews = postViews ? postViews.get("views") || 0 : 0;
+    // 在生产环境中，使用 Cloudflare Worker KV 代理
+    // 在本地开发中，使用内存存储
+    let totalViews = 0;
+
+    if (import.meta.env.PROD) {
+      // Vercel 生产环境：使用 Cloudflare Worker KV 代理
+      const value = await kvProxy.get<string>(`views:post:${slug}`);
+      totalViews = value ? Number(value) : 0;
+    } else {
+      // 本地开发环境：使用内存存储
+      totalViews = localPostViewsStorage.get(slug) || 0;
+    }
 
     return new Response(JSON.stringify({ slug, totalViews }), {
       status: 200,
@@ -66,45 +75,49 @@ export async function POST({ request }: APIContext): Promise<Response> {
     const now = new Date();
     const dateKey = getAsiaShanghaiDateString();
 
-    // 更新 PostViews（按 slug 统计总浏览数）
-    const postQuery = new AV.Query(POST_VIEWS_CLASS);
-    postQuery.equalTo("slug", slug);
-    let postViews = await postQuery.first();
+    let totalViews = 0;
+    let dailyViews = 0;
 
-    if (!postViews) {
-      const PostViews = AV.Object.extend(POST_VIEWS_CLASS);
-      postViews = new PostViews();
-      postViews.set("slug", slug);
-      postViews.set("views", 0);
+    if (import.meta.env.PROD) {
+      // Vercel 生产环境：使用 Cloudflare Worker KV 代理
+      // 更新按 slug 统计的总浏览数
+      const currentPostViewsStr = await kvProxy.get<string>(
+        `views:post:${slug}`,
+      );
+      const currentPostViews = currentPostViewsStr
+        ? Number(currentPostViewsStr)
+        : 0;
+      totalViews = currentPostViews + 1;
+      await kvProxy.put(`views:post:${slug}`, totalViews.toString());
+
+      // 更新按日期统计的全站浏览数
+      const currentDailyViewsStr = await kvProxy.get<string>(
+        `views:daily:${dateKey}`,
+      );
+      const currentDailyViews = currentDailyViewsStr
+        ? Number(currentDailyViewsStr)
+        : 0;
+      dailyViews = currentDailyViews + 1;
+      await kvProxy.put(`views:daily:${dateKey}`, dailyViews.toString());
+    } else {
+      // 本地开发环境：使用内存存储
+      // 更新按 slug 统计的总浏览数
+      const currentPostViews = localPostViewsStorage.get(slug) || 0;
+      totalViews = currentPostViews + 1;
+      localPostViewsStorage.set(slug, totalViews);
+
+      // 更新按日期统计的全站浏览数
+      const currentDailyViews = localDailyViewsStorage.get(dateKey) || 0;
+      dailyViews = currentDailyViews + 1;
+      localDailyViewsStorage.set(dateKey, dailyViews);
     }
-
-    (postViews as AV.Object).increment("views", 1);
-
-    // 更新 DailyViews（按日期统计全站浏览数）
-    const dailyQuery = new AV.Query(DAILY_VIEWS_CLASS);
-    dailyQuery.equalTo("date", dateKey);
-    let dailyViews = await dailyQuery.first();
-
-    if (!dailyViews) {
-      const DailyViews = AV.Object.extend(DAILY_VIEWS_CLASS);
-      dailyViews = new DailyViews();
-      dailyViews.set("date", dateKey);
-      dailyViews.set("views", 0);
-    }
-
-    (dailyViews as AV.Object).increment("views", 1);
-
-    const [savedPostViews, savedDailyViews] = await Promise.all([
-      postViews.save(),
-      dailyViews.save(),
-    ]);
 
     return new Response(
       JSON.stringify({
         success: true,
         slug,
-        totalViews: savedPostViews.get("views") || 0,
-        dailyViews: savedDailyViews.get("views") || 0,
+        totalViews,
+        dailyViews,
         date: dateKey,
         timestamp: now.toISOString(),
       }),

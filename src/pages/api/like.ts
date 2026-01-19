@@ -1,13 +1,15 @@
 // src/pages/api/like.ts
 import type { APIContext } from "astro";
-import AV from "leancloud-storage";
+import { kvProxy } from "@/lib/kv-proxy";
 import { initLeanCloud } from "@/lib/leancloud.server";
 
-// 初始化 LeanCloud (仅在服务器端)
+// 初始化 LeanCloud (仅在服务器端) - 现在是兼容函数，不做任何操作
 initLeanCloud();
 
-// LeanCloud Class 名称
-const LIKES_STATS_CLASS = "PostLikes"; // 用于存储总点赞数
+// 使用 Cloudflare Worker KV 代理实现，本地开发使用内存存储
+
+// 本地开发使用的内存存储
+const localLikeStorage = new Map<string, number>();
 
 // --- GET: 获取帖子的初始点赞状态 ---
 export async function GET({ request }: APIContext): Promise<Response> {
@@ -21,10 +23,18 @@ export async function GET({ request }: APIContext): Promise<Response> {
   }
 
   try {
-    const statsQuery = new AV.Query(LIKES_STATS_CLASS);
-    statsQuery.equalTo("postId", postId);
-    const postStats = await statsQuery.first();
-    const likeCount = postStats ? postStats.get("likes") || 0 : 0;
+    // 在生产环境中，使用 Cloudflare Worker KV 代理
+    // 在本地开发中，使用内存存储
+    let likeCount = 0;
+
+    if (import.meta.env.PROD) {
+      // Vercel 生产环境：使用 Cloudflare Worker KV 代理
+      const value = await kvProxy.get<string>(`likes:${postId}`);
+      likeCount = value ? Number(value) : 0;
+    } else {
+      // 本地开发环境：使用内存存储
+      likeCount = localLikeStorage.get(postId) || 0;
+    }
 
     return new Response(JSON.stringify({ likeCount }), {
       status: 200,
@@ -53,32 +63,22 @@ export async function POST({ request }: APIContext): Promise<Response> {
       );
     }
 
-    // 1. 准备点赞统计对象
-    const statsQuery = new AV.Query(LIKES_STATS_CLASS);
-    statsQuery.equalTo("postId", postId);
-    let postStats = await statsQuery.first();
+    let likeCount = 0;
 
-    // 如果统计对象不存在，则创建一个
-    if (!postStats) {
-      const PostLikes = AV.Object.extend(LIKES_STATS_CLASS);
-      postStats = new PostLikes();
-      postStats.set("postId", postId);
-      postStats.set("likes", 0);
+    if (import.meta.env.PROD) {
+      // Vercel 生产环境：使用 Cloudflare Worker KV 代理
+      const newValue = await kvProxy.increment(`likes:${postId}`, delta);
+      likeCount = newValue || 0;
+    } else {
+      // 本地开发环境：使用内存存储
+      const currentLikes = localLikeStorage.get(postId) || 0;
+      likeCount = Math.max(0, currentLikes + delta);
+      localLikeStorage.set(postId, likeCount);
     }
 
-    // 2. 更新统计：根据 delta 调整 likes，避免降到 0 以下
-    (postStats as AV.Object)?.increment("likes", delta);
-
-    const savedStats = await postStats?.save();
-    const finalLikeCount = Math.max(
-      0,
-      savedStats ? savedStats.get("likes") || 0 : 0,
-    );
-
-    return new Response(
-      JSON.stringify({ success: true, likeCount: finalLikeCount }),
-      { status: 200 },
-    );
+    return new Response(JSON.stringify({ success: true, likeCount }), {
+      status: 200,
+    });
   } catch (error) {
     console.error("Error toggling like:", error);
     return new Response(

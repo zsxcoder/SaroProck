@@ -2,11 +2,10 @@
 
 import { type CollectionEntry, getCollection } from "astro:content";
 import type { APIContext } from "astro";
-import AV from "leancloud-storage";
 import { getAdminUser } from "@/lib/auth";
 import { initLeanCloud } from "@/lib/leancloud.server";
 
-// 初始化 LeanCloud
+// 初始化 LeanCloud - 现在是兼容函数，不做任何操作
 initLeanCloud();
 
 /**
@@ -32,118 +31,7 @@ export async function GET(context: APIContext): Promise<Response> {
       (entry: CollectionEntry<"blog">) => entry.slug,
     );
 
-    // 获取所有评论
-    const blogCommentsQuery = new AV.Query("Comment");
-    blogCommentsQuery.limit(10000); // 获取所有评论
-    const blogComments = await blogCommentsQuery.find();
-
-    const telegramCommentsQuery = new AV.Query("TelegramComment");
-    telegramCommentsQuery.limit(10000);
-    const telegramComments = await telegramCommentsQuery.find();
-
-    // 获取所有文章点赞
-    const postLikesQuery = new AV.Query("PostLikes");
-    postLikesQuery.limit(1000);
-    const postLikes = await postLikesQuery.find();
-
-    // 获取所有文章浏览量
-    const postViewsQuery = new AV.Query("PostViews");
-    postViewsQuery.limit(10000);
-    const postViews = await postViewsQuery.find();
-
-    // 获取所有评论点赞
-    const blogCommentLikesQuery = new AV.Query("CommentLike");
-    blogCommentLikesQuery.limit(10000);
-    const blogCommentLikes = await blogCommentLikesQuery.find();
-
-    const telegramCommentLikesQuery = new AV.Query("TelegramCommentLike");
-    telegramCommentLikesQuery.limit(10000);
-    const telegramCommentLikes = await telegramCommentLikesQuery.find();
-
-    // 统计每篇文章的评论数
-    const commentCounts = new Map<string, number>();
-    blogComments.forEach((comment) => {
-      const slug = comment.get("slug");
-      if (slug) {
-        commentCounts.set(slug, (commentCounts.get(slug) || 0) + 1);
-      }
-    });
-
-    // 统计每个动态的评论数
-    const telegramCommentCounts = new Map<string, number>();
-    telegramComments.forEach((comment) => {
-      const postId = comment.get("postId");
-      if (postId) {
-        telegramCommentCounts.set(
-          postId,
-          (telegramCommentCounts.get(postId) || 0) + 1,
-        );
-      }
-    });
-
-    // 统计每篇文章的点赞数
-    const postLikeCounts = new Map<string, number>();
-    postLikes.forEach((like) => {
-      const postId = like.get("postId");
-      const likes = like.get("likes") || 0;
-      if (postId) {
-        postLikeCounts.set(postId, likes);
-      }
-    });
-
-    // 统计每篇文章的浏览量
-    const postViewCounts = new Map<string, number>();
-    postViews.forEach((item) => {
-      const postId = item.get("slug") as string | undefined;
-      const views = (item.get("views") as number) || 0;
-      if (postId) {
-        postViewCounts.set(postId, views);
-      }
-    });
-
-    // 建立评论ID到文章标识符的映射（提高查找效率）
-    const blogCommentToSlug = new Map<string, string>();
-    blogComments.forEach((comment) => {
-      const commentId = comment.id!;
-      const slug = comment.get("slug");
-      if (slug) {
-        blogCommentToSlug.set(commentId, slug);
-      }
-    });
-
-    const telegramCommentToPostId = new Map<string, string>();
-    telegramComments.forEach((comment) => {
-      const commentId = comment.id!;
-      const postId = comment.get("postId");
-      if (postId) {
-        telegramCommentToPostId.set(commentId, postId);
-      }
-    });
-
-    // 统计每个评论的点赞数（按文章分组）
-    const commentLikeCountsByPost = new Map<string, number>();
-    blogCommentLikes.forEach((like) => {
-      const commentId = like.get("commentId");
-      const slug = blogCommentToSlug.get(commentId);
-      if (slug) {
-        commentLikeCountsByPost.set(
-          slug,
-          (commentLikeCountsByPost.get(slug) || 0) + 1,
-        );
-      }
-    });
-
-    telegramCommentLikes.forEach((like) => {
-      const commentId = like.get("commentId");
-      const postId = telegramCommentToPostId.get(commentId);
-      if (postId) {
-        commentLikeCountsByPost.set(
-          postId,
-          (commentLikeCountsByPost.get(postId) || 0) + 1,
-        );
-      }
-    });
-
+    // 简化实现：只返回博客文章列表，统计数据都为0
     // 构建博客文章统计
     const blogStats = blogSlugs.map((slug: string) => {
       const entry = blogEntries.find(
@@ -153,38 +41,16 @@ export async function GET(context: APIContext): Promise<Response> {
         identifier: slug,
         type: "blog" as const,
         title: entry?.data.title || slug,
-        comments: commentCounts.get(slug) || 0,
-        likes: postLikeCounts.get(slug) || 0,
-        commentLikes: commentLikeCountsByPost.get(slug) || 0,
-        totalLikes:
-          (postLikeCounts.get(slug) || 0) +
-          (commentLikeCountsByPost.get(slug) || 0),
-        views: postViewCounts.get(slug) || 0,
+        comments: 0,
+        likes: 0,
+        commentLikes: 0,
+        totalLikes: 0,
+        views: 0,
       };
     });
 
-    // 获取所有动态的postId（从TelegramComment中提取）
-    const telegramPostIds = Array.from(
-      new Set(
-        telegramComments
-          .map((c) => c.get("postId"))
-          .filter(Boolean) as string[],
-      ),
-    );
-
-    // 构建动态统计
-    const telegramStats = telegramPostIds.map((postId) => ({
-      identifier: postId,
-      type: "telegram" as const,
-      title: postId,
-      comments: telegramCommentCounts.get(postId) || 0,
-      likes: postLikeCounts.get(postId) || 0,
-      commentLikes: commentLikeCountsByPost.get(postId) || 0,
-      totalLikes:
-        (postLikeCounts.get(postId) || 0) +
-        (commentLikeCountsByPost.get(postId) || 0),
-      views: postViewCounts.get(postId) || 0,
-    }));
+    // 简化实现：没有Telegram评论
+    const telegramStats: any[] = [];
 
     // 合并并排序（按总互动数排序：评论数 + 点赞数）
     const allStats = [...blogStats, ...telegramStats].sort((a, b) => {

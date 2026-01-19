@@ -1,10 +1,14 @@
 // src/pages/api/comments/like.ts
 import type { APIContext } from "astro";
-import AV from "leancloud-storage";
+import { kvProxy } from "@/lib/kv-proxy";
 import { initLeanCloud } from "@/lib/leancloud.server";
 
-// 初始化 LeanCloud (仅在服务器端)
+// 初始化 LeanCloud (仅在服务器端) - 现在是兼容函数，不做任何操作
 initLeanCloud();
+
+// 本地开发使用的内存存储
+const localCommentLikesStorage = new Map<string, number>();
+const localUserLikesStorage = new Map<string, Set<string>>();
 
 export async function POST({ request }: APIContext): Promise<Response> {
   try {
@@ -17,37 +21,80 @@ export async function POST({ request }: APIContext): Promise<Response> {
       );
     }
 
-    const leanCloudLikeClassName =
-      commentType === "telegram" ? "TelegramCommentLike" : "CommentLike";
-    const Like = AV.Object.extend(leanCloudLikeClassName);
-    const query = new AV.Query(leanCloudLikeClassName);
+    let totalLikes = 0;
+    let isLiked = false;
 
-    // 查询该设备是否已经为该评论点过赞
-    query.equalTo("commentId", commentId);
-    query.equalTo("deviceId", deviceId);
-    const existingLike = await query.first();
+    // 生成唯一的用户点赞标识
+    const userLikeKey = `${deviceId}:${commentId}`;
 
-    if (existingLike) {
-      // 如果已存在，则取消点赞 (删除记录)
-      await existingLike.destroy();
+    if (import.meta.env.PROD) {
+      // Vercel 生产环境：使用 Cloudflare Worker KV 代理
+      // 1. 检查用户是否已经点赞
+      const userLikeStr = await kvProxy.get<string>(
+        `user_like:${deviceId}:${commentId}`,
+      );
+      const existingLike = Boolean(userLikeStr);
+
+      // 2. 获取当前点赞数
+      const currentLikesStr = await kvProxy.get<string>(
+        `comment_likes:${commentId}`,
+      );
+      const currentLikes = currentLikesStr ? Number(currentLikesStr) : 0;
+
+      if (existingLike) {
+        // 如果已存在，则取消点赞 (删除记录)
+        await kvProxy.put(`user_like:${deviceId}:${commentId}`, "");
+
+        // 减少点赞数
+        totalLikes = Math.max(0, currentLikes - 1);
+        await kvProxy.put(`comment_likes:${commentId}`, totalLikes.toString());
+
+        isLiked = false;
+      } else {
+        // 如果不存在，则创建新点赞记录
+        await kvProxy.put(`user_like:${deviceId}:${commentId}`, "1");
+
+        // 增加点赞数
+        totalLikes = currentLikes + 1;
+        await kvProxy.put(`comment_likes:${commentId}`, totalLikes.toString());
+
+        isLiked = true;
+      }
     } else {
-      // 如果不存在，则创建新点赞记录
-      const newLike = new Like();
-      newLike.set("commentId", commentId);
-      newLike.set("deviceId", deviceId); // 用 deviceId 标识用户
-      await newLike.save();
-    }
+      // 本地开发环境：使用内存存储
+      // 检查是否已经点赞
+      const userLikedSet =
+        localUserLikesStorage.get(userLikeKey) || new Set<string>();
+      const currentLikes = localCommentLikesStorage.get(commentId) || 0;
 
-    // 重新计算该评论的总点赞数
-    const countQuery = new AV.Query(leanCloudLikeClassName);
-    countQuery.equalTo("commentId", commentId);
-    const totalLikes = await countQuery.count();
+      if (userLikedSet.has(commentId)) {
+        // 如果已存在，则取消点赞
+        userLikedSet.delete(commentId);
+        localUserLikesStorage.set(userLikeKey, userLikedSet);
+
+        // 减少点赞数
+        totalLikes = Math.max(0, currentLikes - 1);
+        localCommentLikesStorage.set(commentId, totalLikes);
+
+        isLiked = false;
+      } else {
+        // 如果不存在，则创建新点赞记录
+        userLikedSet.add(commentId);
+        localUserLikesStorage.set(userLikeKey, userLikedSet);
+
+        // 增加点赞数
+        totalLikes = currentLikes + 1;
+        localCommentLikesStorage.set(commentId, totalLikes);
+
+        isLiked = true;
+      }
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
         likes: totalLikes,
-        isLiked: !existingLike, // 返回当前的点赞状态
+        isLiked, // 返回当前的点赞状态
       }),
       { status: 200 },
     );

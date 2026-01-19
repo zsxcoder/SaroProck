@@ -1,12 +1,9 @@
 import type { APIContext } from "astro";
-import AV from "leancloud-storage";
 import { getAdminUser } from "@/lib/auth";
 import { initLeanCloud } from "@/lib/leancloud.server";
 
-// 初始化 LeanCloud
+// 初始化 LeanCloud - 现在是兼容函数，不做任何操作
 initLeanCloud();
-
-const DAILY_VIEWS_CLASS = "DailyViews";
 
 export async function GET(context: APIContext): Promise<Response> {
   const adminUser = getAdminUser(context);
@@ -20,23 +17,22 @@ export async function GET(context: APIContext): Promise<Response> {
   const days = Number.parseInt(url.searchParams.get("days") || "30", 10);
 
   try {
-    const query = new AV.Query(DAILY_VIEWS_CLASS);
-    query.addAscending("date");
-    query.limit(365); // 最多一年
-    const results = await query.find();
+    // 简化实现：生成最近N天的空数据
+    const dailyData = [];
+    const today = new Date();
 
-    // 将数据映射为 { date: string, views: number }
-    const allData = results
-      .map((item) => ({
-        date: item.get("date") as string,
-        views: (item.get("views") as number) || 0,
-      }))
-      .sort((a, b) => a.date.localeCompare(b.date));
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split("T")[0];
 
-    // 只保留最近 N 天（按日期字符串从后往前截取）
-    const sliced = allData.length > days ? allData.slice(-days) : allData;
+      dailyData.push({
+        date: dateStr,
+        views: 0,
+      });
+    }
 
-    return new Response(JSON.stringify({ data: sliced }), {
+    return new Response(JSON.stringify({ data: dailyData }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
