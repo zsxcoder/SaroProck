@@ -5,6 +5,8 @@ import ShareButtons from "@components/blog/ShareButtons.astro";
 import Comments from "@components/comments/Comments.astro";
 import Figure from "@components/markdown/Figure.astro";
 import Layout from "@layouts/Layout.astro";
+import BlogLikeButton from "@/components/blog/LikeButton";
+import ViewTracker from "@/components/blog/ViewTracker";
 import { getAllPostsWithShortLinks } from "@/lib/blog";
 import dayjs from "@/lib/telegram/dayjs-setup";
 
@@ -65,7 +67,8 @@ const customComponents = {
   headings={headings}
 >
   <article class="max-w-4xl mx-auto">
-      <header class="mb-12 animate-fade-in">
+    <ViewTracker client:only="react" slug={post.slug} />
+    <header class="mb-12 animate-fade-in">
       {
         image && (
           <div class="relative aspect-[21/9] overflow-hidden rounded-3xl mb-8 shadow-2xl">
@@ -148,6 +151,17 @@ const customComponents = {
     </main>
 
     <section
+      class="my-16 flex flex-col items-center justify-center gap-4 animate-fade-in no-print"
+      style="animation-delay: 0.4s;"
+    >
+      <h3 class="text-xl font-bold text-base-content">觉得这篇文章怎么样？</h3>
+      <p class="text-base-content/70 -mt-2">点个赞，让更多人看到！</p>
+      <div class="mt-4">
+        <BlogLikeButton client:load postId={post.slug} />
+      </div>
+    </section>
+
+    <section
       class="mb-12 animate-fade-in no-print"
       style="animation-delay: 0.4s;"
     >
@@ -165,7 +179,7 @@ const customComponents = {
       class="mb-16 animate-fade-in no-print"
       style="animation-delay: 1s;"
     >
-      <Comments identifier={post.slug} title={title} url={shareUrl} />
+      <Comments identifier={post.slug} commentType="blog" />
     </section>
   </article>
 </Layout>
