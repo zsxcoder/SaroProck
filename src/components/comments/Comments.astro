@@ -1,20 +1,49 @@
 ---
-import CommentsWrapper from "./CommentsWrapper";
-
-interface Props {
-  identifier: string;
-  commentType: "blog" | "telegram";
-  displayMode?: "full" | "compact" | "guestbook";
-}
-
-const { identifier, commentType, displayMode = "full" } = Astro.props;
+// 替换为 Giscus 评论系统
 ---
 
 <div class="comments-container">
-  <CommentsWrapper
-    client:visible
-    identifier={identifier}
-    commentType={commentType}
-    displayMode={displayMode}
-  />
+  <div class="giscus" id="giscus-comments"></div>
+  
+  <script is:inline src="https://giscus.app/client.js"
+          data-repo="zsxcoder/giscus-comments"
+          data-repo-id="R_kgDOQoZP0g"
+          data-category="SaroProck"
+          data-category-id="DIC_kwDOQoZP0s4C1JH8"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
+  
+  <!-- 适配博客的布局和样式 -->
+  <style>
+    .comments-container {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-base-200/50);
+      border: 1px solid var(--border-base-content/5);
+      border-radius: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    
+    .giscus-frame {
+      width: 100%;
+      border: none;
+      border-radius: 0.5rem;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .comments-container {
+        padding: 1rem;
+      }
+    }
+  </style>
 </div>
