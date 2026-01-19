@@ -43,14 +43,14 @@ export async function GET(context: any) {
         guid: post.longUrl,
         content,
         pubDate: new Date(pubDate),
-        customData: "<dc:creator><![CDATA[サン猫の時間漂流]]></dc:creator>",
+        customData: "<dc:creator><![CDATA[钟神秀]]></dc:creator>",
       };
     }),
   );
 
   return rss({
-    title: "サン猫の時間漂流",
-    description: "一个孤独的地方，散落着一个人的人生碎片",
+    title: "钟神秀",
+    description: "造化钟神秀，阴阳割昏晓。",
     site: context.site.toString(),
     items,
     stylesheet: "/rss.xsl",
@@ -59,7 +59,7 @@ export async function GET(context: any) {
       <atom:link href="${new URL(context.url.pathname, context.site)}" rel="self" type="application/rss+xml" />
       <image>
         <url>${new URL("/favicon.png", context.site).toString()}</url>
-        <title>サン猫の時間漂流</title>
+        <title>钟神秀</title>
         <link>${context.site}</link>
       </image>
     `,

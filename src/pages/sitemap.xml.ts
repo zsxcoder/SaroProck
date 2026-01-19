@@ -10,8 +10,8 @@ export async function GET(context: any) {
       new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
   );
   return rss({
-    title: "サン猫の時間漂流",
-    description: "一个孤独的地方，散落着一个人的人生碎片",
+    title: "钟神秀",
+    description: "造化钟神秀，阴阳割昏晓。",
     site: context.site,
     items: sortedPosts.map((blog: any) => ({
       ...blog.data,

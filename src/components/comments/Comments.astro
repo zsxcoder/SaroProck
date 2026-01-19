@@ -36,4 +36,18 @@ const { identifier, title, url, isGuestbook = false } = Astro.props;
     async
   >
   </script>
+  {!isGuestbook && (
+    <div class="mt-6 text-sm text-right">
+      <span>本评论区由 </span>
+      <a
+        href="https://github.com/EveSunMaple"
+        class="text-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        EveSunMaple
+      </a>
+      <span> 自主开发</span>
+    </div>
+  )}
 </div>
