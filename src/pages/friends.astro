@@ -158,15 +158,8 @@ const EMAIL = "3149261770@qq.com";
                     <Icon
                       name="ri:check-line"
                       class="inline w-4 h-4 mr-1 text-success"
-                    />请 <span class="font-semibold">先在本站添加我的友链</span
-                    >，再提交申请。
-                    <button 
-                      class="ml-2 btn btn-sm btn-primary rounded-full"
-                      onclick="showLinkModal()"
-                    >
-                      <Icon name="ri:code-box-line" class="w-4 h-4" />
-                      <span>查看我的友链信息</span>
-                    </button>
+                    />请 <span class="font-semibold">先在本站添加</span
+                    ><button onclick="myLink.showModal()" class="font-semibold text-primary hover:underline cursor-pointer">我的友链</button>，再提交申请。
                   </li>
                   <li>
                     <Icon
@@ -269,7 +262,59 @@ const EMAIL = "3149261770@qq.com";
     ))
   }
 
+  <!-- 我的友链信息弹窗 -->
+  <dialog id="myLink" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box rounded-t-2xl sm:rounded-2xl">
+      <h3 class="font-bold text-2xl mb-4">我的友链信息</h3>
+      <div class="bg-base-200 rounded-lg p-4 overflow-x-auto">
+        <pre class="whitespace-pre-wrap text-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span>name: 钟神秀</span>
+            <button onclick="copyLine('name: 钟神秀')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <span>desc: 造化钟神秀，阴阳割昏晓。</span>
+            <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <span>avatar: https://mcy.zsxcoder.top</span>
+            <button onclick="copyLine('avatar: https://mcy.zsxcoder.top')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>url: https://home.zsxcoder.top/api/avatar.png</span>
+            <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+          </div>
+        </pre>
+      </div>
+      <div class="modal-action mt-4">
+        <form method="dialog" class="w-full">
+          <button class="btn btn-primary rounded-lg w-full">关闭</button>
+        </form>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
+
   <script is:inline>
+    // 复制单行友链信息
+    const copyLine = (text) => {
+      navigator.clipboard.writeText(text).then(() => {
+        // 可以添加一个简单的提示，但不破坏现有布局
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = "已复制";
+        button.classList.remove("btn-primary");
+        button.classList.add("btn-success");
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove("btn-success");
+          button.classList.add("btn-primary");
+        }, 1000);
+      });
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
       const indicators = document.querySelectorAll(".status-indicator");
 
@@ -305,82 +350,6 @@ const EMAIL = "3149261770@qq.com";
         }
       });
     });
-  </script>
-
-  <!-- 友链信息弹窗 -->
-  <dialog id="link-modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box rounded-t-2xl sm:rounded-2xl max-w-3xl">
-      <h3 class="font-bold text-2xl mb-6 flex items-center gap-3">
-        <Icon name="ri:link-m" class="w-7 h-7" />
-        <span>我的友链信息</span>
-      </h3>
-      <div class="bg-base-100 rounded-xl p-6 border border-base-content/10">
-        <pre class="text-sm overflow-x-auto">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="flex-1">name: 钟神秀</span>
-            <button class="btn btn-xs btn-ghost hover:bg-base-200" onclick="copyLine('name: 钟神秀')">
-              <Icon name="ri:file-copy-line" class="w-3 h-3" />
-            </button>
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="flex-1">desc: 造化钟神秀，阴阳割昏晓。</span>
-            <button class="btn btn-xs btn-ghost hover:bg-base-200" onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。')">
-              <Icon name="ri:file-copy-line" class="w-3 h-3" />
-            </button>
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="flex-1">avatar: https://mcy.zsxcoder.top</span>
-            <button class="btn btn-xs btn-ghost hover:bg-base-200" onclick="copyLine('avatar: https://mcy.zsxcoder.top')">
-              <Icon name="ri:file-copy-line" class="w-3 h-3" />
-            </button>
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="flex-1">url: https://home.zsxcoder.top/api/avatar.png</span>
-            <button class="btn btn-xs btn-ghost hover:bg-base-200" onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png')">
-              <Icon name="ri:file-copy-line" class="w-3 h-3" />
-            </button>
-          </div>
-        </pre>
-      </div>
-      <div class="modal-action mt-6">
-        <form method="dialog" class="w-full flex justify-center">
-          <button class="btn btn-primary rounded-lg">
-            <Icon name="ri:close-line" class="w-4 h-4" />
-            <span>关闭</span>
-          </button>
-        </form>
-      </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
-    </form>
-  </dialog>
-
-  <script is:inline>
-    // 显示友链信息弹窗
-    function showLinkModal() {
-      document.getElementById('link-modal').showModal();
-    }
-    
-    // 复制行信息
-    async function copyLine(text) {
-      try {
-        await navigator.clipboard.writeText(text);
-        // 可以添加一个提示，比如Toast通知
-        const btn = event.target.closest('button');
-        const originalIcon = btn.innerHTML;
-        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-        btn.classList.remove('btn-ghost');
-        btn.classList.add('btn-success');
-        setTimeout(() => {
-          btn.innerHTML = originalIcon;
-          btn.classList.remove('btn-success');
-          btn.classList.add('btn-ghost');
-        }, 1000);
-      } catch (err) {
-        console.error('复制失败:', err);
-      }
-    }
   </script>
 
   <style>
@@ -449,17 +418,6 @@ const EMAIL = "3149261770@qq.com";
     .card article,
     .card-button article {
       overflow: visible;
-    }
-
-    /* 弹窗样式优化 */
-    .modal-box pre {
-      margin: 0;
-      padding: 0;
-      background: transparent;
-    }
-    
-    .modal-box pre div {
-      white-space: nowrap;
     }
   </style>
 </Layout>
