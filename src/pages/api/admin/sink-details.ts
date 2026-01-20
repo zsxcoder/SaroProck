@@ -6,9 +6,17 @@ async function proxyToSinkAPI(
   sinkApiKey: string | undefined,
   event: APIContext,
 ) {
-  if (!sinkApiKey || !sinkUrl) {
+  if (
+    !sinkApiKey ||
+    !sinkUrl ||
+    sinkUrl.includes("<你的") ||
+    sinkApiKey.includes("<你的")
+  ) {
     return new Response(
-      JSON.stringify({ error: "Sink API URL or Key is not configured." }),
+      JSON.stringify({
+        error: "Sink API URL or Key is not configured.",
+        message: "请在.env文件中配置SINK_PUBLIC_URL和SINK_API_KEY环境变量。",
+      }),
       { status: 500 },
     );
   }

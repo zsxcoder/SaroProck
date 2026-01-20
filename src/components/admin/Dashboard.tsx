@@ -152,9 +152,15 @@ const Dashboard: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           setViews(data.data);
+        } else {
+          console.error("Failed to fetch views:", response.statusText);
+          // 可以选择设置一个空数组或默认数据
+          setViews([]);
         }
       } catch (error) {
         console.error("Failed to fetch views:", error);
+        // 可以选择设置一个空数组或默认数据
+        setViews([]);
       } finally {
         setViewsLoading(false);
       }
@@ -182,17 +188,29 @@ const Dashboard: React.FC = () => {
         if (referersRes.ok) {
           const data = await referersRes.json();
           setTopReferers(data.data);
+        } else {
+          console.error("Failed to fetch referers:", referersRes.statusText);
+          setTopReferers([]);
         }
         if (countriesRes.ok) {
           const data = await countriesRes.json();
           setTopCountries(data.data);
+        } else {
+          console.error("Failed to fetch countries:", countriesRes.statusText);
+          setTopCountries([]);
         }
         if (osRes.ok) {
           const data = await osRes.json();
           setTopOS(data.data);
+        } else {
+          console.error("Failed to fetch OS:", osRes.statusText);
+          setTopOS([]);
         }
       } catch (error) {
         console.error("Failed to fetch metrics:", error);
+        setTopReferers([]);
+        setTopCountries([]);
+        setTopOS([]);
       } finally {
         setMetricsLoading(false);
       }
