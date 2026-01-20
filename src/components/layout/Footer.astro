@@ -17,7 +17,7 @@ async function getRepoStars(): Promise<number | null> {
     return cachedData.stars;
   }
   try {
-    const owner = "EveSunMaple";
+    const owner = "zsxcoder";
     const repo = "SaroProck";
     const token = import.meta.env.GITHUB_TOKEN;
     const response = await fetch(
@@ -54,7 +54,7 @@ const navLinks = [
   { href: "/", text: "动态" },
   { href: "/rss.xml", text: "博客" },
   { href: "/random", text: "漂流" },
-  { href: "https://github.com/EveSunMaple?tab=repositories", text: "仓库" },
+  { href: "https://github.com/zsxcoder?tab=repositories", text: "仓库" },
 ];
 
 const socialLinks = [
@@ -91,7 +91,7 @@ const socialLinks = [
         </div>
         <div class="mt-4">
           <a
-            href="https://github.com/EveSunMaple/SaroProck"
+            href="https://github.com/zsxcoder/SaroProck"
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-outline btn-sm rounded-full group"

@@ -331,14 +331,14 @@ const CommentsWrapper: React.FC<Props> = ({
         <div className="mt-6 text-sm text-right">
           <span>本评论区由 </span>
           <a
-            href="https://github.com/EveSunMaple"
+            href="https://github.com/zsxcoder"
             className="text-primary"
             target="_blank"
             rel="noopener noreferrer"
           >
-            EveSunMaple
+            钟神秀
           </a>
-          <span> 自主开发</span>
+          <span> Powered</span>
         </div>
       )}
     </div>
