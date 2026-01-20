@@ -61,10 +61,12 @@ const EMAIL = "3149261770@qq.com";
               {
                 mainLinks.map((link) => (
                   <div class="relative pt-12 h-full flex flex-col">
-                    <button
-                      class="card-button text-left w-full h-full"
-                      onclick={`${link.id}.showModal()`}
-                      aria-label={`查看关于 ${link.name} 的故事`}
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-left w-full h-full"
+                      aria-label={`访问 ${link.name} 的网站`}
                     >
                       <article class="card bg-base-100/60 border border-base-content/5 rounded-xl p-6 relative w-full h-full flex flex-col items-start transition-all duration-300 transform hover:shadow-lg hover:-translate-y-1 hover:cursor-pointer">
                         <div class="absolute -top-8 left-6">
@@ -91,7 +93,7 @@ const EMAIL = "3149261770@qq.com";
                           </p>
                         </div>
                       </article>
-                    </button>
+                    </a>
                   </div>
                 ))
               }
@@ -158,8 +160,8 @@ const EMAIL = "3149261770@qq.com";
                     <Icon
                       name="ri:check-line"
                       class="inline w-4 h-4 mr-1 text-success"
-                    />请 <span class="font-semibold">先在本站添加</span
-                    ><button onclick="openMyLinkModal()" class="font-semibold text-primary hover:underline cursor-pointer">我的友链</button>，再提交申请。
+                    />请 <span class="font-semibold">先在本站添加我的友链</span
+                    >，再提交申请。
                   </li>
                   <li>
                     <Icon
@@ -224,144 +226,9 @@ const EMAIL = "3149261770@qq.com";
     </div>
   </div>
 
-  {
-    mainLinks.map((link) => (
-      <dialog id={`${link.id}`} class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box rounded-t-2xl sm:rounded-2xl">
-          <h3 class="font-bold text-2xl mb-4 flex items-center gap-3">
-            <img
-              src={link.avatar}
-              alt=""
-              class="w-10 h-10 rounded-full object-cover"
-            />
-            <span>{link.name}</span>
-          </h3>
-          <p class="py-4 text-base-content/80 leading-relaxed">{link.story}</p>
-          <div class="modal-action mt-4">
-            <form
-              method="dialog"
-              class="w-full flex justify-between items-center"
-            >
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-primary rounded-lg"
-              >
-                <Icon name="lucide:external-link" class="w-5 h-5" />
-                <span>前往做客</span>
-              </a>
-              <button class="btn btn-ghost rounded-lg">关闭</button>
-            </form>
-          </div>
-        </div>
-        <form method="dialog" class="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
-    ))
-  }
 
-  <!-- 我的友链信息弹窗 -->
-  <div id="myLinkModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-    <div class="absolute inset-0 bg-base-content/10 backdrop-blur-sm" onclick="closeMyLinkModal()"></div>
-    <div class="relative bg-base-100 rounded-2xl shadow-lg w-full max-w-md mx-4 border border-base-content/5">
-      <!-- 弹窗内容 -->
-      <div class="modal-box rounded-2xl p-6">
-        <!-- 标题 -->
-        <h3 class="text-2xl font-bold mb-6">我的友链信息</h3>
-        
-        <!-- 友链信息 -->
-        <div class="bg-base-200 rounded-xl p-5 mb-6">
-          <!-- 名称 -->
-          <div class="mb-4">
-            <div class="text-sm text-base-content/60 mb-1">名称</div>
-            <div class="font-mono text-base">name: 钟神秀</div>
-            <button 
-              onclick="copyText('name: 钟神秀', this)" 
-              class="mt-2 btn btn-primary btn-sm rounded-lg"
-              aria-label="复制名称信息"
-            >
-              复制
-            </button>
-          </div>
-          
-          <!-- 描述 -->
-          <div class="mb-4">
-            <div class="text-sm text-base-content/60 mb-1">描述</div>
-            <div class="font-mono text-base">desc: 造化钟神秀，阴阳割昏晓。</div>
-            <button 
-              onclick="copyText('desc: 造化钟神秀，阴阳割昏晓。', this)" 
-              class="mt-2 btn btn-primary btn-sm rounded-lg"
-              aria-label="复制描述信息"
-            >
-              复制
-            </button>
-          </div>
-          
-          <!-- 头像 -->
-          <div class="mb-4">
-            <div class="text-sm text-base-content/60 mb-1">头像</div>
-            <div class="font-mono text-base">avatar: https://mcy.zsxcoder.top</div>
-            <button 
-              onclick="copyText('avatar: https://mcy.zsxcoder.top', this)" 
-              class="mt-2 btn btn-primary btn-sm rounded-lg"
-              aria-label="复制头像信息"
-            >
-              复制
-            </button>
-          </div>
-          
-          <!-- 链接 -->
-          <div>
-            <div class="text-sm text-base-content/60 mb-1">链接</div>
-            <div class="font-mono text-base">url: https://home.zsxcoder.top/api/avatar.png</div>
-            <button 
-              onclick="copyText('url: https://home.zsxcoder.top/api/avatar.png', this)" 
-              class="mt-2 btn btn-primary btn-sm rounded-lg"
-              aria-label="复制链接信息"
-            >
-              复制
-            </button>
-          </div>
-        </div>
-        
-        <!-- 关闭按钮 -->
-        <button 
-          onclick="closeMyLinkModal()" 
-          class="btn btn-primary rounded-lg w-full"
-        >
-          关闭
-        </button>
-      </div>
-    </div>
-  </div>
 
   <script is:inline>
-    // 打开友链弹窗
-    function openMyLinkModal() {
-      document.getElementById('myLinkModal').classList.remove('hidden');
-    }
-    
-    // 关闭友链弹窗
-    function closeMyLinkModal() {
-      document.getElementById('myLinkModal').classList.add('hidden');
-    }
-    
-    // 复制文本功能
-    function copyText(text, button) {
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = button.textContent;
-        button.textContent = '已复制';
-        button.classList.remove('btn-primary');
-        button.classList.add('btn-success');
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove('btn-success');
-          button.classList.add('btn-primary');
-        }, 1000);
-      });
-    };
     document.addEventListener("DOMContentLoaded", () => {
       const indicators = document.querySelectorAll(".status-indicator");
 
@@ -462,9 +329,6 @@ const EMAIL = "3149261770@qq.com";
       }
     }
 
-    .card article,
-    .card-button article {
-      overflow: visible;
-    }
+
   </style>
 </Layout>
