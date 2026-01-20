@@ -171,7 +171,7 @@ const EMAIL = "3149261770@qq.com";
                       target="_blank"
                       rel="noopener noreferrer"
                       class="link link-hover font-semibold">钟神秀</a
-                    > (https://mcy.zsxcoder.top)
+                    >
                   </li>
                 </ul>
               </div>
@@ -267,24 +267,24 @@ const EMAIL = "3149261770@qq.com";
     <div class="modal-box rounded-t-2xl sm:rounded-2xl">
       <h3 class="font-bold text-2xl mb-4">我的友链信息</h3>
       <div class="bg-base-200 rounded-lg p-4 overflow-x-auto">
-        <pre class="whitespace-pre-wrap text-sm">
+        <div class="space-y-2 text-sm font-mono">
           <div class="flex items-center justify-between mb-2">
             <span>name: 钟神秀</span>
-            <button onclick="copyLine('name: 钟神秀')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            <button onclick="copyLine('name: 钟神秀', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
           </div>
           <div class="flex items-center justify-between mb-2">
             <span>desc: 造化钟神秀，阴阳割昏晓。</span>
-            <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
           </div>
           <div class="flex items-center justify-between mb-2">
             <span>avatar: https://mcy.zsxcoder.top</span>
-            <button onclick="copyLine('avatar: https://mcy.zsxcoder.top')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            <button onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
           </div>
           <div class="flex items-center justify-between">
             <span>url: https://home.zsxcoder.top/api/avatar.png</span>
-            <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png')" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
           </div>
-        </pre>
+        </div>
       </div>
       <div class="modal-action mt-4">
         <form method="dialog" class="w-full">
@@ -299,7 +299,7 @@ const EMAIL = "3149261770@qq.com";
 
   <script is:inline>
     // 复制单行友链信息
-    const copyLine = (text) => {
+    const copyLine = (text, event) => {
       navigator.clipboard.writeText(text).then(() => {
         // 可以添加一个简单的提示，但不破坏现有布局
         const button = event.target;
