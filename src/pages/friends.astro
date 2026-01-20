@@ -272,16 +272,12 @@ const EMAIL = "3149261770@qq.com";
           <!-- 友链信息卡片 -->
           <div class="bg-base-200 rounded-xl p-5">
             <!-- 名称 -->
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex-1">
-                <div class="text-sm text-base-content/60 mb-1">名称</div>
-                <div class="font-mono text-base flex items-center gap-2">
-                  <span>name: 钟神秀</span>
-                </div>
-              </div>
+            <div class="mb-4">
+              <div class="text-sm text-base-content/60 mb-1">名称</div>
+              <div class="font-mono text-base mb-2">name: 钟神秀</div>
               <button 
                 onclick="copyLine('name: 钟神秀', event)" 
-                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                class="btn btn-primary btn-sm rounded-lg"
                 aria-label="复制名称信息"
               >
                 <i class="ri-file-copy-line mr-1"></i> 复制
@@ -289,16 +285,12 @@ const EMAIL = "3149261770@qq.com";
             </div>
             
             <!-- 描述 -->
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex-1">
-                <div class="text-sm text-base-content/60 mb-1">描述</div>
-                <div class="font-mono text-base flex items-center gap-2">
-                  <span>desc: 造化钟神秀，阴阳割昏晓。</span>
-                </div>
-              </div>
+            <div class="mb-4">
+              <div class="text-sm text-base-content/60 mb-1">描述</div>
+              <div class="font-mono text-base mb-2">desc: 造化钟神秀，阴阳割昏晓。</div>
               <button 
                 onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" 
-                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                class="btn btn-primary btn-sm rounded-lg"
                 aria-label="复制描述信息"
               >
                 <i class="ri-file-copy-line mr-1"></i> 复制
@@ -306,16 +298,12 @@ const EMAIL = "3149261770@qq.com";
             </div>
             
             <!-- 头像 -->
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex-1">
-                <div class="text-sm text-base-content/60 mb-1">头像</div>
-                <div class="font-mono text-base flex items-center gap-2">
-                  <span>avatar: https://mcy.zsxcoder.top</span>
-                </div>
-              </div>
+            <div class="mb-4">
+              <div class="text-sm text-base-content/60 mb-1">头像</div>
+              <div class="font-mono text-base mb-2">avatar: https://mcy.zsxcoder.top</div>
               <button 
                 onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" 
-                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                class="btn btn-primary btn-sm rounded-lg"
                 aria-label="复制头像信息"
               >
                 <i class="ri-file-copy-line mr-1"></i> 复制
@@ -323,16 +311,12 @@ const EMAIL = "3149261770@qq.com";
             </div>
             
             <!-- 链接 -->
-            <div class="flex items-center justify-between">
-              <div class="flex-1">
-                <div class="text-sm text-base-content/60 mb-1">链接</div>
-                <div class="font-mono text-base flex items-center gap-2">
-                  <span>url: https://home.zsxcoder.top/api/avatar.png</span>
-                </div>
-              </div>
+            <div>
+              <div class="text-sm text-base-content/60 mb-1">链接</div>
+              <div class="font-mono text-base mb-2">url: https://home.zsxcoder.top/api/avatar.png</div>
               <button 
                 onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" 
-                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                class="btn btn-primary btn-sm rounded-lg"
                 aria-label="复制链接信息"
               >
                 <i class="ri-file-copy-line mr-1"></i> 复制
@@ -347,7 +331,7 @@ const EMAIL = "3149261770@qq.com";
         </div>
         
         <!-- 关闭按钮 -->
-        <div class="modal-action mt-6">
+        <div class="mt-6">
           <button 
             onclick="document.getElementById('myLink').classList.add('hidden')" 
             class="btn btn-primary rounded-lg w-full"
