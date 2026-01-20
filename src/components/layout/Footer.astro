@@ -8,7 +8,8 @@ export interface Props {
   mastodonUrl: string;
 }
 
-const { author, twitterHandle, githubUrl, telegramUrl, mastodonUrl } = Astro.props;
+const { author, twitterHandle, githubUrl, telegramUrl, mastodonUrl } =
+  Astro.props;
 
 const CACHE_DURATION = 3600 * 1000;
 let cachedData: { stars: number; timestamp: number } | null = null;

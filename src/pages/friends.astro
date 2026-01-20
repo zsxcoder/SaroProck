@@ -99,30 +99,26 @@ const EMAIL = "3149261770@qq.com";
           </section>
 
           <section class="space-y-4">
-            <h2 class="text-2xl font-bold flex items-center gap-2">
+            <h2 id='small-circle' class="text-2xl font-bold flex items-center gap-2">
               <Icon name="ri:group-line" class="w-7 h-7" />
-              <span>朋友圈</span>
+              <span>Small Circle</span>
             </h2>
 
-            <div class="flex flex-wrap gap-3">
-              {
-                secondaryLinks.map((link) => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-soft btn-sm rounded-lg transition-all duration-200 hover:scale-105 flex items-center gap-2"
-                  >
-                    <div
-                      class="status-indicator is-checking"
-                      data-url={link.url}
-                    />
-                    <span>{link.name}</span>
-                  </a>
-                ))
-              }
-            </div>
-          </section>
+            <div id='friend-circle-lite-root' class='not-prose'>Loading...</div>
+
+            <script client:load>
+               import '@/assets/styles/fc.css'
+  
+               import { FriendCircle } from '@/plugins/friendCircle'
+  
+               const fc = new FriendCircle()
+               fc.init({
+                  private_api_url: 'https://fc.mcyzsx.top',
+                  page_turning_number: 10,
+                  error_img: 'https://cravatar.cn/avatar/57d8260dfb55501c37dde588e7c3852c'
+               })
+               fc.load()
+            </script>
         </main>
 
         <aside class="md:col-span-1 flex flex-col gap-6">

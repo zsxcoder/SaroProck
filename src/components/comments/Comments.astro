@@ -5,7 +5,7 @@ interface Props {
 }
 
 const { identifier, commentType } = Astro.props;
-const twikooId = `twikoo-${commentType}-${identifier.replace(/\//g, '-')}`;
+const twikooId = `twikoo-${commentType}-${identifier.replace(/\//g, "-")}`;
 const path = `${commentType}/${identifier}`;
 const envId = "https://twikoo-saroprock.zsxcoder.top"; // 替换为你的 Twikoo 环境 ID
 ---
