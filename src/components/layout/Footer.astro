@@ -5,9 +5,10 @@ export interface Props {
   twitterHandle: string;
   githubUrl: string;
   telegramUrl: string;
+  mastodonUrl: string;
 }
 
-const { author, twitterHandle, githubUrl, telegramUrl } = Astro.props;
+const { author, twitterHandle, githubUrl, telegramUrl, mastodonUrl } = Astro.props;
 
 const CACHE_DURATION = 3600 * 1000;
 let cachedData: { stars: number; timestamp: number } | null = null;
@@ -65,6 +66,7 @@ const socialLinks = [
   },
   { href: githubUrl, text: "GitHub", icon: "ri-github-line" },
   { href: telegramUrl, text: "Telegram", icon: "ri-telegram-line" },
+  { href: mastodonUrl, text: "Mastodon", icon: "ri-mastodon-fill" },
   { href: "/rss.xml", text: "RSS", icon: "ri-rss-line" },
 ];
 ---

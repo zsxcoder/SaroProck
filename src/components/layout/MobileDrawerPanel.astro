@@ -5,8 +5,9 @@ export interface Props {
   githubUrl: string;
   telegramUrl: string;
   channelUrl: string;
-  qqGroupNumber: string;
+  qqNumber: string;
   emailAddress: string;
+  mastodonUrl: string;
 }
 
 const {
@@ -15,8 +16,9 @@ const {
   githubUrl,
   telegramUrl,
   channelUrl,
-  qqGroupNumber,
+  qqNumber,
   emailAddress,
+  mastodonUrl,
 } = Astro.props;
 ---
 
@@ -107,7 +109,7 @@ const {
         QQ
       </div>
       <span class="font-mono text-sm text-base-content/80">
-        {qqGroupNumber}
+        {qqNumber}
       </span>
     </div>
     <a

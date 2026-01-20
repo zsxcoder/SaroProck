@@ -10,8 +10,9 @@ export interface Props {
   telegramUrl: string;
   headings?: MarkdownHeading[];
   channelUrl: string;
-  qqGroupNumber: string;
+  qqNumber: string;
   emailAddress: string;
+  mastodonUrl: string;
 }
 
 const {
@@ -20,8 +21,9 @@ const {
   twitterHandle,
   githubUrl,
   telegramUrl,
+  mastodonUrl
   channelUrl,
-  qqGroupNumber,
+  qqNumber,
   emailAddress,
 } = Astro.props;
 
@@ -50,7 +52,7 @@ const stats = {
 };
 
 const contacts = {
-  qqGroup: qqGroupNumber,
+  qqGroup: qqNumber,
   email: emailAddress,
 };
 ---

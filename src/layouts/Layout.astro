@@ -17,10 +17,11 @@ const SITE_DESCRIPTION = "钟神秀的博客。在这里分享我的生活日常
 const SITE_AUTHOR = "钟神秀";
 const OG_IMAGE_DEFAULT = "/default-social-image.png";
 const TWITTER_HANDLE = "@kemiao";
+const MASTODON_URL = "https://mastodon.social/@zsxcoder";
 const GITHUB_URL = "https://github.com/zsxcoder";
 const TELEGRAM_URL = "https://t.me/zsxcoderchat_bot";
 const CHANNEL_URL = "https://t.me/zsxcoder";
-const QQ_GROUP_NUMBER = "3149261770";
+const QQ_NUMBER = "3149261770";
 const EMAIL_ADDRESS = "3149261770@qq.com";
 
 interface BreadcrumbItem {
@@ -190,8 +191,9 @@ const breadcrumbs = providedBreadcrumbs ?? buildDefaultBreadcrumbs();
               twitterHandle={TWITTER_HANDLE}
               githubUrl={GITHUB_URL}
               telegramUrl={TELEGRAM_URL}
+              mastodonUrl={MASTODON_URL}
               channelUrl={CHANNEL_URL}
-              qqGroupNumber={QQ_GROUP_NUMBER}
+              qqNumber={QQ_NUMBER}
               emailAddress={EMAIL_ADDRESS}
             />
           </div>
@@ -288,8 +290,9 @@ const breadcrumbs = providedBreadcrumbs ?? buildDefaultBreadcrumbs();
           twitterHandle={TWITTER_HANDLE}
           githubUrl={GITHUB_URL}
           telegramUrl={TELEGRAM_URL}
+          mastodonUrl={MASTODON_URL}
           channelUrl={CHANNEL_URL}
-          qqGroupNumber={QQ_GROUP_NUMBER}
+          qqNumber={QQ_NUMBER}
           emailAddress={EMAIL_ADDRESS}
         />
       </div>
