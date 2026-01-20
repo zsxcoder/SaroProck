@@ -1,6 +1,6 @@
 // src/pages/api/login.ts
 import type { APIContext } from "astro";
-import { ADMIN_USER } from "@/config";
+import { ADMIN_USER, SENSITIVE_USERS } from "@/config";
 import { setAuthCookie, signJwt } from "@/lib/auth";
 
 export async function POST({ request }: APIContext): Promise<Response> {
@@ -8,20 +8,19 @@ export async function POST({ request }: APIContext): Promise<Response> {
     const { nickname, email, password } = await request.json();
 
     const secretPassword = import.meta.env.SECRET_ADMIN_PASSWORD;
-    const SENSITIVE_USERS = [
-      "evesunmaple",
-      "EveSunMaple",
-      "sunmaple",
-      "SunMaple",
-      "admin",
-      "博主",
-      "evesunmaple@outlook.com",
-    ];
 
     // 检查是否为敏感用户
+    const lowerNickname = nickname.trim().toLowerCase();
+    const lowerEmail = email.trim().toLowerCase();
+
+    // 将SENSITIVE_USERS转换为小写进行比较
+    const lowerSensitiveUsers = SENSITIVE_USERS.map((user) =>
+      user.toLowerCase(),
+    );
+
     const isSensitive =
-      SENSITIVE_USERS.includes(nickname.trim().toLowerCase()) ||
-      SENSITIVE_USERS.includes(email.trim().toLowerCase());
+      lowerSensitiveUsers.includes(lowerNickname) ||
+      lowerSensitiveUsers.includes(lowerEmail);
 
     if (!isSensitive) {
       // 对于非管理员，我们不进行密码验证，也不设置cookie，直接返回成功让前端处理

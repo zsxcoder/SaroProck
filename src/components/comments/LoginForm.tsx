@@ -49,6 +49,14 @@ const LoginForm: React.FC = () => {
     try {
       // 不论是否为管理员，我们都调用后端API
       // 后端会根据昵称和邮箱判断是否需要验证密码
+      console.log("LoginForm: 开始登录请求");
+      console.log("LoginForm: 提交的数据:", {
+        nickname,
+        email,
+        password,
+        isPasswordRequired,
+      });
+
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -59,21 +67,29 @@ const LoginForm: React.FC = () => {
         }),
       });
 
+      console.log("LoginForm: 响应状态:", response.status);
+      console.log("LoginForm: 响应状态文本:", response.statusText);
+
       const data = await response.json();
+      console.log("LoginForm: 响应数据:", data);
 
       if (response.ok && data.success) {
+        console.log("LoginForm: 登录成功，准备重定向到:", redirectUrl);
         if (data.isAdmin) {
+          console.log("LoginForm: 管理员登录成功");
           window.location.href = redirectUrl;
         } else {
+          console.log("LoginForm: 访客登录成功");
           saveGuestUser({ nickname, email, website });
           window.location.href = redirectUrl;
         }
       } else {
         // 登录失败，显示后端返回的错误信息
+        console.log("LoginForm: 登录失败");
         setError(data.message || "验证失败，请重试。");
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("LoginForm: 登录错误:", error);
       setError("网络错误，请稍后重试。");
     } finally {
       setIsSubmitting(false);
