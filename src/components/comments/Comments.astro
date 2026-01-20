@@ -1,49 +1,72 @@
 ---
-// 替换为 Giscus 评论系统
+interface Props {
+  identifier: string;
+  commentType: string;
+}
+
+const { identifier, commentType } = Astro.props;
+const twikooId = `twikoo-${commentType}-${identifier.replace(/\//g, '-')}`;
+const path = `${commentType}/${identifier}`;
+const envId = "https://twikoo-saroprock.zsxcoder.top"; // 替换为你的 Twikoo 环境 ID
 ---
 
 <div class="comments-container">
-  <div class="giscus" id="giscus-comments"></div>
-  
-  <script is:inline src="https://giscus.app/client.js"
-          data-repo="zsxcoder/giscus-comments"
-          data-repo-id="R_kgDOQoZP0g"
-          data-category="SaroProck"
-          data-category-id="DIC_kwDOQoZP0s4C1JH8"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="top"
-          data-theme="preferred_color_scheme"
-          data-lang="zh-CN"
-          data-loading="lazy"
-          crossorigin="anonymous"
-          async>
-  </script>
-  
-  <!-- 适配博客的布局和样式 -->
-  <style>
-    .comments-container {
-      margin-top: 2rem;
-      padding: 1.5rem;
-      background: var(--bg-base-200/50);
-      border: 1px solid var(--border-base-content/5);
-      border-radius: 1rem;
-      backdrop-filter: blur(4px);
-    }
-    
-    .giscus-frame {
-      width: 100%;
-      border: none;
-      border-radius: 0.5rem;
-    }
-    
-    /* 响应式设计 */
-    @media (max-width: 768px) {
-      .comments-container {
-        padding: 1rem;
-      }
-    }
-  </style>
+  <!-- Twikoo 评论容器 -->
+  <div id={twikooId}></div>
 </div>
+
+<!-- 加载 Twikoo 脚本 - 确保只加载一次 -->
+<script is:inline>
+  // 确保只加载一次 Twikoo 脚本
+  if (!document.querySelector('script[src*="twikoo.all.min.js"]')) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdmirror.com/npm/twikoo@1.6.44/dist/twikoo.all.min.js';
+    script.async = true;
+    document.body.appendChild(script);
+  }
+</script>
+
+<!-- 初始化 Twikoo -->
+<script define:vars={{ twikooId, envId, path }}>
+  // 初始化 Twikoo
+  function initTwikoo() {
+    if (typeof window.twikoo !== 'undefined') {
+      const container = document.getElementById(twikooId);
+      if (container) {
+        window.twikoo.init({
+          envId: envId,
+          el: container,
+          path: path
+        });
+      }
+    } else {
+      // 如果 Twikoo 未加载，延迟重试
+      setTimeout(initTwikoo, 100);
+    }
+  }
+  
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTwikoo);
+  } else {
+    initTwikoo();
+  }
+</script>
+
+<style>
+  .comments-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-base-200/50);
+    border: 1px solid var(--border-base-content/5);
+    border-radius: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .comments-container {
+      padding: 1rem;
+    }
+  }
+</style>

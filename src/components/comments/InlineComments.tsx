@@ -8,58 +8,51 @@ interface Props {
 // 用于首页等列表场景：默认只显示一个按钮，点击后再加载评论组件和数据，减少首屏和滚动时的请求量
 const InlineComments: React.FC<Props> = ({ path }) => {
   const [open, setOpen] = useState(false);
-  const [uniqueId, setUniqueId] = useState<string>("");
-  const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const [loading, setLoading] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const twikooId = path
+    ? `twikoo-comments-${path.replace(/\//g, "-")}`
+    : "twikoo-comments-default";
 
-  // 生成唯一id
+  // 加载Twikoo脚本并初始化
   useEffect(() => {
-    setUniqueId(`giscus-comments-${Math.random().toString(36).slice(2, 11)}`);
-  }, []);
+    if (!open || !containerRef.current) return;
 
-  // 动态加载Giscus脚本，确保每个评论框都能正确初始化
-  useEffect(() => {
-    if (open && uniqueId && !scriptRef.current) {
-      const script = document.createElement("script");
-      script.src = "https://giscus.app/client.js";
-      script.setAttribute("data-repo", "zsxcoder/giscus-comments");
-      script.setAttribute("data-repo-id", "R_kgDOQoZP0g");
-      script.setAttribute("data-category", "SaroProck");
-      script.setAttribute("data-category-id", "DIC_kwDOQoZP0s4C1JH8");
+    setLoading(true);
 
-      // 如果提供了path，则使用特定的路径映射，否则使用当前页面路径
-      if (path) {
-        script.setAttribute("data-mapping", "specific");
-        script.setAttribute("data-term", path);
+    // 初始化函数
+    const initTwikoo = () => {
+      if (typeof window.twikoo !== "undefined" && containerRef.current) {
+        window.twikoo.init({
+          envId: "https://twikoo-saroprock.zsxcoder.top", // 需要替换为实际的环境ID
+          el: containerRef.current,
+          path: path || window.location.pathname,
+        });
+        setLoading(false);
       } else {
-        script.setAttribute("data-mapping", "pathname");
-      }
-
-      script.setAttribute("data-strict", "0");
-      script.setAttribute("data-reactions-enabled", "1");
-      script.setAttribute("data-emit-metadata", "0");
-      script.setAttribute("data-input-position", "top");
-      script.setAttribute("data-theme", "preferred_color_scheme");
-      script.setAttribute("data-lang", "zh-CN");
-      script.setAttribute("data-loading", "lazy");
-      script.setAttribute("crossOrigin", "anonymous");
-      script.async = true;
-
-      // 将脚本添加到当前组件的评论容器中
-      const container = document.getElementById(uniqueId);
-      if (container) {
-        container.appendChild(script);
-        scriptRef.current = script;
-      }
-    }
-
-    return () => {
-      // 清理脚本，避免内存泄漏
-      if (scriptRef.current) {
-        scriptRef.current.remove();
-        scriptRef.current = null;
+        // 如果Twikoo还未加载，延迟重试
+        setTimeout(initTwikoo, 100);
       }
     };
-  }, [open, uniqueId, path]);
+
+    // 检查Twikoo脚本是否已加载
+    const existingScript = document.querySelector(
+      'script[src*="twikoo.all.min.js"]',
+    );
+
+    if (existingScript) {
+      // 如果已加载，直接初始化
+      initTwikoo();
+    } else {
+      // 否则动态加载脚本
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdmirror.com/npm/twikoo@1.6.44/dist/twikoo.all.min.js";
+      script.async = true;
+      script.onload = initTwikoo;
+      document.body.appendChild(script);
+    }
+  }, [open, path]);
 
   if (!open) {
     return (
@@ -79,7 +72,15 @@ const InlineComments: React.FC<Props> = ({ path }) => {
   return (
     <div className="mt-2">
       <div className="comments-container p-4 bg-base-200/50 border border-base-content/5 rounded-lg backdrop-blur-sm">
-        <div className="giscus" id={uniqueId}></div>
+        {/* Twikoo评论容器 */}
+        <div ref={containerRef} id={twikooId}>
+          {loading && (
+            <div className="text-center py-8">
+              <div className="loading loading-spinner loading-lg mb-2"></div>
+              <p>加载评论中...</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
