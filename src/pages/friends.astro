@@ -159,7 +159,7 @@ const EMAIL = "3149261770@qq.com";
                       name="ri:check-line"
                       class="inline w-4 h-4 mr-1 text-success"
                     />请 <span class="font-semibold">先在本站添加</span
-                    ><button onclick="myLink.showModal()" class="font-semibold text-primary hover:underline cursor-pointer">我的友链</button>，再提交申请。
+                    ><button onclick="document.getElementById('myLink').classList.remove('hidden')" class="font-semibold text-primary hover:underline cursor-pointer">我的友链</button>，再提交申请。
                   </li>
                   <li>
                     <Icon
@@ -263,39 +263,39 @@ const EMAIL = "3149261770@qq.com";
   }
 
   <!-- 我的友链信息弹窗 -->
-  <dialog id="myLink" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box rounded-t-2xl sm:rounded-2xl">
-      <h3 class="font-bold text-2xl mb-4">我的友链信息</h3>
-      <div class="bg-base-200 rounded-lg p-4 overflow-x-auto">
-        <div class="space-y-2 text-sm font-mono">
-          <div class="flex items-center justify-between mb-2">
-            <span>name: 钟神秀</span>
-            <button onclick="copyLine('name: 钟神秀', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-          </div>
-          <div class="flex items-center justify-between mb-2">
-            <span>desc: 造化钟神秀，阴阳割昏晓。</span>
-            <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-          </div>
-          <div class="flex items-center justify-between mb-2">
-            <span>avatar: https://mcy.zsxcoder.top</span>
-            <button onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-          </div>
-          <div class="flex items-center justify-between">
-            <span>url: https://home.zsxcoder.top/api/avatar.png</span>
-            <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
+  <div id="myLink" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-base-content/10 backdrop-blur-sm" onclick="document.getElementById('myLink').classList.add('hidden')"></div>
+    <div class="relative bg-base-100 rounded-2xl shadow-lg max-w-md w-full mx-4">
+      <div class="modal-box rounded-2xl">
+        <h3 class="font-bold text-2xl mb-4">我的友链信息</h3>
+        <div class="bg-base-200 rounded-lg p-4 overflow-x-auto">
+          <div class="space-y-2 text-sm font-mono">
+            <div class="flex items-center justify-between mb-2">
+              <span>name: 钟神秀</span>
+              <button onclick="copyLine('name: 钟神秀', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span>desc: 造化钟神秀，阴阳割昏晓。</span>
+              <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span>avatar: https://mcy.zsxcoder.top</span>
+              <button onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>url: https://home.zsxcoder.top/api/avatar.png</span>
+              <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-action mt-4">
-        <form method="dialog" class="w-full">
-          <button class="btn btn-primary rounded-lg w-full">关闭</button>
-        </form>
+        <div class="modal-action mt-4">
+          <form class="w-full">
+            <button onclick="document.getElementById('myLink').classList.add('hidden')" class="btn btn-primary rounded-lg w-full">关闭</button>
+          </form>
+        </div>
       </div>
     </div>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
-    </form>
-  </dialog>
+  </div>
 
   <script is:inline>
     // 复制单行友链信息
