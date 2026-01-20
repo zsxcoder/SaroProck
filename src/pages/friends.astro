@@ -269,25 +269,25 @@ const EMAIL = "3149261770@qq.com";
       <div class="modal-box rounded-2xl">
         <h3 class="font-bold text-2xl mb-4">我的友链信息</h3>
         <div class="bg-base-200 rounded-lg p-4 overflow-x-auto">
-          <div class="space-y-2 text-sm font-mono">
-            <div class="flex items-center justify-between mb-2">
-              <span>name: 钟神秀</span>
-              <button onclick="copyLine('name: 钟神秀', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-            </div>
-            <div class="flex items-center justify-between mb-2">
-              <span>desc: 造化钟神秀，阴阳割昏晓。</span>
-              <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-            </div>
-            <div class="flex items-center justify-between mb-2">
-              <span>avatar: https://mcy.zsxcoder.top</span>
-              <button onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-            </div>
-            <div class="flex items-center justify-between">
-              <span>url: https://home.zsxcoder.top/api/avatar.png</span>
-              <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" class="btn btn-xs btn-primary rounded-lg">复制</button>
-            </div>
+        <pre class="text-sm font-mono whitespace-pre-wrap">
+          <div class="flex items-center justify-between mb-2">
+            <code>name: 钟神秀</code>
+            <button onclick="copyLine('name: 钟神秀', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
           </div>
-        </div>
+          <div class="flex items-center justify-between mb-2">
+            <code>desc: 造化钟神秀，阴阳割昏晓。</code>
+            <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <code>avatar: https://mcy.zsxcoder.top</code>
+            <button onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
+          </div>
+          <div class="flex items-center justify-between">
+            <code>url: https://home.zsxcoder.top/api/avatar.png</code>
+            <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
+          </div>
+        </pre>
+      </div>
         <div class="modal-action mt-4">
           <form class="w-full">
             <button onclick="document.getElementById('myLink').classList.add('hidden')" class="btn btn-primary rounded-lg w-full">关闭</button>
