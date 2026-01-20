@@ -55,7 +55,10 @@ export function getAdminUser(
   // 检查context类型，处理APIContext和Astro对象两种情况
   if ("cookies" in context) {
     // Astro对象情况
-    token = context.cookies.get(COOKIE_NAME)?.value;
+    // 尝试从请求头直接获取cookie，作为更可靠的方案
+    const cookieHeader = context.request.headers.get("cookie") || "";
+    const cookies = parse(cookieHeader);
+    token = cookies[COOKIE_NAME];
   } else {
     // APIContext情况
     const cookies = parse(context.request.headers.get("cookie") || "");
