@@ -49,6 +49,72 @@ const EMAIL = "3149261770@qq.com";
     <div
       class="bg-base-200/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm border border-base-content/5"
     >
+      <!-- 博主信息 -->
+      <div class="my-blog-section mb-10">
+        <div class="bg-base-100/60 border border-base-content/5 rounded-2xl p-6 shadow-sm">
+          <!-- 头像和基本信息 -->
+          <div class="blog-header flex items-center gap-3 mb-4">
+            <div class="avatar-wrapper relative flex-shrink-0">
+              <img 
+                src="https://home.zsxcoder.top/api/avatar.png" 
+                alt="钟神秀" 
+                class="blog-avatar w-16 h-16 rounded-xl object-cover border border-base-content/10"
+              />
+              <span class="blog-owner-badge absolute -top-1 -right-1 bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold z-5">博主</span>
+            </div>
+            <div class="blog-main-info">
+              <h3 class="blog-name text-2xl font-bold text-base-content mb-1">钟神秀</h3>
+              <p class="blog-subtitle text-base-content/70 font-medium">造化钟神秀，阴阳割昏晓。</p>
+            </div>
+          </div>
+          
+          <!-- 博客描述 -->
+          <div class="blog-content mb-6">
+            <p class="blog-desc text-base-content/80 leading-relaxed p-3 bg-primary/10 rounded-xl border-l-4 border-primary">
+              一只在网络世界中探索的小猫咪，分享技术、生活和思考。
+            </p>
+          </div>
+          
+          <!-- 友链信息和复制按钮 -->
+          <div class="blog-actions">
+            <h4 class="text-lg font-semibold text-base-content mb-3 flex items-center gap-2">
+              <Icon name="ri:link" class="w-5 h-5 text-primary" />
+              我的友链信息
+            </h4>
+            <div class="copy-buttons space-y-2 mb-6">
+              <div class="flex items-center gap-2">
+                <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">name: 钟神秀</code>
+                <button onclick="copyText('name: 钟神秀', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                  <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
+                  复制
+                </button>
+              </div>
+              <div class="flex items-center gap-2">
+                <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">desc: 造化钟神秀，阴阳割昏晓。</code>
+                <button onclick="copyText('desc: 造化钟神秀，阴阳割昏晓。', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                  <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
+                  复制
+                </button>
+              </div>
+              <div class="flex items-center gap-2">
+                <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">avatar: https://home.zsxcoder.top/api/avatar.png</code>
+                <button onclick="copyText('avatar: https://home.zsxcoder.top/api/avatar.png', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                  <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
+                  复制
+                </button>
+              </div>
+              <div class="flex items-center gap-2">
+                <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">url: https://mcy.zsxcoder.top</code>
+                <button onclick="copyText('url: https://mcy.zsxcoder.top', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                  <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
+                  复制
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="grid gap-10 md:grid-cols-3">
         <main class="md:col-span-2 flex flex-col gap-10">
           <section class="space-y-6">
@@ -229,6 +295,26 @@ const EMAIL = "3149261770@qq.com";
 
 
   <script is:inline>
+    // 复制文本功能
+    function copyText(text, button) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          const originalText = button.innerHTML;
+          button.innerHTML = '<i class="ri-check-line w-4 h-4"></i> 已复制';
+          button.classList.remove('btn-primary/80');
+          button.classList.add('btn-success');
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-primary/80');
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('复制失败:', err);
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const indicators = document.querySelectorAll(".status-indicator");
 
