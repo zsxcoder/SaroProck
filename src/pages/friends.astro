@@ -25,12 +25,12 @@ const mainLinks = [
   },
 ];
 
-const secondaryLinks = [
-  { id: "tnxg", name: "天翔TNXGの自留地", url: "https://www.tnxg.top" },
-  { id: "yirween", name: "Yirween", url: "https://yirween.netlify.app/" },
-  { id: "fanzhuo", name: "Fanzhuo", url: "https://blog.fanzhuo.xyz/" },
-  { id: "nuym", name: "nuym's Blog", url: "https://www.nuym.cn/" },
-];
+// const secondaryLinks = [
+//   { id: "tnxg", name: "天翔TNXGの自留地", url: "https://www.tnxg.top" },
+//   { id: "yirween", name: "Yirween", url: "https://yirween.netlify.app/" },
+//   { id: "fanzhuo", name: "Fanzhuo", url: "https://blog.fanzhuo.xyz/" },
+//   { id: "nuym", name: "nuym's Blog", url: "https://www.nuym.cn/" },
+// ];
 
 const EMAIL = "3149261770@qq.com";
 ---
@@ -112,7 +112,7 @@ const EMAIL = "3149261770@qq.com";
 
               const fc = new FriendCircle();
               fc.init({
-                private_api_url: 'https:/fc.mcyzsx.top/',
+                private_api_url: 'https://fc.mcyzsx.top/',
                 page_turning_number: 10,
                 error_img: 'https://cravatar.cn/avatar/57d8260dfb55501c37dde588e7c3852c'
               });
@@ -178,8 +178,7 @@ const EMAIL = "3149261770@qq.com";
 
               <form
                 action={`mailto:${EMAIL}`}
-                method="POST"
-                enctype="text/plain"
+                method="GET"
                 class="space-y-3"
               >
                 <div class="form-control">
