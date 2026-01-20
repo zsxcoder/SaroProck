@@ -173,83 +173,83 @@ const EMAIL = "3149261770@qq.com";
                       class="link link-hover font-semibold">钟神秀</a
                     > (https://mcy.zsxcoder.top)
                   </li>
+                </ul>
 
-                  <!-- 友链信息弹窗 -->
-                  <dialog id="link-info-modal" class="modal modal-bottom sm:modal-middle">
-                    <div class="modal-box rounded-2xl bg-base-100/90 backdrop-blur-sm border border-base-content/5">
-                      <h3 class="font-bold text-2xl mb-4 flex items-center gap-3">
-                        <Icon name="ri-link-m" class="text-primary" />
-                        <span>添加我的友链</span>
-                      </h3>
-                      <div class="space-y-4 mb-6">
-                        <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
-                          <code class="font-mono text-sm">name: 钟神秀</code>
-                          <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="name: 钟神秀">
-                            <Icon name="ri:copy-line" class="w-4 h-4" />
-                          </button>
-                        </div>
-                        <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
-                          <code class="font-mono text-sm">desc: 造化钟神秀，阴阳割昏晓。</code>
-                          <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="desc: 造化钟神秀，阴阳割昏晓。">
-                            <Icon name="ri:copy-line" class="w-4 h-4" />
-                          </button>
-                        </div>
-                        <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
-                          <code class="font-mono text-sm">avatar: https://home.zsxcoder.top/api/avatar.png</code>
-                          <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="avatar: https://home.zsxcoder.top/api/avatar.png">
-                            <Icon name="ri:copy-line" class="w-4 h-4" />
-                          </button>
-                        </div>
-                        <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
-                          <code class="font-mono text-sm">url: https://mcy.zsxcoder.top</code>
-                          <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="url: https://mcy.zsxcoder.top">
-                            <Icon name="ri:copy-line" class="w-4 h-4" />
-                          </button>
-                        </div>
+                <!-- 友链信息弹窗 -->
+                <dialog id="link-info-modal" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box rounded-2xl bg-base-100/90 backdrop-blur-sm border border-base-content/5">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-3">
+                      <Icon name="ri-link-m" class="text-primary" />
+                      <span>添加我的友链</span>
+                    </h3>
+                    <div class="space-y-4 mb-6">
+                      <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
+                        <code class="font-mono text-sm">name: 钟神秀</code>
+                        <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="name: 钟神秀">
+                          <Icon name="ri:copy-line" class="w-4 h-4" />
+                        </button>
                       </div>
-                      <div class="modal-action">
-                        <form method="dialog" class="w-full flex justify-end">
-                          <button class="btn btn-outline rounded-lg">关闭</button>
-                        </form>
+                      <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
+                        <code class="font-mono text-sm">desc: 造化钟神秀，阴阳割昏晓。</code>
+                        <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="desc: 造化钟神秀，阴阳割昏晓。">
+                          <Icon name="ri:copy-line" class="w-4 h-4" />
+                        </button>
+                      </div>
+                      <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
+                        <code class="font-mono text-sm">avatar: https://home.zsxcoder.top/api/avatar.png</code>
+                        <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="avatar: https://home.zsxcoder.top/api/avatar.png">
+                          <Icon name="ri:copy-line" class="w-4 h-4" />
+                        </button>
+                      </div>
+                      <div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3 border border-base-content/10">
+                        <code class="font-mono text-sm">url: https://mcy.zsxcoder.top</code>
+                        <button class="copy-btn btn btn-xs btn-primary rounded-full" data-copy="url: https://mcy.zsxcoder.top">
+                          <Icon name="ri:copy-line" class="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
-                    <form method="dialog" class="modal-backdrop">
-                      <button>close</button>
-                    </form>
-                  </dialog>
+                    <div class="modal-action">
+                      <form method="dialog" class="w-full flex justify-end">
+                        <button class="btn btn-outline rounded-lg">关闭</button>
+                      </form>
+                    </div>
+                  </div>
+                  <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                  </form>
+                </dialog>
 
-                  <script is:inline>
-                    document.addEventListener('DOMContentLoaded', () => {
-                      const modal = document.getElementById('link-info-modal');
-                      const showBtn = document.getElementById('show-link-info-btn');
-                      const copyBtns = document.querySelectorAll('.copy-btn');
-                      
-                      showBtn.addEventListener('click', () => {
-                        modal.showModal();
-                      });
-                      
-                      copyBtns.forEach(btn => {
-                        btn.addEventListener('click', async (e) => {
-                          e.preventDefault();
-                          const text = btn.dataset.copy;
-                          await navigator.clipboard.writeText(text);
-                          
-                          // 显示复制成功反馈
-                          const originalIcon = btn.innerHTML;
-                          btn.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/></svg>';
-                          btn.classList.remove('btn-primary');
-                          btn.classList.add('btn-success');
-                          
-                          setTimeout(() => {
-                            btn.innerHTML = originalIcon;
-                            btn.classList.remove('btn-success');
-                            btn.classList.add('btn-primary');
-                          }, 1500);
-                        });
+                <script is:inline>
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const modal = document.getElementById('link-info-modal');
+                    const showBtn = document.getElementById('show-link-info-btn');
+                    const copyBtns = document.querySelectorAll('.copy-btn');
+                    
+                    showBtn.addEventListener('click', () => {
+                      modal.showModal();
+                    });
+                    
+                    copyBtns.forEach(btn => {
+                      btn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        const text = btn.dataset.copy;
+                        await navigator.clipboard.writeText(text);
+                        
+                        // 显示复制成功反馈
+                        const originalIcon = btn.innerHTML;
+                        btn.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/></svg>';
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-success');
+                        
+                        setTimeout(() => {
+                          btn.innerHTML = originalIcon;
+                          btn.classList.remove('btn-success');
+                          btn.classList.add('btn-primary');
+                        }, 1500);
                       });
                     });
-                  </script>
-                </ul>
+                  });
+                </script>
               </div>
 
               <form
