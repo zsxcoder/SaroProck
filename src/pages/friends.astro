@@ -264,22 +264,23 @@ const EMAIL = "3149261770@qq.com";
 
   <!-- 我的友链信息弹窗 -->
   <div id="myLinkModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeMyLinkModal()"></div>
-    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4">
+    <div class="absolute inset-0 bg-base-content/10 backdrop-blur-sm" onclick="closeMyLinkModal()"></div>
+    <div class="relative bg-base-100 rounded-2xl shadow-lg w-full max-w-md mx-4 border border-base-content/5">
       <!-- 弹窗内容 -->
-      <div class="p-6">
+      <div class="modal-box rounded-2xl p-6">
         <!-- 标题 -->
-        <h3 class="text-2xl font-bold mb-4">我的友链信息</h3>
+        <h3 class="text-2xl font-bold mb-6">我的友链信息</h3>
         
         <!-- 友链信息 -->
-        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+        <div class="bg-base-200 rounded-xl p-5 mb-6">
           <!-- 名称 -->
           <div class="mb-4">
-            <div class="text-sm text-gray-500 mb-1">名称</div>
+            <div class="text-sm text-base-content/60 mb-1">名称</div>
             <div class="font-mono text-base">name: 钟神秀</div>
             <button 
               onclick="copyText('name: 钟神秀', this)" 
-              class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
+              class="mt-2 btn btn-primary btn-sm rounded-lg"
+              aria-label="复制名称信息"
             >
               复制
             </button>
@@ -287,11 +288,12 @@ const EMAIL = "3149261770@qq.com";
           
           <!-- 描述 -->
           <div class="mb-4">
-            <div class="text-sm text-gray-500 mb-1">描述</div>
+            <div class="text-sm text-base-content/60 mb-1">描述</div>
             <div class="font-mono text-base">desc: 造化钟神秀，阴阳割昏晓。</div>
             <button 
               onclick="copyText('desc: 造化钟神秀，阴阳割昏晓。', this)" 
-              class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
+              class="mt-2 btn btn-primary btn-sm rounded-lg"
+              aria-label="复制描述信息"
             >
               复制
             </button>
@@ -299,11 +301,12 @@ const EMAIL = "3149261770@qq.com";
           
           <!-- 头像 -->
           <div class="mb-4">
-            <div class="text-sm text-gray-500 mb-1">头像</div>
+            <div class="text-sm text-base-content/60 mb-1">头像</div>
             <div class="font-mono text-base">avatar: https://mcy.zsxcoder.top</div>
             <button 
               onclick="copyText('avatar: https://mcy.zsxcoder.top', this)" 
-              class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
+              class="mt-2 btn btn-primary btn-sm rounded-lg"
+              aria-label="复制头像信息"
             >
               复制
             </button>
@@ -311,11 +314,12 @@ const EMAIL = "3149261770@qq.com";
           
           <!-- 链接 -->
           <div>
-            <div class="text-sm text-gray-500 mb-1">链接</div>
+            <div class="text-sm text-base-content/60 mb-1">链接</div>
             <div class="font-mono text-base">url: https://home.zsxcoder.top/api/avatar.png</div>
             <button 
               onclick="copyText('url: https://home.zsxcoder.top/api/avatar.png', this)" 
-              class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
+              class="mt-2 btn btn-primary btn-sm rounded-lg"
+              aria-label="复制链接信息"
             >
               复制
             </button>
@@ -325,7 +329,7 @@ const EMAIL = "3149261770@qq.com";
         <!-- 关闭按钮 -->
         <button 
           onclick="closeMyLinkModal()" 
-          class="w-full px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+          class="btn btn-primary rounded-lg w-full"
         >
           关闭
         </button>
@@ -349,16 +353,15 @@ const EMAIL = "3149261770@qq.com";
       navigator.clipboard.writeText(text).then(() => {
         const originalText = button.textContent;
         button.textContent = '已复制';
-        button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-        button.classList.add('bg-green-600', 'hover:bg-green-700');
+        button.classList.remove('btn-primary');
+        button.classList.add('btn-success');
         setTimeout(() => {
           button.textContent = originalText;
-          button.classList.remove('bg-green-600', 'hover:bg-green-700');
-          button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+          button.classList.remove('btn-success');
+          button.classList.add('btn-primary');
         }, 1000);
       });
     };
-
     document.addEventListener("DOMContentLoaded", () => {
       const indicators = document.querySelectorAll(".status-indicator");
 
