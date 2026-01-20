@@ -266,32 +266,94 @@ const EMAIL = "3149261770@qq.com";
   <div id="myLink" class="fixed inset-0 z-50 flex items-center justify-center hidden">
     <div class="absolute inset-0 bg-base-content/10 backdrop-blur-sm" onclick="document.getElementById('myLink').classList.add('hidden')"></div>
     <div class="relative bg-base-100 rounded-2xl shadow-lg max-w-md w-full mx-4">
-      <div class="modal-box rounded-2xl">
-        <h3 class="font-bold text-2xl mb-4">我的友链信息</h3>
-        <div class="bg-base-200 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-sm font-mono whitespace-pre-wrap">
-          <div class="flex items-center justify-between mb-2">
-            <code>name: 钟神秀</code>
-            <button onclick="copyLine('name: 钟神秀', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
+      <div class="modal-box rounded-2xl p-6">
+        <h3 class="font-bold text-2xl mb-6">我的友链信息</h3>
+        <div class="space-y-4">
+          <!-- 友链信息卡片 -->
+          <div class="bg-base-200 rounded-xl p-5">
+            <!-- 名称 -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <div class="text-sm text-base-content/60 mb-1">名称</div>
+                <div class="font-mono text-base flex items-center gap-2">
+                  <span>name: 钟神秀</span>
+                </div>
+              </div>
+              <button 
+                onclick="copyLine('name: 钟神秀', event)" 
+                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                aria-label="复制名称信息"
+              >
+                <i class="ri-file-copy-line mr-1"></i> 复制
+              </button>
+            </div>
+            
+            <!-- 描述 -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <div class="text-sm text-base-content/60 mb-1">描述</div>
+                <div class="font-mono text-base flex items-center gap-2">
+                  <span>desc: 造化钟神秀，阴阳割昏晓。</span>
+                </div>
+              </div>
+              <button 
+                onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" 
+                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                aria-label="复制描述信息"
+              >
+                <i class="ri-file-copy-line mr-1"></i> 复制
+              </button>
+            </div>
+            
+            <!-- 头像 -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <div class="text-sm text-base-content/60 mb-1">头像</div>
+                <div class="font-mono text-base flex items-center gap-2">
+                  <span>avatar: https://mcy.zsxcoder.top</span>
+                </div>
+              </div>
+              <button 
+                onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" 
+                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                aria-label="复制头像信息"
+              >
+                <i class="ri-file-copy-line mr-1"></i> 复制
+              </button>
+            </div>
+            
+            <!-- 链接 -->
+            <div class="flex items-center justify-between">
+              <div class="flex-1">
+                <div class="text-sm text-base-content/60 mb-1">链接</div>
+                <div class="font-mono text-base flex items-center gap-2">
+                  <span>url: https://home.zsxcoder.top/api/avatar.png</span>
+                </div>
+              </div>
+              <button 
+                onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" 
+                class="btn btn-primary btn-sm rounded-lg whitespace-nowrap"
+                aria-label="复制链接信息"
+              >
+                <i class="ri-file-copy-line mr-1"></i> 复制
+              </button>
+            </div>
           </div>
-          <div class="flex items-center justify-between mb-2">
-            <code>desc: 造化钟神秀，阴阳割昏晓。</code>
-            <button onclick="copyLine('desc: 造化钟神秀，阴阳割昏晓。', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
+          
+          <!-- 说明文字 -->
+          <div class="text-sm text-base-content/70 bg-base-200/50 rounded-lg p-3">
+            您可以复制以上信息作为申请友链的参考，将我的友链添加到您的网站后，再提交申请。
           </div>
-          <div class="flex items-center justify-between mb-2">
-            <code>avatar: https://mcy.zsxcoder.top</code>
-            <button onclick="copyLine('avatar: https://mcy.zsxcoder.top', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
-          </div>
-          <div class="flex items-center justify-between">
-            <code>url: https://home.zsxcoder.top/api/avatar.png</code>
-            <button onclick="copyLine('url: https://home.zsxcoder.top/api/avatar.png', event)" class="btn btn-xs btn-primary rounded-lg ml-2">复制</button>
-          </div>
-        </pre>
-      </div>
-        <div class="modal-action mt-4">
-          <form class="w-full">
-            <button onclick="document.getElementById('myLink').classList.add('hidden')" class="btn btn-primary rounded-lg w-full">关闭</button>
-          </form>
+        </div>
+        
+        <!-- 关闭按钮 -->
+        <div class="modal-action mt-6">
+          <button 
+            onclick="document.getElementById('myLink').classList.add('hidden')" 
+            class="btn btn-primary rounded-lg w-full"
+          >
+            关闭
+          </button>
         </div>
       </div>
     </div>
