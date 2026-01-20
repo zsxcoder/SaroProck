@@ -48,10 +48,19 @@ export function clearAuthCookie(response: Response): void {
 
 // 从请求中获取管理员信息
 export function getAdminUser(
-  context: APIContext,
+  context: APIContext | { request: Request; cookies: any },
 ): { nickname: string; email: string; website: string; avatar: string } | null {
-  const cookies = parse(context.request.headers.get("cookie") || "");
-  const token = cookies[COOKIE_NAME];
+  let token: string | undefined;
+
+  // 检查context类型，处理APIContext和Astro对象两种情况
+  if ("cookies" in context) {
+    // Astro对象情况
+    token = context.cookies.get(COOKIE_NAME)?.value;
+  } else {
+    // APIContext情况
+    const cookies = parse(context.request.headers.get("cookie") || "");
+    token = cookies[COOKIE_NAME];
+  }
 
   if (!token) {
     return null;
