@@ -22,38 +22,54 @@ async function proxyToSinkAPI(
   }
 
   const requestUrl = new URL(event.request.url);
-  const targetParams = new URLSearchParams(requestUrl.search);
+  const queryParams = requestUrl.searchParams;
 
-  targetParams.delete("report");
+  const reportType = queryParams.get("report");
+  const period = queryParams.get("period");
+  const limit = queryParams.get("limit");
 
-  const period = targetParams.get("period");
+  const startDate = new Date();
+  const endDate = new Date();
+
   if (period) {
-    if (period === "last-7d") {
-      const now = new Date();
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(now.getDate() - 7);
+    const days = parseInt(period.replace("last-", "").replace("d", ""), 10);
+    startDate.setDate(startDate.getDate() - days);
+  } else {
+    startDate.setDate(startDate.getDate() - 7);
+  }
 
-      const endAt = Math.floor(now.getTime() / 1000);
-      const startAt = Math.floor(sevenDaysAgo.getTime() / 1000);
+  const startAt = Math.floor(startDate.getTime() / 1000);
+  const endAt = Math.floor(endDate.getTime() / 1000);
 
-      targetParams.set("startAt", startAt.toString());
-      targetParams.set("endAt", endAt.toString());
+  const params = new URLSearchParams();
+  params.set("startAt", startAt.toString());
+  params.set("endAt", endAt.toString());
+  params.set("timezone", "Asia/Shanghai");
 
-      if (!targetParams.has("clientTimezone")) {
-        targetParams.set("clientTimezone", "Asia/Shanghai");
-      }
+  if (reportType === "metrics") {
+    const type = queryParams.get("type");
+    if (type) {
+      const typeMap: Record<string, string> = {
+        referer: "referrer",
+        country: "country",
+        os: "os",
+      };
+      const sinkType = typeMap[type] || type;
+      params.set("type", sinkType);
     }
-
-    targetParams.delete("period");
+    if (limit) {
+      params.set("limit", limit);
+    }
   }
 
   const targetUrl = new URL(sinkUrl);
-  targetUrl.search = targetParams.toString();
+  targetUrl.search = params.toString();
 
   try {
     const response = await fetch(targetUrl.toString(), {
       headers: {
         Authorization: `Bearer ${sinkApiKey}`,
+        "Content-Type": "application/json",
       },
     });
 
@@ -65,7 +81,7 @@ async function proxyToSinkAPI(
       );
       return new Response(
         JSON.stringify({
-          error: `Failed to fetch from Sink API: ${errorText}`,
+          error: `Failed to fetch from Sink API: ${response.status} ${errorText}`,
         }),
         { status: response.status },
       );
@@ -77,9 +93,13 @@ async function proxyToSinkAPI(
       headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-    });
+    console.error("Error proxying to Sink API:", error);
+    return new Response(
+      JSON.stringify({
+        error: error.message || "Unknown error",
+      }),
+      { status: 500 },
+    );
   }
 }
 
@@ -91,19 +111,24 @@ export async function GET(event: APIContext): Promise<Response> {
     });
   }
 
-  // [修改] 从环境变量中读取基础配置
   const sinkApiKey = import.meta.env.SINK_API_KEY;
   const sinkBaseUrl = import.meta.env.SINK_PUBLIC_URL;
 
   const url = new URL(event.request.url);
   const reportType = url.searchParams.get("report");
 
+  if (!reportType) {
+    return new Response(JSON.stringify({ error: "Missing report parameter" }), {
+      status: 400,
+    });
+  }
+
   let sinkUrl: string | undefined;
-  // [修改] 动态构建 Sink URL
+
   if (reportType === "views") {
     sinkUrl = sinkBaseUrl ? `${sinkBaseUrl}/api/stats/views` : undefined;
   } else if (reportType === "metrics") {
-    sinkUrl = sinkBaseUrl ? `${sinkBaseUrl}/api/stats/metrics` : undefined;
+    sinkUrl = sinkBaseUrl ? `${sinkBaseUrl}/api/stats/analytics` : undefined;
   } else {
     return new Response(
       JSON.stringify({ error: "Invalid report type specified." }),
