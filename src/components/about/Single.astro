@@ -1,5 +1,5 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 const singleData = {
   tip: "心路历程",
@@ -8,12 +8,15 @@ const singleData = {
   content: "『ZSXの小站』是我的个人博客，在这里分享我的生活日常、学习心得和技术分享。"
 };
 
-// 获取about集合中的about.mdx内容
+// 获取about集合中的所有内容
 let aboutContent;
 try {
-  aboutContent = await getEntry('about', 'about');
+  const aboutCollection = await getCollection('about');
+  if (aboutCollection && aboutCollection.length > 0) {
+    aboutContent = aboutCollection[0];
+  }
 } catch (e) {
-  console.error('Failed to load about.mdx:', e);
+  console.error('Failed to load about collection:', e);
 }
 ---
 
