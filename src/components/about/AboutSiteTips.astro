@@ -1,12 +1,10 @@
 ---
 const siteTipsData = {
-  tips: "追求",
-  conect1: "源于",
-  conect2: "热爱而去",
-  inlineword: "感受",
-  mask: [
-    { firstTips: "学习", span: "生活", up: "程序", show: "体验" }
-  ]
+  tips: "愿你看清一切真相后",
+  conect1: "依旧",
+  conect2: "热爱你的",
+  inlineword: "家人和朋友",
+  mask: ["学习", "生活", "程序", "体验"]
 };
 ---
 
@@ -22,19 +20,14 @@ const siteTipsData = {
       {siteTipsData.inlineword}
     </span>
     <div class="mask">
-      {siteTipsData.mask.map((mask, index) => (
+      {siteTipsData.mask.map((word, index) => (
         <Fragment key={index}>
-          <span class="first-tips">
-            {mask.firstTips}
-          </span>
-          <span>
-            {mask.span}
-          </span>
-          <span data-up="data-up">
-            {mask.up}
-          </span>
-          <span data-show="data-show">
-            {mask.show}
+          <span 
+            class={index === 0 ? 'first-tips' : ''} 
+            data-up={index === 0 ? '' : undefined} 
+            data-show={index === 3 ? '' : undefined}
+          >
+            {word}
           </span>
         </Fragment>
       ))}
@@ -77,6 +70,7 @@ const siteTipsData = {
   position: relative;
   overflow: hidden;
   margin-top: 4px;
+  display: inline-block;
 }
 
 .mask span {
@@ -84,12 +78,16 @@ const siteTipsData = {
   box-sizing: border-box;
   position: absolute;
   top: 36px;
-  padding-bottom: var(--offset, 0);
+  left: 0;
+  width: 100%;
+  text-align: left;
+  font-size: inherit;
   background-size: 100% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-repeat: no-repeat;
+  transition: 0.5s transform ease-in-out;
 }
 
 .mask span:nth-child(1) {
@@ -110,12 +108,19 @@ const siteTipsData = {
 
 .mask span[data-show] {
   transform: translateY(-100%);
-  transition: 0.5s transform ease-in-out;
 }
 
 .mask span[data-up] {
   transform: translateY(-200%);
-  transition: 0.5s transform ease-in-out;
+}
+
+/* 初始状态：第一个元素在顶部，第二个在下方，第三个在上方等待，第四个显示 */
+.mask span:first-child {
+  transform: translateY(-36px);
+}
+
+.mask span:last-child {
+  transform: translateY(-100%);
 }
 
 .inline-word {
