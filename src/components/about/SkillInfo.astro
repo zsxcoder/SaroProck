@@ -1,36 +1,89 @@
 ---
-import type { aboutConfig } from '@lib/about';
-
-interface Props {
-  skills: typeof aboutConfig.skills;
-}
-
-const { skills } = Astro.props;
+const skillsData = [
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/html5.svg", color: "#e34f26" },
+  { name: "CSS3", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/css3.svg", color: "#1572b6" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/javascript.svg", color: "#f7df1e" },
+  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/typescript.svg", color: "#3178c6" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/react.svg", color: "#61dafb" },
+  { name: "Vue", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/vue-dot-js.svg", color: "#4fc08d" },
+  { name: "Astro", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/astro.svg", color: "#ff5d01" },
+  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/tailwindcss.svg", color: "#38bdf8" },
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/node-dot-js.svg", color: "#339933" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/git.svg", color: "#f05032" },
+  { name: "GitHub", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/github.svg", color: "#333333" },
+  { name: "VS Code", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v12/icons/visualstudiocode.svg", color: "#007acc" }
+];
 ---
 
-<div class="skill-info p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
-  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-    <i class="ri-star-line text-primary" aria-hidden="true"></i>
-    <span>技能信息</span>
-  </h3>
-  <div class="space-y-4">
-    {skills.map((skill, index) => (
-      <div key={index} class="skill-item">
-        <div class="flex justify-between items-center mb-1">
-          <div class="flex items-center gap-2">
-            <i class={`${skill.icon} text-primary`} aria-hidden="true"></i>
-            <span class="font-medium">{skill.name}</span>
-          </div>
-          <span class="text-sm text-base-content/60">{skill.level}%</span>
+<div class="creativityMain author-content-item">
+  <div class="author-content-item-tips">
+    技能
+  </div>
+  <div class="author-content-item-list">
+    {skillsData.map((item) => (
+      <div class="cardInfo">
+        <div class="creativityIcon" style={{ background: item.color }}>
+          <img src={item.icon} alt={item.name} width="18" height="18" />
         </div>
-        <div class="w-full bg-base-content/10 rounded-full h-2 overflow-hidden">
-          <div 
-            class="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out skill-progress"
-            style={{ width: `${skill.level}%` }}
-            data-level={skill.level}
-          ></div>
+        <div class="creativityTitle">
+          {item.name}
         </div>
       </div>
     ))}
   </div>
 </div>
+
+<style scoped>
+.creativityMain {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
+.author-content-item-tips {
+  opacity: 0.8;
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.author-content-item-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.cardInfo {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  line-height: 1.3;
+  border-radius: 1rem;
+  padding: 0.45rem 1rem;
+  text-decoration: none;
+  transition: 0.2s;
+  border-color: color-mix(in srgb, currentcolor 10%, transparent);
+  background-color: color-mix(in srgb, currentcolor 5%, transparent);
+  color: color-mix(in srgb, currentcolor 80%, transparent);
+}
+
+.creativityIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  user-select: none;
+}
+
+.creativityIcon img {
+  width: 18px;
+  height: 18px;
+}
+</style>

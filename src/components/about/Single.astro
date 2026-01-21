@@ -1,16 +1,129 @@
 ---
-import { getEntry } from 'astro:content';
 
-const entry = await getEntry('about', 'about');
-const content = await entry.render();
+
+const singleData = {
+  tip: "心路历程",
+  title: "为何而建站",
+  lishi: "『ZSXの小站』历史进程",
+  content: "『ZSXの小站』是我的个人博客，在这里分享我的生活日常、学习心得和技术分享。"
+};
+
+// 获取about.mdx内容
+let aboutContent;
+try {
+  // 直接读取src/content/about.mdx文件
+  const fs = await import('node:fs/promises');
+  const path = await import('node:path');
+  const filePath = path.join(process.cwd(), 'src', 'content', 'about.mdx');
+  const content = await fs.readFile(filePath, 'utf8');
+  aboutContent = { content };
+} catch (e) {
+  console.error('Failed to load about.mdx:', e);
+}
 ---
 
-<div class="single-content p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
-  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-    <i class="ri-file-text-line text-primary" aria-hidden="true"></i>
-    <span>关于我</span>
-  </h3>
-  <article class="prose prose-lg max-w-none">
-    <slot />
-  </article>
+<div class="create-site-post author-content-item single">
+  <div class="author-content-item-tips">
+    {singleData.tip}
+  </div>
+  <div class="author-content-item-title">
+    {singleData.title}
+  </div>
+  <p class="author-content-item-content">
+    {singleData.content}
+  </p>
+  <div class="lishi">
+    {singleData.lishi}
+  </div>
+  <div class="singlePost">
+    {aboutContent ? (
+      <article class="article">
+        <h1>关于我</h1>
+        <p>你好，我是钟神秀，一个热爱技术、喜欢分享的前端开发者和学生。</p>
+        <h2>我的故事</h2>
+        <p>我从小就对计算机充满了兴趣，喜欢探索各种新事物。在大学期间，我接触到了前端开发，从此便一发不可收拾地爱上了这个领域。我喜欢通过代码创造出各种有趣的东西，也喜欢分享自己的学习心得和经验。</p>
+        <h2>关于本站</h2>
+        <p>本站是我的个人博客，主要用于分享我的生活日常、学习心得和技术分享。我希望通过这个博客，记录自己的成长历程，也能帮助到更多的人。</p>
+        <p>本站使用了现代的前端技术栈开发，包括 Astro、React、TypeScript 等。我会在博客中分享一些关于这些技术的学习心得和实践经验。</p>
+      </article>
+    ) : (
+      <p class="text-center">
+        可于 about.mdx 配置补充说明。
+      </p>
+    )}
+  </div>
 </div>
+
+<style scoped>
+.single {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+}
+
+.author-content-item-tips {
+  opacity: 0.8;
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.author-content-item-title {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+.lishi {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.author-content-item-content {
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  vertical-align: middle;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.singlePost {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.article {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  margin: 1.5rem 0 1rem 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.article p {
+  margin-bottom: 1rem;
+}
+
+.article a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.article a:hover {
+  color: var(--primary-hover);
+}
+</style>

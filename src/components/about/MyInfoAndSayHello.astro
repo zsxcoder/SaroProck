@@ -1,48 +1,60 @@
 ---
-import type { aboutConfig } from '@lib/about';
-
-interface Props {
-  author: typeof aboutConfig.author;
-  introduction: string;
-}
-
-const { author, introduction } = Astro.props;
+const myInfoData = {
+  title1: "你好，很高兴认识你👋",
+  title2: "我叫",
+  inlineword1: "钟神秀",
+  title3: "是一名 前端开发者、学生、",
+  inlineword2: "博主"
+};
 ---
 
-<div class="my-info-section p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
-  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-    <i class="ri-hand-heart-line text-primary" aria-hidden="true"></i>
-    <span>个人介绍</span>
-  </h3>
-  <div class="flex flex-col md:flex-row gap-6 items-center">
-    <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/30">
-      <img 
-        src={author.avatar} 
-        alt={author.name} 
-        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-      />
-    </div>
-    <div class="flex-1 text-center md:text-left">
-      <h4 class="text-2xl font-bold mb-2">你好，我是 {author.name}</h4>
-      <p class="text-base-content/80 mb-4">{introduction}</p>
-      <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-        <a 
-          href={author.github} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="btn btn-sm btn-primary rounded-full hover:scale-105 transition-all"
-        >
-          <i class="ri-github-line" aria-hidden="true"></i>
-          <span class="ml-1">关注我</span>
-        </a>
-        <a 
-          href={`mailto:${author.email}`} 
-          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-        >
-          <i class="ri-mail-line" aria-hidden="true"></i>
-          <span class="ml-1">联系我</span>
-        </a>
-      </div>
-    </div>
+<div class="author-content-item myInfoAndSayHello">
+  <div class="title1">
+    {myInfoData.title1}
+  </div>
+  <div class="title2">
+    {myInfoData.title2}
+    <span class="inline-word">
+      {myInfoData.inlineword1}
+    </span>
+  </div>
+  <div class="title1">
+    {myInfoData.title3}
+    <span class="inline-word">
+      {myInfoData.inlineword2}
+    </span>
   </div>
 </div>
+
+<style scoped>
+.myInfoAndSayHello {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  background: linear-gradient(120deg, #5b27ff 0, #00d4ff 100%);
+  background-size: 200%;
+  min-height: 175px;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title1 {
+  opacity: 0.8;
+  line-height: 1.3;
+  font-size: 1.125rem;
+}
+
+.title2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0.5rem 0;
+}
+
+.inline-word {
+  word-break: keep-all;
+  white-space: nowrap;
+}
+</style>

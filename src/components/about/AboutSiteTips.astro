@@ -1,50 +1,125 @@
 ---
-import type { aboutConfig } from '@lib/about';
-
-interface Props {
-  siteInfo: typeof aboutConfig.siteInfo;
-}
-
-const { siteInfo } = Astro.props;
+const siteTipsData = {
+  tips: "追求",
+  conect1: "源于",
+  conect2: "热爱而去",
+  inlineword: "感受",
+  mask: [
+    { firstTips: "学习", span: "生活", up: "程序", show: "体验" }
+  ]
+};
 ---
 
-<div class="about-site-tips p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
-  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-    <i class="ri-info-line text-primary" aria-hidden="true"></i>
-    <span>站点信息</span>
-  </h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="flex flex-col gap-2">
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">站点名称</span>
-        <span class="font-medium">{siteInfo.name}</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">站点描述</span>
-        <span class="font-medium">{siteInfo.description}</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">站点作者</span>
-        <span class="font-medium">{siteInfo.author}</span>
-      </div>
-    </div>
-    <div class="flex flex-col gap-2">
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">创建时间</span>
-        <span class="font-medium">{siteInfo.since}</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">版本</span>
-        <span class="font-medium">{siteInfo.version}</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">框架</span>
-        <span class="font-medium">{siteInfo.framework}</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-sm text-base-content/60">主题</span>
-        <span class="font-medium">{siteInfo.theme}</span>
-      </div>
-    </div>
+<div class="aboutsiteTips author-content-item">
+  <div class="author-content-item-tips">
+    {siteTipsData.tips}
   </div>
+  <h2>
+    {siteTipsData.conect1}
+    <br />
+    {siteTipsData.conect2}
+    <span class="inline-word">
+      {siteTipsData.inlineword}
+    </span>
+    <div class="mask">
+      {siteTipsData.mask.map((mask, index) => (
+        <Fragment key={index}>
+          <span class="first-tips">
+            {mask.firstTips}
+          </span>
+          <span>
+            {mask.span}
+          </span>
+          <span data-up="data-up">
+            {mask.up}
+          </span>
+          <span data-show="data-show">
+            {mask.show}
+          </span>
+        </Fragment>
+      ))}
+    </div>
+  </h2>
 </div>
+
+<style scoped>
+.aboutsiteTips {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: 3;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+}
+
+.author-content-item-tips {
+  opacity: 0.8;
+  font-size: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.aboutsiteTips h2 {
+  margin-right: auto;
+  font-size: 36px;
+  font-family: Helvetica;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+.mask {
+  height: 36px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.mask span {
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  top: 36px;
+  padding-bottom: var(--offset, 0);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.mask span:nth-child(1) {
+  background-image: linear-gradient(45deg, #0ecffe 50%, #07a6f1);
+}
+
+.mask span:nth-child(2) {
+  background-image: linear-gradient(45deg, #18e198 50%, #0ec15d);
+}
+
+.mask span:nth-child(3) {
+  background-image: linear-gradient(45deg, #8a7cfb 50%, #633e9c);
+}
+
+.mask span:nth-child(4) {
+  background-image: linear-gradient(45deg, #fa7671 50%, #f45f7f);
+}
+
+.mask span[data-show] {
+  transform: translateY(-100%);
+  transition: 0.5s transform ease-in-out;
+}
+
+.mask span[data-up] {
+  transform: translateY(-200%);
+  transition: 0.5s transform ease-in-out;
+}
+
+.inline-word {
+  word-break: keep-all;
+  white-space: nowrap;
+}
+</style>

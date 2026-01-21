@@ -1,88 +1,153 @@
 ---
-import type { aboutConfig } from '@lib/about';
+const authorData = {
+  left: [
+    { tag1: "💻 热爱技术", tag2: "📝 记录生活", tag3: "🚀 不断学习", tag4: "🎮 游戏爱好者" }
+  ],
+  right: [
+    { tag1: "🌱 持续成长", tag2: "💡 喜欢创新", tag3: "🤝 乐于分享", tag4: "📚 阅读爱好者" }
+  ]
+};
 
-interface Props {
-  author: typeof aboutConfig.author;
-}
-
-const { author } = Astro.props;
+const SITE_AUTHOR = "钟神秀";
 ---
 
-<div class="author-info p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
-  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-    <i class="ri-user-line text-primary" aria-hidden="true"></i>
-    <span>作者信息</span>
-  </h3>
-  <div class="flex flex-col items-center text-center">
-    <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/30 mb-4">
-      <img 
-        src={author.avatar} 
-        alt={author.name} 
-        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-      />
+<div class="author-main">
+  <div id="author-main">
+    <div class="author-tag-left">
+      {authorData.left.map((left, index) => (
+        <Fragment key={index}>
+          <span class="author-tag">{left.tag1}</span>
+          <span class="author-tag">{left.tag2}</span>
+          <span class="author-tag">{left.tag3}</span>
+          <span class="author-tag">{left.tag4}</span>
+        </Fragment>
+      ))}
     </div>
-    <h4 class="text-xl font-bold mb-1">{author.name}</h4>
-    <p class="text-sm text-base-content/60 mb-3">{author.nickname}</p>
-    <p class="text-base-content/80 mb-4">{author.bio}</p>
-    <div class="flex flex-wrap gap-3 justify-center">
-      {author.email && (
-        <a 
-          href={`mailto:${author.email}`} 
-          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-          aria-label="发送邮件"
-        >
-          <i class="ri-mail-line" aria-hidden="true"></i>
-          <span class="ml-1">邮箱</span>
-        </a>
-      )}
-      {author.github && (
-        <a 
-          href={author.github} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-          aria-label="GitHub"
-        >
-          <i class="ri-github-line" aria-hidden="true"></i>
-          <span class="ml-1">GitHub</span>
-        </a>
-      )}
-      {author.telegram && (
-        <a 
-          href={author.telegram} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-          aria-label="Telegram"
-        >
-          <i class="ri-telegram-line" aria-hidden="true"></i>
-          <span class="ml-1">Telegram</span>
-        </a>
-      )}
-      {author.weibo && (
-        <a 
-          href={author.weibo} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-          aria-label="微博"
-        >
-          <i class="ri-weibo-line" aria-hidden="true"></i>
-          <span class="ml-1">微博</span>
-        </a>
-      )}
-      {author.twitter && (
-        <a 
-          href={author.twitter} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-          aria-label="Twitter"
-        >
-          <i class="ri-twitter-line" aria-hidden="true"></i>
-          <span class="ml-1">Twitter</span>
-        </a>
-      )}
+    
+    <div class="mainports" style="margin: 0 20px;">
+      <div class="author-box" style="z-index: 0;">
+        <div class="author-img">
+          <img 
+            class="no-lightbox" 
+            src="/favicon.svg" 
+            alt={SITE_AUTHOR} 
+            style="width: 180px; border-radius: 50%;" 
+          />
+        </div>
+      </div>
+    </div>
+    
+    <div class="author-tag-right">
+      {authorData.right.map((right, index) => (
+        <Fragment key={index}>
+          <span class="author-tag">{right.tag1}</span>
+          <span class="author-tag">{right.tag2}</span>
+          <span class="author-tag">{right.tag3}</span>
+          <span class="author-tag">{right.tag4}</span>
+        </Fragment>
+      ))}
     </div>
   </div>
 </div>
+
+<style scoped>
+.author-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 16px 0;
+}
+
+#author-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 16px 0;
+  user-select: none;
+}
+
+.author-box {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  background: rgba(253, 253, 253, 0.8);
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.author-img {
+  margin: 0 30px;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  position: relative;
+  background: var(--bg-secondary);
+  user-select: none;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.author-tag-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.author-tag-left .author-tag:first-child,
+.author-tag-left .author-tag:last-child {
+  margin-right: -16px;
+}
+
+.author-tag-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.author-tag {
+  transform: translate(0, -4px);
+  padding: 1px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 40px;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: floating 6s ease-in-out 0s infinite normal none running;
+}
+
+.author-tag:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.author-tag:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.author-tag:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+.author-tag:nth-child(4) {
+  animation-delay: 1.8s;
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(0, -4px);
+  }
+  50% {
+    transform: translate(0, 4px);
+  }
+  100% {
+    transform: translate(0, -4px);
+  }
+}
+</style>
