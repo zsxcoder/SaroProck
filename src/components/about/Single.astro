@@ -24,7 +24,8 @@ const singleData = {
     {singleData.lishi}
   </div>
   <div class="singlePost">
-    <article class="article">
+    <!-- 使用 prose 类来应用更好的 Markdown 样式 -->
+    <article class="article prose prose-lg max-w-none">
       <AboutContent />
     </article>
   </div>
@@ -84,127 +85,177 @@ const singleData = {
   color: var(--text-primary);
 }
 
-/* 确保 Markdown 内容中的各种元素样式美观 */
-.article h1,
-.article h2,
-.article h3,
-.article h4,
-.article h5,
-.article h6 {
-  color: #333;
+/* 使用 Tailwind Typography 样式增强 Markdown 渲染 */
+.prose {
+  color: var(--text-primary);
+  max-width: 100%;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--text-primary);
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: 700;
   line-height: 1.3;
-  text-align: left;
-  position: relative;
 }
 
-.article h1 {
+.prose h1 {
   font-size: 2rem;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
-.article h2 {
+.prose h2 {
   font-size: 1.75rem;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
-.article h3 {
+.prose h3 {
   font-size: 1.5rem;
-  color: #4b5563;
-}
-
-.article h4 {
-  font-size: 1.25rem;
-  color: #6b7280;
-}
-
-.article h5 {
-  font-size: 1.125rem;
-  color: #9ca3af;
-}
-
-.article h6 {
-  font-size: 1rem;
-  color: #d1d5db;
-}
-
-.article p {
-  margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
-.article a {
+.prose p {
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
+.prose a {
   color: var(--primary-color);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
+  position: relative;
+  font-weight: 500;
 }
 
-.article a:hover {
+.prose a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.2s ease;
+}
+
+.prose a:hover {
   color: var(--primary-hover);
-  text-decoration: underline;
 }
 
-.article ul,
-.article ol {
-  margin-bottom: 1rem;
+.prose a:hover::after {
+  width: 100%;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.5rem;
   padding-left: 1.5rem;
   color: var(--text-primary);
 }
 
-.article li {
-  margin-bottom: 0.5rem;
+.prose li {
+  margin-bottom: 0.75rem;
+  position: relative;
 }
 
-.article ul li {
+.prose ul li {
   list-style-type: disc;
+  color: var(--text-primary);
 }
 
-.article ol li {
+.prose ol li {
   list-style-type: decimal;
+  color: var(--text-primary);
 }
 
-.article strong {
+.prose strong {
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.article em {
+.prose em {
   font-style: italic;
   color: var(--text-primary);
 }
 
-.article blockquote {
+.prose blockquote {
   border-left: 4px solid var(--primary-color);
-  padding-left: 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
   color: var(--text-secondary);
   font-style: italic;
+  background-color: var(--bg-secondary);
+  border-radius: 0 8px 8px 0;
 }
 
-.article code {
+/* Shiki 代码高亮样式 */
+.prose code {
   background-color: var(--bg-secondary);
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.9rem;
   color: var(--code-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.article pre {
+.prose pre {
   background-color: var(--bg-secondary);
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 1.5rem;
+  border-radius: 12px;
   overflow-x: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.article pre code {
+.prose pre code {
   background-color: transparent;
   padding: 0;
   border-radius: 0;
+  color: var(--code-color);
+  font-size: 0.875rem;
+  box-shadow: none;
+}
+
+/* 确保 Shiki 代码块正确渲染 */
+.expressive-code {
+  margin-bottom: 1.5rem;
+}
+
+.expressive-code pre {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.expressive-code code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+/* 代码行号样式 */
+.expressive-code .ec-line-numbers {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  padding-right: 1rem;
+  user-select: none;
+}
+
+/* 代码高亮主题 */
+.expressive-code .ec-line {
+  transition: background-color 0.2s ease;
+}
+
+.expressive-code .ec-line:hover {
+  background-color: var(--bg-hover);
 }
 </style>
