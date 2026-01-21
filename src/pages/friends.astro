@@ -84,28 +84,28 @@ const EMAIL = "3149261770@qq.com";
             <div class="copy-buttons space-y-2 mb-6">
               <div class="flex items-center gap-2">
                 <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">name: 钟神秀</code>
-                <button onclick="copyText('name: 钟神秀', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                <button data-copy-text="name: 钟神秀" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap copy-button">
                   <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
                   复制
                 </button>
               </div>
               <div class="flex items-center gap-2">
                 <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">desc: 造化钟神秀，阴阳割昏晓。</code>
-                <button onclick="copyText('desc: 造化钟神秀，阴阳割昏晓。', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                <button data-copy-text="desc: 造化钟神秀，阴阳割昏晓。" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap copy-button">
                   <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
                   复制
                 </button>
               </div>
               <div class="flex items-center gap-2">
                 <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">avatar: https://home.zsxcoder.top/api/avatar.png</code>
-                <button onclick="copyText('avatar: https://home.zsxcoder.top/api/avatar.png', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                <button data-copy-text="avatar: https://home.zsxcoder.top/api/avatar.png" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap copy-button">
                   <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
                   复制
                 </button>
               </div>
               <div class="flex items-center gap-2">
                 <code class="flex-1 bg-base-200/50 text-base-content rounded-lg p-3 text-sm font-mono">url: https://mcy.zsxcoder.top</code>
-                <button onclick="copyText('url: https://mcy.zsxcoder.top', this)" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap">
+                <button data-copy-text="url: https://mcy.zsxcoder.top" class="btn btn-sm btn-primary/80 hover:btn-primary rounded-lg whitespace-nowrap copy-button">
                   <Icon name="ri:clipboard-copy-line" class="w-4 h-4" />
                   复制
                 </button>
@@ -295,27 +295,34 @@ const EMAIL = "3149261770@qq.com";
 
 
   <script is:inline>
-    // 复制文本功能
-    function copyText(text, button) {
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          const originalText = button.innerHTML;
-          button.innerHTML = '<i class="ri-check-line w-4 h-4"></i> 已复制';
-          button.classList.remove('btn-primary/80');
-          button.classList.add('btn-success');
-          
-          setTimeout(() => {
-            button.innerHTML = originalText;
-            button.classList.remove('btn-success');
-            button.classList.add('btn-primary/80');
-          }, 2000);
-        })
-        .catch(err => {
-          console.error('复制失败:', err);
-        });
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
+      // 复制文本功能
+      const copyButtons = document.querySelectorAll('.copy-button');
+      
+      copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const text = button.dataset.copyText;
+          const originalText = button.innerHTML;
+          
+          navigator.clipboard.writeText(text)
+            .then(() => {
+              button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制';
+              button.classList.remove('btn-primary/80');
+              button.classList.add('btn-success');
+              
+              setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('btn-success');
+                button.classList.add('btn-primary/80');
+              }, 2000);
+            })
+            .catch(err => {
+              console.error('复制失败:', err);
+            });
+        });
+      });
+
+      // 状态指示器功能
       const indicators = document.querySelectorAll(".status-indicator");
 
       const checkStatus = async (element, url) => {
