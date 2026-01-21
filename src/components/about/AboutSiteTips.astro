@@ -1,0 +1,50 @@
+---
+import type { aboutConfig } from '@lib/about';
+
+interface Props {
+  siteInfo: typeof aboutConfig.siteInfo;
+}
+
+const { siteInfo } = Astro.props;
+---
+
+<div class="about-site-tips p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="ri-info-line text-primary" aria-hidden="true"></i>
+    <span>站点信息</span>
+  </h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="flex flex-col gap-2">
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">站点名称</span>
+        <span class="font-medium">{siteInfo.name}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">站点描述</span>
+        <span class="font-medium">{siteInfo.description}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">站点作者</span>
+        <span class="font-medium">{siteInfo.author}</span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">创建时间</span>
+        <span class="font-medium">{siteInfo.since}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">版本</span>
+        <span class="font-medium">{siteInfo.version}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">框架</span>
+        <span class="font-medium">{siteInfo.framework}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-base-content/60">主题</span>
+        <span class="font-medium">{siteInfo.theme}</span>
+      </div>
+    </div>
+  </div>
+</div>

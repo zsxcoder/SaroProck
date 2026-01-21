@@ -1,0 +1,16 @@
+---
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('about', 'about');
+const content = await entry.render();
+---
+
+<div class="single-content p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="ri-file-text-line text-primary" aria-hidden="true"></i>
+    <span>关于我</span>
+  </h3>
+  <article class="prose prose-lg max-w-none">
+    <slot />
+  </article>
+</div>

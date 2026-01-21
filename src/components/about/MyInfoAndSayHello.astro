@@ -1,0 +1,48 @@
+---
+import type { aboutConfig } from '@lib/about';
+
+interface Props {
+  author: typeof aboutConfig.author;
+  introduction: string;
+}
+
+const { author, introduction } = Astro.props;
+---
+
+<div class="my-info-section p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="ri-hand-heart-line text-primary" aria-hidden="true"></i>
+    <span>个人介绍</span>
+  </h3>
+  <div class="flex flex-col md:flex-row gap-6 items-center">
+    <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/30">
+      <img 
+        src={author.avatar} 
+        alt={author.name} 
+        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+      />
+    </div>
+    <div class="flex-1 text-center md:text-left">
+      <h4 class="text-2xl font-bold mb-2">你好，我是 {author.name}</h4>
+      <p class="text-base-content/80 mb-4">{introduction}</p>
+      <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+        <a 
+          href={author.github} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-sm btn-primary rounded-full hover:scale-105 transition-all"
+        >
+          <i class="ri-github-line" aria-hidden="true"></i>
+          <span class="ml-1">关注我</span>
+        </a>
+        <a 
+          href={`mailto:${author.email}`} 
+          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+        >
+          <i class="ri-mail-line" aria-hidden="true"></i>
+          <span class="ml-1">联系我</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

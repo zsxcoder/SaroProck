@@ -1,0 +1,88 @@
+---
+import type { aboutConfig } from '@lib/about';
+
+interface Props {
+  author: typeof aboutConfig.author;
+}
+
+const { author } = Astro.props;
+---
+
+<div class="author-info p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="ri-user-line text-primary" aria-hidden="true"></i>
+    <span>作者信息</span>
+  </h3>
+  <div class="flex flex-col items-center text-center">
+    <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-primary/30 mb-4">
+      <img 
+        src={author.avatar} 
+        alt={author.name} 
+        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+      />
+    </div>
+    <h4 class="text-xl font-bold mb-1">{author.name}</h4>
+    <p class="text-sm text-base-content/60 mb-3">{author.nickname}</p>
+    <p class="text-base-content/80 mb-4">{author.bio}</p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      {author.email && (
+        <a 
+          href={`mailto:${author.email}`} 
+          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+          aria-label="发送邮件"
+        >
+          <i class="ri-mail-line" aria-hidden="true"></i>
+          <span class="ml-1">邮箱</span>
+        </a>
+      )}
+      {author.github && (
+        <a 
+          href={author.github} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+          aria-label="GitHub"
+        >
+          <i class="ri-github-line" aria-hidden="true"></i>
+          <span class="ml-1">GitHub</span>
+        </a>
+      )}
+      {author.telegram && (
+        <a 
+          href={author.telegram} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+          aria-label="Telegram"
+        >
+          <i class="ri-telegram-line" aria-hidden="true"></i>
+          <span class="ml-1">Telegram</span>
+        </a>
+      )}
+      {author.weibo && (
+        <a 
+          href={author.weibo} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+          aria-label="微博"
+        >
+          <i class="ri-weibo-line" aria-hidden="true"></i>
+          <span class="ml-1">微博</span>
+        </a>
+      )}
+      {author.twitter && (
+        <a 
+          href={author.twitter} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-sm btn-ghost rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+          aria-label="Twitter"
+        >
+          <i class="ri-twitter-line" aria-hidden="true"></i>
+          <span class="ml-1">Twitter</span>
+        </a>
+      )}
+    </div>
+  </div>
+</div>

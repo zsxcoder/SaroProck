@@ -19,6 +19,15 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': '/src',
+        '@lib': '/src/lib',
+        '@components': '/src/components',
+        '@layouts': '/src/layouts',
+        '@styles': '/src/styles',
+      },
+    },
   },
 
   integrations: [

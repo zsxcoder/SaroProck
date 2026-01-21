@@ -1,0 +1,21 @@
+---
+interface Props {
+  maxim: string;
+}
+
+const { maxim } = Astro.props;
+---
+
+<div class="maxim-section p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="ri-quote-left-line text-primary" aria-hidden="true"></i>
+    <span>座右铭</span>
+  </h3>
+  <div class="text-center py-4">
+    <blockquote class="text-xl italic text-base-content/80 relative">
+      <span class="absolute -top-4 -left-4 text-primary/30 text-6xl opacity-30">"</span>
+      {maxim}
+      <span class="absolute -bottom-8 -right-4 text-primary/30 text-6xl opacity-30">"</span>
+    </blockquote>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+---
+import type { aboutConfig } from '@lib/about';
+
+interface Props {
+  skills: typeof aboutConfig.skills;
+}
+
+const { skills } = Astro.props;
+---
+
+<div class="skill-info p-6 bg-base-200/60 backdrop-blur-sm rounded-xl shadow-sm border border-base-content/10">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="ri-star-line text-primary" aria-hidden="true"></i>
+    <span>技能信息</span>
+  </h3>
+  <div class="space-y-4">
+    {skills.map((skill, index) => (
+      <div key={index} class="skill-item">
+        <div class="flex justify-between items-center mb-1">
+          <div class="flex items-center gap-2">
+            <i class={`${skill.icon} text-primary`} aria-hidden="true"></i>
+            <span class="font-medium">{skill.name}</span>
+          </div>
+          <span class="text-sm text-base-content/60">{skill.level}%</span>
+        </div>
+        <div class="w-full bg-base-content/10 rounded-full h-2 overflow-hidden">
+          <div 
+            class="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out skill-progress"
+            style={{ width: `${skill.level}%` }}
+            data-level={skill.level}
+          ></div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
