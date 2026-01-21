@@ -1,5 +1,5 @@
 ---
-
+import { getEntry } from 'astro:content';
 
 const singleData = {
   tip: "心路历程",
@@ -8,15 +8,10 @@ const singleData = {
   content: "『ZSXの小站』是我的个人博客，在这里分享我的生活日常、学习心得和技术分享。"
 };
 
-// 获取about.mdx内容
+// 获取about集合中的about.mdx内容
 let aboutContent;
 try {
-  // 直接读取src/content/about.mdx文件
-  const fs = await import('node:fs/promises');
-  const path = await import('node:path');
-  const filePath = path.join(process.cwd(), 'src', 'content', 'about.mdx');
-  const content = await fs.readFile(filePath, 'utf8');
-  aboutContent = { content };
+  aboutContent = await getEntry('about', 'about');
 } catch (e) {
   console.error('Failed to load about.mdx:', e);
 }
@@ -36,16 +31,8 @@ try {
     {singleData.lishi}
   </div>
   <div class="singlePost">
-    {aboutContent ? (
-      <article class="article">
-        <h1>关于我</h1>
-        <p>你好，我是钟神秀，一个热爱技术、喜欢分享的前端开发者和学生。</p>
-        <h2>我的故事</h2>
-        <p>我从小就对计算机充满了兴趣，喜欢探索各种新事物。在大学期间，我接触到了前端开发，从此便一发不可收拾地爱上了这个领域。我喜欢通过代码创造出各种有趣的东西，也喜欢分享自己的学习心得和经验。</p>
-        <h2>关于本站</h2>
-        <p>本站是我的个人博客，主要用于分享我的生活日常、学习心得和技术分享。我希望通过这个博客，记录自己的成长历程，也能帮助到更多的人。</p>
-        <p>本站使用了现代的前端技术栈开发，包括 Astro、React、TypeScript 等。我会在博客中分享一些关于这些技术的学习心得和实践经验。</p>
-      </article>
+    {aboutContent?.rendered ? (
+      <article class="article" set:html={aboutContent.rendered.html} />
     ) : (
       <p class="text-center">
         可于 about.mdx 配置补充说明。
