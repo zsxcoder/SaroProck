@@ -1,5 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
+// 直接导入 about.mdx 组件
+import AboutContent from '../../content/about/about.mdx';
 
 const singleData = {
   tip: "心路历程",
@@ -7,17 +8,6 @@ const singleData = {
   lishi: "『ZSXの小站』历史进程",
   content: "『ZSXの小站』是我的个人博客，在这里分享我的生活日常、学习心得和技术分享。"
 };
-
-// 获取about集合中的所有内容
-let aboutContent;
-try {
-  const aboutCollection = await getCollection('about');
-  if (aboutCollection && aboutCollection.length > 0) {
-    aboutContent = aboutCollection[0];
-  }
-} catch (e) {
-  console.error('Failed to load about collection:', e);
-}
 ---
 
 <div class="create-site-post author-content-item single">
@@ -34,13 +24,9 @@ try {
     {singleData.lishi}
   </div>
   <div class="singlePost">
-    {aboutContent?.rendered ? (
-      <article class="article" set:html={aboutContent.rendered.html} />
-    ) : (
-      <p class="text-center">
-        可于 about.mdx 配置补充说明。
-      </p>
-    )}
+    <article class="article">
+      <AboutContent />
+    </article>
   </div>
 </div>
 
