@@ -21,15 +21,14 @@ const siteTipsData = {
     </span>
     <div class="mask">
       {siteTipsData.mask.map((word, index) => (
-        <Fragment key={index}>
-          <span 
-            class={index === 0 ? 'first-tips' : ''} 
-            data-up={index === 0 ? '' : undefined} 
-            data-show={index === 3 ? '' : undefined}
-          >
-            {word}
-          </span>
-        </Fragment>
+        <span 
+          key={index} 
+          class={index === 0 ? 'first-tips' : ''} 
+          data-up={index === 0 ? '' : undefined} 
+          data-show={index === 3 ? '' : undefined}
+        >
+          {word}
+        </span>
       ))}
     </div>
   </h2>
@@ -63,6 +62,7 @@ const siteTipsData = {
   letter-spacing: -0.02em;
   color: var(--text-color);
   margin-top: 0;
+  position: relative;
 }
 
 .mask {
@@ -71,11 +71,11 @@ const siteTipsData = {
   overflow: hidden;
   margin-top: 4px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .mask span {
   display: block;
-  box-sizing: border-box;
   position: absolute;
   top: 36px;
   left: 0;
@@ -87,7 +87,7 @@ const siteTipsData = {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-repeat: no-repeat;
-  transition: 0.5s transform ease-in-out;
+  transition: transform 0.5s ease-in-out;
 }
 
 .mask span:nth-child(1) {
@@ -106,21 +106,30 @@ const siteTipsData = {
   background-image: linear-gradient(45deg, #fa7671 50%, #f45f7f);
 }
 
-.mask span[data-show] {
-  transform: translateY(-100%);
-}
-
-.mask span[data-up] {
-  transform: translateY(-200%);
-}
-
-/* 初始状态：第一个元素在顶部，第二个在下方，第三个在上方等待，第四个显示 */
+/* 初始状态 */
 .mask span:first-child {
-  transform: translateY(-36px);
+  top: -36px;
+}
+
+.mask span:nth-child(2) {
+  top: 0;
+}
+
+.mask span:nth-child(3) {
+  top: 36px;
 }
 
 .mask span:last-child {
-  transform: translateY(-100%);
+  top: 72px;
+}
+
+/* 动画状态 */
+.mask span[data-show] {
+  transform: translateY(-36px);
+}
+
+.mask span[data-up] {
+  transform: translateY(-72px);
 }
 
 .inline-word {

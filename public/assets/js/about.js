@@ -1,19 +1,36 @@
 // 滚动文字动画
 document.addEventListener("DOMContentLoaded", () => {
-  var pursuitInterval = null;
-  pursuitInterval = setInterval(() => {
-    const show = document.querySelector("span[data-show]");
-    const next =
-      show.nextElementSibling || document.querySelector(".first-tips");
-    const up = document.querySelector("span[data-up]");
+  setTimeout(() => {
+    const maskContainer = document.querySelector(".mask");
+    if (maskContainer) {
+      const spans = maskContainer.querySelectorAll("span");
+      let currentIndex = 0;
+      const total = spans.length;
 
-    if (up) {
-      up.removeAttribute("data-up");
+      // 设置初始状态
+      spans[0].setAttribute("data-up", "");
+      spans[3].setAttribute("data-show", "");
+
+      // 启动滚动动画
+      setInterval(() => {
+        // 移除所有状态
+        spans.forEach((span) => {
+          span.removeAttribute("data-up");
+          span.removeAttribute("data-show");
+        });
+
+        // 计算当前显示的元素索引
+        const showIndex = (currentIndex + 3) % total;
+        // 计算要上移的元素索引
+        const upIndex = currentIndex;
+
+        // 设置新状态
+        spans[showIndex].setAttribute("data-show", "");
+        spans[upIndex].setAttribute("data-up", "");
+
+        // 更新当前索引
+        currentIndex = (currentIndex + 1) % total;
+      }, 2000);
     }
-
-    show.removeAttribute("data-show");
-    show.setAttribute("data-up", "");
-
-    next.setAttribute("data-show", "");
-  }, 2000);
+  }, 100);
 });
