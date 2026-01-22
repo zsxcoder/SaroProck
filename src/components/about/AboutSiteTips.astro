@@ -1,10 +1,17 @@
 ---
 const siteTipsData = {
-  tips: "愿你看清一切真相后",
-  conect1: "依旧",
-  conect2: "热爱你的",
-  inlineword: "家人和朋友",
-  mask: ["学习", "生活", "程序", "体验"]
+  tips: "Region",
+  conect1: "我来自 苏州",
+  conect2: "目前在",
+  inlineword: "南京上学~",
+  mask: [
+    {
+      firstTips: "我来自",
+      span: "生活",
+      up: "程序",
+      show: "体验"
+    }
+  ]
 };
 ---
 
@@ -20,16 +27,18 @@ const siteTipsData = {
       {siteTipsData.inlineword}
     </span>
     <div class="mask">
-      {siteTipsData.mask.map((word, index) => (
-        <span 
-          key={index} 
-          class={index === 0 ? 'first-tips' : ''} 
-          data-up={index === 0 ? '' : undefined} 
-          data-show={index === 3 ? '' : undefined}
-        >
-          {word}
-        </span>
-      ))}
+      <span class="first-tips">
+        {siteTipsData.mask[0].firstTips}
+      </span>
+      <span>
+        {siteTipsData.mask[0].span}
+      </span>
+      <span data-up="">
+        {siteTipsData.mask[0].up}
+      </span>
+      <span data-show="">
+        {siteTipsData.mask[0].show}
+      </span>
     </div>
   </h2>
 </div>
@@ -111,15 +120,6 @@ const siteTipsData = {
 
 .mask span[data-up] {
   transform: translateY(-200%);
-}
-
-/* 初始状态：第一个元素在顶部，第二个在下方，第三个在上方等待，第四个显示 */
-.mask span:first-child {
-  transform: translateY(-36px);
-}
-
-.mask span:last-child {
-  transform: translateY(-100%);
 }
 
 .inline-word {

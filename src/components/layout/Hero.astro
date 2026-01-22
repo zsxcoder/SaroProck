@@ -34,7 +34,7 @@ const { siteDescription } = Astro.props;
         {siteDescription}
       </p>
 
-      <div class="flex justify-center gap-4" transition:animate="fade">
+      <div class="flex justify-center gap-4 flex-wrap" transition:animate="fade">
         <a
           href="/friends"
           class="btn btn-primary btn-soft flex items-center gap-2 rounded-xl"
@@ -48,6 +48,20 @@ const { siteDescription } = Astro.props;
         >
           <Icon name="ri:message-3-line" class="w-5 h-5" />
           留言板
+        </a>
+        <a
+          href="/blog"
+          class="btn btn-warning btn-soft flex items-center gap-2 rounded-xl"
+        >
+          <Icon name="tabler:book" class="w-5 h-5" />
+          博客
+        </a>
+        <a
+          href="/about"
+          class="btn btn-accent btn-soft flex items-center gap-2 rounded-xl"
+        >
+          <Icon name="ri:user-line" class="w-5 h-5" />
+          关于我
         </a>
       </div>
 

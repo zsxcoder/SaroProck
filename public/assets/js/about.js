@@ -1,36 +1,36 @@
 // 滚动文字动画
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    const maskContainer = document.querySelector(".mask");
-    if (maskContainer) {
-      const spans = maskContainer.querySelectorAll("span");
-      let currentIndex = 0;
-      const total = spans.length;
+  // 找到所有的mask元素
+  const maskContainer = document.querySelector(".mask");
+  if (!maskContainer) return;
 
-      // 设置初始状态
-      spans[0].setAttribute("data-up", "");
-      spans[3].setAttribute("data-show", "");
+  const spans = maskContainer.querySelectorAll("span");
+  if (spans.length !== 4) return;
 
-      // 启动滚动动画
-      setInterval(() => {
-        // 移除所有状态
-        spans.forEach((span) => {
-          span.removeAttribute("data-up");
-          span.removeAttribute("data-show");
-        });
+  // 设置初始状态
+  spans[0].setAttribute("data-up", "");
+  spans[3].setAttribute("data-show", "");
 
-        // 计算当前显示的元素索引
-        const showIndex = (currentIndex + 3) % total;
-        // 计算要上移的元素索引
-        const upIndex = currentIndex;
+  let currentIndex = 0;
 
-        // 设置新状态
-        spans[showIndex].setAttribute("data-show", "");
-        spans[upIndex].setAttribute("data-up", "");
+  // 启动滚动动画
+  setInterval(() => {
+    // 移除所有状态
+    spans.forEach((span) => {
+      span.removeAttribute("data-up");
+      span.removeAttribute("data-show");
+    });
 
-        // 更新当前索引
-        currentIndex = (currentIndex + 1) % total;
-      }, 2000);
-    }
-  }, 100);
+    // 计算当前显示的元素索引
+    const showIndex = (currentIndex + 3) % 4;
+    // 计算要上移的元素索引
+    const upIndex = currentIndex;
+
+    // 设置新状态
+    spans[showIndex].setAttribute("data-show", "");
+    spans[upIndex].setAttribute("data-up", "");
+
+    // 更新当前索引
+    currentIndex = (currentIndex + 1) % 4;
+  }, 2000);
 });

@@ -46,13 +46,39 @@ export async function fetchTelegramHtml(
   const dispatcher = proxyUrl ? new ProxyAgent(proxyUrl) : undefined;
   const headers = Object.fromEntries(Astro.request.headers);
 
-  const html = await $fetch<string>(url, {
-    headers,
-    query: { before, after, q },
-    retry: 3,
-    dispatcher,
-  });
+  let html = "";
+  try {
+    // 设置完整的请求配置
+    const requestOptions: any = {
+      headers: {
+        ...headers,
+        // 添加User-Agent，模拟浏览器请求
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+      query: { before, after, q },
+      retry: 3,
+      dispatcher,
+      // 处理证书验证问题
+      rejectUnauthorized: false,
+      // 添加超时设置
+      timeout: 10000,
+    };
 
-  cache.set(cacheKey, html);
+    console.log(`Fetching from Telegram API: ${url}`, requestOptions);
+    html = await $fetch<string>(url, requestOptions);
+    console.log(`Successfully fetched from Telegram API: ${url}`);
+    cache.set(cacheKey, html);
+  } catch (error: any) {
+    console.error(`Failed to fetch from Telegram API: ${url}`);
+    console.error(`Error message: ${error.message}`);
+    console.error(`Error stack: ${error.stack}`);
+    if (error.response) {
+      console.error(`Response status: ${error.response.status}`);
+      console.error(`Response body: ${await error.response.text()}`);
+    }
+    // 请求失败时返回空字符串，避免网站崩溃
+    html = "";
+  }
   return html;
 }

@@ -115,43 +115,45 @@ const socialLinks = [
         </div>
       </div>
 
-      <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-        <h3 class="font-semibold text-base-content mb-2 text-base">探索</h3>
-        <ul class="text-sm space-y-2">
-          {
-            navLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-base-content/80 hover:text-primary transition-colors duration-200"
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <div class="grid grid-cols-2 gap-8 sm:col-span-12 lg:col-span-4">
+        <div>
+          <h3 class="font-semibold text-base-content mb-2 text-base">探索</h3>
+          <ul class="text-sm space-y-2">
+            {
+              navLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-base-content/80 hover:text-primary transition-colors duration-200"
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
 
-      <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-        <h3 class="font-semibold text-base-content mb-2 text-base">关注</h3>
-        <ul class="text-sm space-y-2">
-          {
-            socialLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center gap-2 text-base-content/80 hover:text-primary transition-colors duration-200"
-                >
-                  <i class={link.icon} />
-                  <span>{link.text}</span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+        <div>
+          <h3 class="font-semibold text-base-content mb-2 text-base">关注</h3>
+          <ul class="text-sm space-y-2">
+            {
+              socialLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2 text-base-content/80 hover:text-primary transition-colors duration-200"
+                  >
+                    <i class={link.icon} />
+                    <span>{link.text}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
 
       <div class="sm:col-span-6 md:col-span-3 lg:col-span-3">

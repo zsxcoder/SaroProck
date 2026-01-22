@@ -1,80 +1,69 @@
 ---
 const authorData = {
-  left: [
-    { tag1: "💻 热爱技术", tag2: "📝 记录生活", tag3: "🚀 不断学习", tag4: "🎮 游戏爱好者" }
-  ],
-  right: [
-    { tag1: "🌱 持续成长", tag2: "💡 喜欢创新", tag3: "🤝 乐于分享", tag4: "📚 阅读爱好者" }
+  author: [
+    {
+      left: [
+        {
+          tag1: "大学小牛马",
+          tag2: "摆烂普通人",
+          tag3: "一直在学习",
+          tag4: "不会创新只会CV"
+        }
+      ],
+      right: [
+        {
+          tag1: "博客写作者",
+          tag2: "小说爱好者",
+          tag3: "资源分享者",
+          tag4: "很喜欢Astro"
+        }
+      ]
+    }
   ]
 };
-
-const SITE_AUTHOR = "钟神秀";
 ---
 
-<div class="author-main">
+<div class="author-content-item author-main">
   <div id="author-main">
-    <div class="author-tag-left">
-      {authorData.left.map((left) => (
-        <Fragment key={left.tag1}>
-          <span class="author-tag">{left.tag1}</span>
-          <span class="author-tag">{left.tag2}</span>
-          <span class="author-tag">{left.tag3}</span>
-          <span class="author-tag">{left.tag4}</span>
-        </Fragment>
-      ))}
-    </div>
-    
-    <div class="mainports" style="margin: 0 20px;">
-      <div class="author-box" style="z-index: 0;">
-        <span></span>
-        <div class="author-img">
-          <img 
-            class="no-lightbox" 
-            src="/avatar.webp" 
-            alt={SITE_AUTHOR} 
-            style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover;" 
-          />
+    {authorData.author.map((author, authorIndex) => (
+      <>
+        <div class="author-tag-left">
+          {author.left.map((left, leftIndex) => (
+            <>
+              <span class="author-tag">{left.tag1}</span>
+              <span class="author-tag">{left.tag2}</span>
+              <span class="author-tag">{left.tag3}</span>
+              <span class="author-tag">{left.tag4}</span>
+            </>
+          ))}
         </div>
-      </div>
-    </div>
-    
-    <div class="author-tag-right">
-      {authorData.right.map((right) => (
-        <Fragment key={right.tag1}>
-          <span class="author-tag">{right.tag1}</span>
-          <span class="author-tag">{right.tag2}</span>
-          <span class="author-tag">{right.tag3}</span>
-          <span class="author-tag">{right.tag4}</span>
-        </Fragment>
-      ))}
-    </div>
+        <div class="mainports" style="margin: 0 20px;">
+          <div class="author-box" style="z-index:0">
+            <div class="author-img">
+              <img class="no-lightbox" src="/avatar.webp" style="width: 180px; border-radius: 50%;" alt="avatar" />
+            </div>
+          </div>
+        </div>
+        <div class="author-tag-right">
+          {author.right.map((right, rightIndex) => (
+            <>
+              <span class="author-tag">{right.tag1}</span>
+              <span class="author-tag">{right.tag2}</span>
+              <span class="author-tag">{right.tag3}</span>
+              <span class="author-tag">{right.tag4}</span>
+            </>
+          ))}
+        </div>
+      </>
+    ))}
   </div>
 </div>
 
 <style scoped>
 /* author */
-.author-main {
-  margin: 0 0 16px 0;
-}
-
 #author-main {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
   display: flex;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -o-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
   margin: 0 0 16px 0;
   user-select: none;
@@ -84,66 +73,12 @@ const SITE_AUTHOR = "钟神秀";
   position: relative;
   width: 180px;
   height: 180px;
-  background: rgba(253, 253, 253, .8);
+  background: transparent;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.author-box span {
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  background: rgba(253, 253, 253, .8);
-  z-index: 1;
-}
-
-.author-tag-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.author-tag-left .author-tag:first-child,
-.author-tag-left .author-tag:last-child {
-  margin-right: -16px;
-}
-
-.author-tag-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.author-tag {
-  transform: translate(0, -4px);
-  padding: 1px 8px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 40px;
-  margin-top: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  animation: 6s ease-in-out 0s infinite normal none running floating;
-}
-
-.author-tag:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.author-tag:nth-child(2) {
-  animation-delay: .6s;
-}
-
-.author-tag:nth-child(3) {
-  animation-delay: 1.2s;
-}
-
-.author-tag:nth-child(4) {
-  animation-delay: 1.8s;
 }
 
 .author-img {
@@ -152,24 +87,13 @@ const SITE_AUTHOR = "钟神秀";
   width: 180px;
   height: 180px;
   position: relative;
-  background: var(--bg-secondary);
+  background: transparent;
   user-select: none;
   transition: .3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
 }
 
-@keyframes floating {
-  0% {
-    transform: translate(0, -4px);
-  }
-  50% {
-    transform: translate(0, 4px);
-  }
-  100% {
-    transform: translate(0, -4px);
-  }
-}
+/* 移除重复的floating动画定义，使用全局定义 */
 </style>
