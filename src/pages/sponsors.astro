@@ -1,0 +1,258 @@
+---
+import Layout from '@layouts/Layout.astro';
+import type { Sponsor } from '@/types';
+
+const sponsors = Object.values(
+	import.meta.glob<Sponsor>('@/data/sponsors/*.json', {
+		eager: true,
+		import: 'default',
+	}),
+);
+---
+
+<Layout title="赞助支持" description="如果您觉得我的内容对您有帮助，欢迎通过以下方式支持我的创作。您的每一份支持都是我持续创作的动力！">
+    <script src="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.8/dist/fancybox/fancybox.umd.js"></script>
+    <div class="card-base" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: linear-gradient(120deg, #9a79fa 0, #00d4ff 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="ri-heart-line" style="font-size: 1.5rem;"></i>
+            </div>
+            <h1 style="font-size: 2rem; font-weight: bold; color: var(--text-color);">赞助支持</h1>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <p style="font-size: 1.125rem; color: var(--text-color); margin-bottom: 0.75rem;">
+                如果您觉得我的内容对您有帮助，欢迎通过以下方式支持我的创作。您的每一份支持都是我持续创作的动力！
+            </p>
+            <p style="font-size: 0.875rem; color: var(--text-color-secondary);">
+                所有赞助将用于网站维护、服务器费用以及内容创作。
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; max-width: 56rem; margin-left: auto; margin-right: auto;">
+            <!-- 支付宝 -->
+            <div class="donate-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: #1677ff; display: flex; align-items: center; justify-content: center;">
+                        <i class="ri-alipay-line" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.125rem; font-weight: bold; color: var(--text-color);">支付宝</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-color-secondary);">扫码支付</p>
+                    </div>
+                </div>
+                <div class="qr-code-placeholder">
+                    <div style="position: relative; width: 12rem; height: 12rem; margin: 0 auto; border-radius: 0.5rem; overflow: hidden;">
+                        <img src="https://cdn.jsdmirror.com/gh/mcyzsx/picx-images-hosting@master/links/alipay.webp" alt="支付宝二维码" class="zoomable" style="width: 100%; height: 100%; object-cover; transition: duration 0.5s; cursor: zoom-in;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- 微信支付 -->
+            <div class="donate-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: #07c160; display: flex; align-items: center; justify-content: center;">
+                        <i class="ri-wechat-line" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.125rem; font-weight: bold; color: var(--text-color);">微信支付</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-color-secondary);">扫码支付</p>
+                    </div>
+                </div>
+                <div class="qr-code-placeholder">
+                    <div style="position: relative; width: 12rem; height: 12rem; margin: 0 auto; border-radius: 0.5rem; overflow: hidden;">
+                        <img src="https://cdn.jsdmirror.com/gh/mcyzsx/picx-images-hosting@master/links/weixin.webp" alt="微信支付二维码" class="zoomable" style="width: 100%; height: 100%; object-cover; transition: duration 0.5s; cursor: zoom-in;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- 爱发电 -->
+            <div class="donate-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: #e74c3c; display: flex; align-items: center; justify-content: center;">
+                        <i class="ri-heart-3-line" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.125rem; font-weight: bold; color: var(--text-color);">爱发电</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-color-secondary);">扫码支持</p>
+                    </div>
+                </div>
+                <div class="qr-code-placeholder">
+                    <div style="position: relative; width: 12rem; height: 12rem; margin: 0 auto; border-radius: 0.5rem; overflow: hidden;">
+                        <img src="https://imgbed.mcyzsx.top/file/custom/Vuaj4DpO.jpg" alt="爱发电二维码" class="zoomable" style="width: 100%; height: 100%; object-cover; transition: duration 0.5s; cursor: zoom-in;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 其他支持方式 -->
+        <div class="card-base" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; color: var(--text-color); margin-bottom: 0.75rem;">其他支持方式</h2>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                <div class="support-card">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="ri-share-line" style="font-size: 1.2rem; color: #9a79fa;"></i>
+                        <span style="font-weight: 600; color: var(--text-color);">分享推荐</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: var(--text-color-secondary);">
+                        将我的博客分享给更多朋友
+                    </p>
+                </div>
+
+                <div class="support-card">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="ri-chat-line" style="font-size: 1.2rem; color: #9a79fa;"></i>
+                        <span style="font-weight: 600; color: var(--text-color);">留言互动</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: var(--text-color-secondary);">
+                        在文章下方留下您的想法
+                    </p>
+                </div>
+
+                <div class="support-card">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="ri-star-line" style="font-size: 1.2rem; color: #9a79fa;"></i>
+                        <span style="font-weight: 600; color: var(--text-color);">关注订阅</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: var(--text-color-secondary);">
+                        订阅RSS或关注社交媒体
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="sponsors-section card-base" style="padding: 1.5rem;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; color: var(--text-color); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="ri-group-line" style="font-size: 1.5rem; color: #9a79fa;"></i>
+                <span>已赞助的小伙伴</span>
+            </h2>
+            <p style="font-size: 0.875rem; color: var(--text-color-secondary); margin-bottom: 1rem;">
+                如果您已赞助，并且想加入赞助名单，<a target="_blank" href="https://github.com/zsxcoder/SaroProck/tree/main/src/data/sponsors" style="transition: all 0.2s; color: #9a79fa; font-weight: 500; text-decoration: underline;">请点击这里提交</a>
+            </p>
+            <div class="sponsors-grid">
+                {sponsors.length > 0 ? (
+                    sponsors.map((sponsor) => (
+                        <div class="sponsor-card">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border-radius: 0.5rem; background: var(--bg-card); border: 1px solid var(--border-color); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+                                <div style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                {sponsor.avatar ? (
+                                    <div style="position: relative; width: 100%; height: 100%; border-radius: 0.5rem; overflow: hidden;">
+                                        <img src={sponsor.avatar} alt={`${sponsor.name}的头像`} loading="lazy" style="width: 100%; height: 100%; object-cover; transition: duration 0.5s;" />
+                                    </div>
+                                ) : (
+                                    <i class="ri-user-line" style="color: #9ca3af; font-size: 1.2rem;"></i>
+                                )}
+                            </div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-weight: 600; color: var(--text-color); font-size: 0.875rem;">{sponsor.name}</h4>
+                                    <p style="font-size: 0.75rem; color: var(--text-color-secondary);">{sponsor.date}</p>
+                                </div>
+                                <div style="font-size: 0.75rem; color: #9a79fa; font-weight: 500;">{sponsor.amount}</div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div style="text-align: center; padding: 2rem 0; color: var(--text-color-secondary);">
+                        暂无赞助者，快来成为第一个赞助的小伙伴吧！
+                    </div>
+                )}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* 赞助页面样式 */
+        .card-base {
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .donate-card {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .donate-card:hover {
+            border-color: rgba(154, 121, 250, 0.5);
+            box-shadow: 0 4px 16px rgba(154, 121, 250, 0.15);
+        }
+
+        .support-card {
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .support-card:hover {
+            border-color: rgba(154, 121, 250, 0.5);
+            box-shadow: 0 4px 16px rgba(154, 121, 250, 0.15);
+            background: rgba(154, 121, 250, 0.05);
+        }
+
+        .qr-code-placeholder {
+            text-align: center;
+        }
+
+        .sponsors-section {
+            margin-top: 1.5rem;
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .sponsors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .sponsors-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .sponsor-card {
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+
+    <script>
+        // 使用CDN方式引入medium-zoom
+        window.addEventListener('DOMContentLoaded', function() {
+            // 直接在HTML中插入script标签，确保mediumZoom被正确加载
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdmirror.com/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js';
+            script.type = 'text/javascript';
+            script.onload = function() {
+                // 使用window.mediumZoom确保访问到全局变量
+                if (window.mediumZoom) {
+                    window.mediumZoom('.zoomable', {
+                        background: 'rgba(0, 0, 0, 0.8)',
+                        margin: 20,
+                        scrollOffset: 40
+                    });
+                }
+            };
+            document.head.appendChild(script);
+        });
+    </script>
+</Layout>

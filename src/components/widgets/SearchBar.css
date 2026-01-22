@@ -1,23 +1,29 @@
 .search-bar-collapsed {
-  width: 200px;
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  width: auto;
+  padding-right: 0;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .search-bar-expanded {
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 200px;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .search-input {
   opacity: 0;
+  width: 0;
+  padding: 0;
   transition:
-    width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    all 0.3s cubic-bezier(0.25, 1, 0.5, 1),
     opacity 0.15s ease;
 }
 
 .search-bar-expanded .search-input {
   opacity: 1;
+  width: 100%;
+  padding: 0 8px;
   transition:
-    width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    all 0.3s cubic-bezier(0.25, 1, 0.5, 1),
     opacity 0.3s ease 0.05s;
 }
 

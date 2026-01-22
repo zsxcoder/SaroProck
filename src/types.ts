@@ -52,6 +52,14 @@ export interface ChannelInfo {
   posts: TelegramPost[];
 }
 
+// 赞助者信息
+export interface Sponsor {
+  name: string;
+  avatar: string | null;
+  date: string;
+  amount: string;
+}
+
 // Astro 全局 locals 类型（用于 SSR）
 // 这可以让你在所有组件中安全地访问环境变量
 declare module "astro" {

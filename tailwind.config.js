@@ -1,4 +1,6 @@
 // tailwind.config.js
+import daisyui from "daisyui";
+
 export default {
   safelist: [
     "alert",
@@ -10,5 +12,8 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [daisyui],
+  daisyui: {
+    themes: ["light", "dark"],
+  },
 };

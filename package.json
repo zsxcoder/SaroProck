@@ -49,6 +49,7 @@
     "lru-cache": "^11.2.4",
     "marked": "^16.4.2",
     "md5": "^2.3.0",
+    "medium-zoom": "^1.1.0",
     "music-metadata": "^11.10.5",
     "ofetch": "^1.5.1",
     "react": "^19.2.3",
