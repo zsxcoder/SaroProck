@@ -51,7 +51,7 @@ const blogPosts: Post[] = posts
       words,
       readingMinutes: totalMinutes,
       url: `/blog/${post.slug}`,
-      pubDate: post.data.pubDate.toISOString(),
+      pubDate: new Date(post.data.pubDate).toISOString(),
       coverImage: post.data.image ?? null,
     };
   })

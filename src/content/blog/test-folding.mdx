@@ -1,0 +1,166 @@
+---
+title: 测试 Folding.astro 组件
+description: 这是一篇用来测试 Folding.astro 组件效果的文章
+pubDate: 2026-01-22 18:00:00
+updated: 2026-01-22 18:00:00
+image: https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/cover/test.webp
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import Folding from '../../components/mdx/Folding.astro';
+
+# 测试 Folding.astro 组件
+
+这篇文章用来测试我新创建的 Folding.astro 组件，该组件实现了可折叠内容的功能。
+
+## 基本使用
+
+<Folding title="基本折叠面板">
+这是一个基本的折叠面板，点击标题可以展开或折叠内容。
+</Folding>
+
+## 默认打开
+
+<Folding title="默认打开的折叠面板" defaultOpen={true}>
+这是一个默认打开的折叠面板，你可以直接看到里面的内容。
+</Folding>
+
+## 不同类型
+
+### 成功类型
+
+<Folding title="成功类型的折叠面板" type="success">
+这是一个成功类型的折叠面板，左侧有一个绿色的边框。
+</Folding>
+
+### 警告类型
+
+<Folding title="警告类型的折叠面板" type="warning">
+这是一个警告类型的折叠面板，左侧有一个黄色的边框。
+</Folding>
+
+### 错误类型
+
+<Folding title="错误类型的折叠面板" type="error">
+这是一个错误类型的折叠面板，左侧有一个红色的边框。
+</Folding>
+
+### 信息类型
+
+<Folding title="信息类型的折叠面板" type="info">
+这是一个信息类型的折叠面板，左侧有一个蓝色的边框。
+</Folding>
+
+## 包含 Markdown 内容
+
+<Folding title="包含 Markdown 内容的折叠面板">
+### 这是一个标题
+
+这是一段**粗体**文本，这是一段*斜体*文本。
+
+#### 列表
+- 项目 1
+- 项目 2
+- 项目 3
+
+##### 有序列表
+1. 第一项
+2. 第二项
+3. 第三项
+
+###### 引用
+> 这是一段引用内容
+
+#### 链接
+[Astro 官方网站](https://astro.build)
+</Folding>
+
+## 包含代码块
+
+<Folding title="包含代码块的折叠面板">
+```javascript
+// 这是一段 JavaScript 代码
+function hello() {
+  console.log('Hello, World!');
+}
+
+hello();
+```
+
+```python
+# 这是一段 Python 代码
+def hello():
+    print("Hello, World!")
+
+hello()
+```
+
+```html
+<!-- 这是一段 HTML 代码 -->
+<div class="container">
+  <h1>Hello, World!</h1>
+</div>
+```
+</Folding>
+
+## 嵌套使用
+
+<Folding title="外层折叠面板">
+这是外层折叠面板的内容。
+
+<Folding title="内层折叠面板">
+这是内层折叠面板的内容，Folding 组件支持嵌套使用。
+
+<Folding title="最内层折叠面板">
+这是最内层折叠面板的内容。
+</Folding>
+</Folding>
+</Folding>
+
+## 长内容测试
+
+<Folding title="长内容折叠面板">
+这是一段很长的内容，用来测试折叠面板在处理长内容时的表现。
+
+当内容很长时，折叠面板会自动调整高度，确保内容可以完整显示，同时保持良好的性能。
+
+### 标题 1
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### 标题 2
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+
+### 标题 3
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+</Folding>
+
+## 结论
+
+Folding.astro 组件已经成功实现了可折叠内容的功能，支持多种配置选项和内容类型。
+
+### 组件特性
+
+- **基本折叠功能**：点击标题可以展开或折叠内容
+- **默认状态**：支持设置默认打开或关闭状态
+- **多种类型**：支持 success、warning、error、info 四种类型，每种类型有不同的边框颜色
+- **Markdown 支持**：支持在折叠内容中使用 Markdown 语法
+- **代码块支持**：支持在折叠内容中使用代码块，并带有语法高亮
+- **嵌套使用**：支持嵌套使用，可以创建多层折叠结构
+- **长内容处理**：能够良好地处理长内容，保持良好的性能
+- **明暗模式适配**：适配博客的明暗主题
+- **响应式设计**：适配不同屏幕尺寸
+
+### 组件优势
+
+1. **提高内容组织性**：可以将相关内容组织在一起，减少页面复杂度
+2. **提升阅读体验**：用户可以根据需要展开或折叠内容，只查看感兴趣的部分
+3. **节省页面空间**：长内容可以折叠起来，减少页面滚动
+4. **增强交互性**：通过点击操作增强用户与页面的交互
+5. **易于使用**：API 简单直观，使用方便
+
+通过使用 Folding.astro 组件，你可以在博客文章中更好地组织和展示内容，提升文章的可读性和交互性，为读者带来更好的阅读体验。

@@ -1,0 +1,73 @@
+---
+title: 测试 Badge.astro 组件
+description: 这是一篇用来测试 Badge.astro 组件效果的文章
+pubDate: 2026-01-22 14:00:00
+updated: 2026-01-22 14:00:00
+image: https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/cover/test.webp
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import Badge from '../../components/mdx/Badge.astro';
+
+# 测试 Badge.astro 组件
+
+这篇文章用来测试我新创建的 Badge.astro 组件，该组件复刻了 Vue 博客中的 Badge 组件功能。
+
+## 测试基本用法
+
+<Badge text="基本徽章" />
+
+<Badge text="圆形徽章" round={true} />
+
+## 测试链接功能
+
+<Badge text="内部链接" link="/blog/go-safe" />
+
+<Badge text="外部链接" link="https://github.com" />
+
+## 测试带图标的徽章
+
+### GitHub 用户徽章
+<Badge link="https://github.com/L33Z22L11" />
+
+<Badge link="https://github.com/vercel" text="Vercel" />
+
+### 网站徽章
+<Badge link="https://astro.build" text="Astro" />
+
+<Badge link="https://vuejs.org" text="Vue.js" />
+
+<Badge link="https://react.dev" text="React" />
+
+### 自定义图片
+<Badge img="https://github.com/mcyzsx.png" text="自定义图片" />
+
+## 测试圆形和方形样式
+
+### 有图默认圆形
+<Badge link="https://github.com" text="GitHub" />
+
+### 有图强制方形
+<Badge link="https://github.com" text="GitHub 方形" square={true} />
+
+### 无图默认方形
+<Badge text="无图方形" />
+
+### 无图强制圆形
+<Badge text="无图圆形" round={true} />
+
+## 测试效果说明
+
+- 基本徽章：显示文本，无链接
+- 链接徽章：显示文本和链接，悬停显示域名
+- GitHub 用户徽章：自动获取 GitHub 头像
+- 网站徽章：自动获取网站 favicon
+- 自定义图片：显示自定义图片
+- 圆形样式：根据图片自动调整，也可手动指定
+- 响应式设计：适配不同屏幕尺寸
+
+## 结论
+
+Badge.astro 组件已经成功实现了预期功能，完全适配了博客的布局和样式。组件支持多种使用方式，可以根据需要灵活配置，提升了博客内容的表现力和视觉效果。

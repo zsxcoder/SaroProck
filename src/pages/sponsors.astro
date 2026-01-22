@@ -1,12 +1,12 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import type { Sponsor } from '@/types';
+import Layout from "@layouts/Layout.astro";
+import type { Sponsor } from "@/types";
 
 const sponsors = Object.values(
-	import.meta.glob<Sponsor>('@/data/sponsors/*.json', {
-		eager: true,
-		import: 'default',
-	}),
+  import.meta.glob<Sponsor>("@/data/sponsors/*.json", {
+    eager: true,
+    import: "default",
+  }),
 );
 ---
 

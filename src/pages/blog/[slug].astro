@@ -4,6 +4,12 @@ import PostFooter from "@components/blog/PostFooter.astro";
 import ShareButtons from "@components/blog/ShareButtons.astro";
 import Comments from "@components/comments/Comments.astro";
 import Figure from "@components/markdown/Figure.astro";
+import ProseA from "@components/mdx/ProseA.astro";
+import Badge from "@components/mdx/Badge.astro";
+import BlogHeader from "@components/mdx/BlogHeader.astro";
+import Blur from "@components/mdx/Blur.astro";
+import Chat from "@components/mdx/Chat.astro";
+import Folding from "@components/mdx/Folding.astro";
 import Layout from "@layouts/Layout.astro";
 import BlogLikeButton from "@/components/blog/LikeButton";
 import ViewTracker from "@/components/blog/ViewTracker";
@@ -57,6 +63,12 @@ const ogImageUrl = `/og/${post.slug}.png`;
 
 const customComponents = {
   img: Figure,
+  ProseA: ProseA,
+  Badge: Badge,
+  BlogHeader: BlogHeader,
+  Blur: Blur,
+  Chat: Chat,
+  Folding: Folding,
 };
 ---
 

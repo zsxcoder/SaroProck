@@ -1,0 +1,55 @@
+---
+title: 测试 ProseA.astro 组件
+description: 这是一篇用来测试 ProseA.astro 组件效果的文章
+pubDate: 2026-01-22 12:00:00
+updated: 2026-01-22 12:00:00
+image: https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/cover/test.webp
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+# 测试 ProseA.astro 组件
+
+这篇文章用来测试我新创建的 ProseA.astro 组件，该组件复刻了 Vue 博客中的 ProseA 组件功能。
+
+## 测试内部链接
+
+<ProseA href="/blog/go-safe">内部链接测试：给博客加一个外链安全中转页</ProseA>
+
+## 测试外部链接
+
+### GitHub 链接
+<ProseA href="https://github.com/L33Z22L11/blog-v3">GitHub 项目链接</ProseA>
+
+### Astro 官网
+<ProseA href="https://astro.build/">Astro 官网</ProseA>
+
+### Vue 官网
+<ProseA href="https://vuejs.org/">Vue 官网</ProseA>
+
+### React 官网
+<ProseA href="https://react.dev/">React 官网</ProseA>
+
+### Bilibili 视频
+<ProseA href="https://www.bilibili.com/video/BV1keTtzEEtr/">Bilibili 视频链接</ProseA>
+
+## 测试自定义图标
+
+<ProseA href="https://example.com" icon="lucide:external-link">自定义图标链接</ProseA>
+
+## 测试长链接
+
+<ProseA href="https://example.com/very/long/path/with/many/parameters?param1=value1&param2=value2&param3=value3">长链接测试</ProseA>
+
+## 测试效果说明
+
+- 内部链接：显示完整链接路径，鼠标悬停时显示完整 URL
+- 外部链接：显示域名，鼠标悬停时显示域名，自动添加 `target="_blank"` 和 `rel="noopener noreferrer"`
+- 特定域名：自动匹配对应图标
+- 自定义图标：支持手动指定图标
+- 悬停效果：带有渐变下划线和背景色变化
+
+## 结论
+
+ProseA.astro 组件已经成功实现了预期功能，完全适配了博客的布局和样式。

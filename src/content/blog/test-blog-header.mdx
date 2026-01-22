@@ -1,0 +1,55 @@
+---
+title: 测试 BlogHeader.astro 组件
+description: 这是一篇用来测试 BlogHeader.astro 组件效果的文章
+pubDate: 2026-01-22 15:00:00
+updated: 2026-01-22 15:00:00
+image: https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/cover/test.webp
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import BlogHeader from '../../components/mdx/BlogHeader.astro';
+
+# 测试 BlogHeader.astro 组件
+
+这篇文章用来测试我新创建的 BlogHeader.astro 组件，该组件复刻了 Vue 博客中的 BlogHeader 组件功能。
+
+## 测试默认用法
+
+<BlogHeader />
+
+## 测试自定义属性
+
+<BlogHeader 
+  title="自定义标题" 
+  subtitle="这是一个自定义副标题"
+  emojiTail={['🎉', '🎨', '🚀', '💡']}
+/>
+
+## 测试隐藏标题
+
+<BlogHeader showTitle={false} />
+
+## 测试自定义图标
+
+<BlogHeader 
+  logo="https://github.com/mcyzsx.png" 
+  title="GitHub 头像"
+  subtitle="使用 GitHub 头像作为 logo"
+/>
+
+## 测试效果说明
+
+- **默认样式**：显示博客 logo、标题和副标题，带有动画效果
+- **自定义属性**：支持自定义标题、副标题和 emoji 尾缀
+- **隐藏标题**：可以选择隐藏标题，只显示 logo
+- **自定义图标**：支持使用自定义图片作为 logo
+- **动画效果**：鼠标悬停时触发文字和 emoji 的动画效果
+- **响应式设计**：适配不同屏幕尺寸
+
+## 结论
+
+BlogHeader.astro 组件已经成功实现了预期功能，完全适配了博客的布局和样式。组件支持多种配置选项，可以根据需要灵活调整。
+
+你可以通过修改组件的属性来定制不同的博客头部效果，例如更换 logo、修改标题和副标题、调整 emoji 尾缀等。

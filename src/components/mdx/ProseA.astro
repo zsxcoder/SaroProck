@@ -1,0 +1,61 @@
+---
+export interface ProseAProps {
+  href: string;
+  icon?: string;
+}
+
+const { href, icon } = Astro.props as ProseAProps;
+
+import { Icon } from "astro-icon/components";
+import {
+  getDomainIcon,
+  isExtLink,
+  getDomain,
+  safelyDecodeUriComponent,
+} from "../../utils/icon";
+
+// 计算属性
+const computedIcon = icon || getDomainIcon(href);
+const isExternal = isExtLink(href);
+const tipContent = isExternal
+  ? getDomain(href)
+  : safelyDecodeUriComponent(href);
+---
+
+<a
+  href={href}
+  class="z-link"
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  title={tipContent}
+>
+  {computedIcon && (
+    <Icon name={computedIcon} class="domain-icon" />
+  )}
+  <slot />
+</a>
+
+<style>
+  .z-link {
+    margin: -0.1em -0.2em;
+    padding: 0.1em 0.2em;
+    background: linear-gradient(var(--color-primary-soft, #e0f2fe), var(--color-primary-soft, #e0f2fe)) no-repeat center bottom / 100% 0.1em;
+    color: var(--color-primary, #0369a1);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .z-link:hover {
+    border-radius: 0.3em;
+    background-size: 100% 100%;
+  }
+
+  .domain-icon {
+    margin-inline-end: 0.1em;
+    width: 0.875em;
+    height: 0.875em;
+    vertical-align: middle;
+  }
+</style>

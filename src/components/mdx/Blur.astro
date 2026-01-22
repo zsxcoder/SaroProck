@@ -1,0 +1,25 @@
+---
+export interface BlurProps {
+  text?: string;
+}
+
+const {
+  text,
+} = Astro.props as BlurProps;
+---
+
+<span class="blur">
+  <slot>{text}</slot>
+</span>
+
+<style>
+  .blur {
+    transition: filter 0.2s ease;
+    filter: blur(4px);
+    cursor: pointer;
+  }
+
+  .blur:hover {
+    filter: blur(0);
+  }
+</style>

@@ -1,0 +1,226 @@
+---
+title: 测试 Chat.astro 组件
+description: 这是一篇用来测试 Chat.astro 组件效果的文章
+pubDate: 2026-01-22 17:00:00
+updated: 2026-01-22 17:00:00
+image: https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/cover/test.webp
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import Chat from '../../components/mdx/Chat.astro';
+
+# 测试 Chat.astro 组件
+
+这篇文章用来测试我新创建的 Chat.astro 组件，该组件实现了 QQ 聊天的样式效果，左边是对方，右边是我。
+
+## 测试 QQ 聊天样式
+
+<Chat
+  messages={[
+    {
+      id: '1',
+      side: 'left',
+      content: '你好啊，在吗？',
+      author: '小明',
+      date: '2026-01-22 14:30',
+    },
+    {
+      id: '2',
+      side: 'right',
+      content: '在呢，有什么事吗？',
+      author: '我',
+      date: '2026-01-22 14:31',
+    },
+    {
+      id: '3',
+      side: 'left',
+      content: '今天天气不错，想不想一起去打球？',
+      author: '小明',
+      date: '2026-01-22 14:32',
+    },
+    {
+      id: '4',
+      side: 'right',
+      content: '好啊，什么时候？',
+      author: '我',
+      date: '2026-01-22 14:33',
+    },
+    {
+      id: '5',
+      side: 'left',
+      content: '下午 3 点怎么样？\n在学校操场见',
+      author: '小明',
+      date: '2026-01-22 14:34',
+    },
+    {
+      id: '6',
+      side: 'right',
+      content: '没问题，我准时到！',
+      author: '我',
+      date: '2026-01-22 14:35',
+    },
+  ]}
+/>
+
+## 测试连续消息
+
+<Chat
+  messages={[
+    {
+      id: '1',
+      side: 'left',
+      content: '你在忙吗？\n我有个问题想请教你\n关于 Astro 的',
+      author: '小红',
+      date: '2026-01-22 15:00',
+    },
+    {
+      id: '2',
+      side: 'right',
+      content: '不忙，你说',
+      author: '我',
+      date: '2026-01-22 15:01',
+    },
+    {
+      id: '3',
+      side: 'left',
+      content: '我想知道怎么在 Astro 中使用组件\n特别是 MDX 组件\n你能给我讲讲吗？',
+      author: '小红',
+      date: '2026-01-22 15:02',
+    },
+    {
+      id: '4',
+      side: 'right',
+      content: '当然可以！\n首先，你需要在 src/components/mdx 目录下创建组件\n然后在 MDX 文件中导入使用\n或者在页面中注册，这样所有 MDX 文件都可以使用',
+      author: '我',
+      date: '2026-01-22 15:03',
+    },
+  ]}
+/>
+
+## 测试长消息
+
+<Chat
+  messages={[
+    {
+      id: '1',
+      side: 'left',
+      content: '今天我学习了很多关于 Astro 的知识，感觉 Astro 真的很强大！它可以让我们使用多种框架来构建网站，而且性能非常好。我特别喜欢它的静态生成功能，可以生成非常快的网站。你觉得 Astro 怎么样？',
+      author: '小李',
+      date: '2026-01-22 16:00',
+    },
+    {
+      id: '2',
+      side: 'right',
+      content: '我也觉得 Astro 很强大！它的混合渲染模式非常灵活，可以根据需要选择静态生成或服务端渲染。而且它的组件系统很强大，可以使用 React、Vue 等多种框架的组件。我已经用 Astro 构建了好几个网站，体验非常好！',
+      author: '我',
+      date: '2026-01-22 16:01',
+    },
+  ]}
+/>
+
+## 测试 Markdown 支持
+
+<Chat
+  messages={[
+    {
+      id: '1',
+      side: 'left',
+      content: '这是一条包含 **Markdown** 的消息\n\n- 列表项 1\n- 列表项 2\n- 列表项 3\n\n> 这是一段引用\n\n`行内代码`\n\n```javascript\n// 这是一段代码块\nconsole.log(\"Hello, World!\");\n```',
+      author: '小王',
+      date: '2026-01-22 17:00',
+    },
+    {
+      id: '2',
+      side: 'right',
+      content: '这是一条 **回复**，也支持 Markdown\n\n## 标题\n\n[链接](https://astro.build)\n\n![图片](https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/zsx/logo2.webp)',
+      author: '我',
+      date: '2026-01-22 17:01',
+    },
+  ]}
+/>
+
+## 测试特殊消息类型
+
+<Chat
+  messages={[
+    {
+      id: '1',
+      side: 'left',
+      content: '这条消息不会被撤回',
+      author: '小张',
+      date: '2026-01-22 18:00',
+    },
+    {
+      id: '2',
+      side: 'left',
+      content: '对方撤回了一条消息',
+      author: '小张',
+      type: 'recall',
+      date: '2026-01-22 18:01',
+    },
+    {
+      id: '3',
+      side: 'right',
+      content: '这条消息被删除了',
+      author: '我',
+      type: 'delete',
+      date: '2026-01-22 18:02',
+    },
+    {
+      id: '4',
+      side: 'left',
+      content: '我们继续聊天吧',
+      author: '小张',
+      date: '2026-01-22 18:03',
+    },
+  ]}
+/>
+
+## 测试带头像的消息
+
+<Chat
+  messages={[
+    {
+      id: '1',
+      side: 'left',
+      content: '你好，我是带有头像的用户！',
+      author: '头像用户',
+      avatar: 'https://github.com/mcyzsx.png',
+      date: '2026-01-22 19:00',
+    },
+    {
+      id: '2',
+      side: 'right',
+      content: '你好啊，我也带有头像！',
+      author: '我',
+      avatar: 'https://github.com/zsxcoder.png',
+      date: '2026-01-22 19:01',
+    },
+  ]}
+/>
+
+## 测试效果说明
+
+- **基本聊天功能**：支持左边对方消息和右边自己消息的显示，符合 QQ 聊天习惯
+- **消息气泡样式**：带有圆角和小三角指示，区分发送方向
+- **连续消息**：同一发送者的连续消息会正确显示，间距合理
+- **长消息**：自动换行，不会溢出，保持良好的阅读体验
+- **Markdown 支持**：支持 Markdown 语法，包括标题、列表、引用、代码块等
+- **代码高亮**：使用 highlight.js 实现代码高亮，支持多种语言
+- **特殊消息类型**：支持撤回消息和删除消息的显示
+- **头像支持**：支持自定义头像，也可以使用默认头像
+- **日期显示**：支持显示消息日期和时间
+- **明暗模式适配**：适配博客的明暗主题
+- **响应式设计**：适配不同屏幕尺寸，在手机和电脑上都有良好的显示效果
+
+## 结论
+
+Chat.astro 组件已经成功实现了 QQ 聊天的样式效果，左边是对方，右边是我，带有消息气泡和小三角指示，符合 QQ 聊天的视觉习惯。组件支持多种聊天场景，包括私聊、连续消息、长消息、Markdown 消息等，能够满足各种聊天需求。
+
+组件采用了基于 messages 数组的 API，使用更加灵活和强大，可以轻松实现复杂的聊天场景。同时，组件支持 Markdown 语法和代码高亮，为博客文章增添了更多的互动性和趣味性。
+
+组件的样式与博客的整体风格保持一致，支持明暗主题适配，能够很好地融入博客的设计体系。它的响应式设计确保了在不同设备上都有良好的显示效果。
+
+通过使用 Chat.astro 组件，你可以在博客文章中轻松创建各种聊天场景，增强文章的可读性和互动性，为读者带来更好的阅读体验。

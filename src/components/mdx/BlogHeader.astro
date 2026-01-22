@@ -1,0 +1,161 @@
+---
+export interface BlogHeaderProps {
+  tag?: string;
+  logo?: string;
+  title?: string;
+  subtitle?: string;
+  emojiTail?: string[];
+  showTitle?: boolean;
+}
+
+const {
+  tag = 'div',
+  logo = 'https://cdn.jsdelivr.net/gh/mcyzsx/picx-images-hosting@master/zsx/logo2.webp',
+  title = 'ZSXの小站',
+  subtitle = '专注于前端开发和技术分享',
+  emojiTail = ['🚀', '💻', '📝', '🌟'],
+  showTitle = true,
+} = Astro.props as BlogHeaderProps;
+
+// 获取固定延迟样式
+function getFixedDelay(delay: number) {
+  return { '--delay': `${delay}s` };
+}
+---
+
+<a href="/" class="blog-header">
+  <div class="emoji-tail">
+    {emojiTail.map((emoji, emojiIndex) => (
+      <span
+        key={emojiIndex}
+        class="split-char"
+        style={getFixedDelay(emojiIndex * 0.6 - 3)}
+      >
+        {emoji}
+      </span>
+    ))}
+  </div>
+
+  <img
+    src={logo}
+    class={`blog-logo round-cobblestone ${showTitle ? 'circle' : ''}`}
+    alt={title}
+  />
+
+  {showTitle && (
+    <div class="blog-text">
+      <div class="header-title">
+        {Array.from(title).map((char, charIndex) => (
+          <span
+            key={charIndex}
+            class="split-char"
+            style={getFixedDelay((charIndex + 1) * 0.1)}
+          >
+            {char}
+          </span>
+        ))}
+      </div>
+
+      <div class="header-subtitle">
+        {subtitle}
+      </div>
+    </div>
+  )}
+</a>
+
+<style>
+  .blog-header {
+    contain: layout;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    position: relative;
+    margin: clamp(1rem, 2rem, 5vh) 1rem min(1rem, 5vh);
+    line-height: 1.4;
+    color: var(--color-text, #111827);
+    user-select: none;
+    text-decoration: none;
+  }
+
+  .blog-logo {
+    height: 3em;
+  }
+
+  .blog-logo.circle {
+    width: 3em;
+    border-radius: 50%;
+    box-shadow: var(--box-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.1)), var(--box-shadow-3, 0 10px 25px rgba(0, 0, 0, 0.1));
+  }
+
+  .header-title {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1.5em;
+    font-synthesis: none;
+    font-weight: 600;
+  }
+
+  .header-title > .split-char {
+    animation: 3.14s infinite alternate vf-weight, 2.72s infinite alternate vf-bevel;
+    animation-delay: var(--delay);
+    animation-play-state: paused;
+  }
+
+  .header-subtitle {
+    opacity: 0.5;
+    font-size: 0.8em;
+  }
+
+  @keyframes vf-weight {
+    0% { font-weight: 600; }
+    38.2% { font-weight: 300; }
+    100% { font-weight: 900; }
+  }
+
+  @keyframes vf-bevel {
+    from { font-variation-settings: "BEVL" 100; }
+    to { font-variation-settings: "BEVL" 1; }
+  }
+
+  .emoji-tail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    align-content: center;
+    justify-items: center;
+    position: absolute;
+    opacity: 0.2;
+    inset: 0;
+    font-size: 4rem;
+    transition: opacity 1s;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  .emoji-tail > .split-char {
+    animation: 5s infinite alternate emoji-floating;
+    animation-delay: var(--delay);
+    animation-play-state: paused;
+  }
+
+  .blog-header:hover {
+    .emoji-tail {
+      opacity: 0.5;
+    }
+
+    .split-char {
+      animation-play-state: running;
+    }
+  }
+
+  @keyframes emoji-floating {
+    50% {
+      transform: translate(-12px, -4px) scale(1.2);
+      filter: blur(4px);
+    }
+
+    100% {
+      transform: translate(-4px, -12px) scale(0.9);
+      filter: blur(1px);
+    }
+  }
+</style>
