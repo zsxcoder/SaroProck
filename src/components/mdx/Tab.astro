@@ -1,0 +1,165 @@
+---
+interface TabProps {
+  /** tab 下标从 1 开始 */
+  tabs: string[];
+  center?: boolean;
+  active?: string | number;
+}
+
+const {
+  tabs,
+  center = false,
+  active = 1
+} = Astro.props;
+const initialActiveTab = Number(active) || 1;
+---
+
+<div class={center ? "center" : ""}>
+  <div class="tabs">
+    {tabs.map((tab, tabIndex) => (
+      <button
+        key={tabIndex}
+        class={initialActiveTab === tabIndex + 1 ? "active" : ""}
+        data-tab-index={tabIndex + 1}
+      >
+        {tab}
+      </button>
+    ))}
+  </div>
+  <div class="tab-contents">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabContainers = document.querySelectorAll('.tabs');
+    
+    tabContainers.forEach((container) => {
+      const btn = container as HTMLElement;
+      const buttons = btn.querySelectorAll('button[data-tab-index]');
+      const nextSibling = btn.nextElementSibling;
+      if (!nextSibling) return;
+      const contents = nextSibling.querySelectorAll('.tab-content');
+      
+      // Get initial active tab from data attribute
+      const activeButton = btn.querySelector('button.active') as HTMLElement;
+      const initialActiveTab = parseInt(activeButton?.dataset.tabIndex || '1');
+      
+      // Initially hide all contents except the active one
+      contents.forEach((content, index) => {
+        const cont = content as HTMLElement;
+        cont.style.display = index + 1 === initialActiveTab ? 'block' : 'none';
+      });
+      
+      buttons.forEach((button) => {
+        const btnEl = button as HTMLElement;
+        btnEl.addEventListener('click', () => {
+          const tabIndex = parseInt((btnEl.dataset as any).tabIndex || '1');
+          
+          // Update button states
+          buttons.forEach(btn => {
+            const b = btn as HTMLElement;
+            b.classList.remove('active');
+          });
+          btnEl.classList.add('active');
+          
+          // Update content visibility
+          contents.forEach((content, index) => {
+            const cont = content as HTMLElement;
+            cont.style.display = index + 1 === tabIndex ? 'block' : 'none';
+          });
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  .center {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+  
+  button {
+    position: relative;
+    margin-bottom: 0.5em;
+    padding: 0.3em 0.5em;
+    border-radius: 0.4em;
+    color: var(--color-muted, #6b7280);
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: var(--color-bg-2, #f9fafb);
+    color: var(--color-text, #111827);
+  }
+  
+  button::before, button::after {
+    display: block;
+    position: absolute;
+    bottom: -0.5em;
+    inset-inline: 0.8em;
+    height: 2px;
+    border-radius: 1em;
+    pointer-events: none;
+  }
+  
+  button::after {
+    content: "";
+    inset-inline: -0.8em;
+    background-color: var(--color-border, #e5e7eb);
+  }
+  
+  button.active {
+    box-shadow: var(--box-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.1));
+    background-color: var(--color-bg, #ffffff);
+    color: var(--color-text, #111827);
+  }
+  
+  button.active::before {
+    content: "";
+    background-color: var(--color-primary, #3b82f6);
+    z-index: 1;
+  }
+  
+  .tab-content {
+    margin: 1em 0;
+  }
+
+  /* 深色模式适配 */
+  html.dark button {
+    color: var(--color-muted, #9ca3af);
+  }
+  
+  html.dark button:hover {
+    background-color: var(--color-bg-2, #1f2937);
+    color: var(--color-text, #f9fafb);
+  }
+  
+  html.dark button::after {
+    background-color: var(--color-border, #374151);
+  }
+  
+  html.dark button.active {
+    box-shadow: var(--box-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.3));
+    background-color: var(--color-bg, #111827);
+    color: var(--color-text, #f9fafb);
+  }
+</style>

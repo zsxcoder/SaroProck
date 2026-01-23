@@ -1,0 +1,150 @@
+---
+title: 测试 Pic.astro 组件
+description: 这是一篇用来测试 Pic.astro 组件效果的文章
+pubDate: 2026-01-23 20:00:00
+updated: 2026-01-23 20:00:00
+image: https://60s.kemeow.top/v2/bing?encoding=image
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import Pic from '../../components/mdx/Pic.astro';
+
+# 测试 Pic.astro 组件
+
+这篇文章用来测试我新创建的 Pic.astro 组件，该组件实现了带有标题和描述的图片展示功能。
+
+## 基本使用
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+/>
+
+## 带有标题
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张测试图片的标题"
+/>
+
+## 带有自定义宽度
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张宽度为 50% 的图片"
+  width="50%"
+/>
+
+## 带有 CSS 类名
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张全宽图片"
+  className="w-full"
+/>
+
+## 半宽图片
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张半宽图片"
+  className="w-half"
+/>
+
+## 三分之一宽度图片
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张三分之一宽度图片"
+  className="w-third"
+/>
+
+## 四分之一宽度图片
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张四分之一宽度图片"
+  className="w-quarter"
+/>
+
+## 多种宽度组合
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="图片 1"
+  className="w-third"
+/>
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="图片 2"
+  className="w-third"
+/>
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="图片 3"
+  className="w-third"
+/>
+
+## 响应式设计
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这张图片在移动端会自动变为全宽"
+  className="w-half"
+/>
+
+## 深色模式适配
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这张图片在深色模式下会有不同的边框和背景色"
+/>
+
+## 图片说明文字
+
+<Pic
+  src="https://60s.kemeow.top/v2/bing?encoding=image"
+  alt="测试图片"
+  caption="这是一张带有详细说明文字的图片。说明文字可以包含多行内容，用于详细描述图片的内容、来源或者相关信息。"
+/>
+
+## 结论
+
+Pic.astro 组件已经成功实现了带有标题和描述的图片展示功能。
+
+### 组件特性
+
+- **基本功能**：显示图片和替代文本
+- **标题支持**：可以添加图片标题
+- **自定义宽度**：支持通过 width 属性或 CSS 类名设置图片宽度
+- **多种宽度类**：内置 w-full、w-half、w-third、w-quarter 等类名
+- **响应式设计**：在移动设备上自动调整为全宽
+- **深色模式适配**：适配博客的明暗主题
+- **悬停效果**：鼠标悬停时显示动画效果
+- **无障碍支持**：添加了适当的 alt 属性，提高可访问性
+
+### 组件优势
+
+1. **提升视觉效果**：带有标题的图片比普通图片更专业
+2. **提供更多信息**：可以同时显示图片和详细描述
+3. **统一设计风格**：组件样式与博客的整体风格保持一致
+4. **易于使用**：API 简单直观，使用方便
+5. **响应式设计**：在不同设备上都能正常显示
+6. **灵活的布局**：支持多种宽度设置，适应不同的布局需求
+
+通过使用 Pic.astro 组件，你可以在博客文章中更好地展示图片，提升文章的视觉效果和用户体验。

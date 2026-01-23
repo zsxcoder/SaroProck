@@ -10,6 +10,8 @@ import BlogHeader from "@components/mdx/BlogHeader.astro";
 import Blur from "@components/mdx/Blur.astro";
 import Chat from "@components/mdx/Chat.astro";
 import Folding from "@components/mdx/Folding.astro";
+import LinkBanner from "@components/mdx/LinkBanner.astro";
+import Quote from "@components/mdx/Quote.astro";
 import Layout from "@layouts/Layout.astro";
 import BlogLikeButton from "@/components/blog/LikeButton";
 import ViewTracker from "@/components/blog/ViewTracker";
@@ -69,6 +71,8 @@ const customComponents = {
   Blur: Blur,
   Chat: Chat,
   Folding: Folding,
+  LinkBanner: LinkBanner,
+  Quote: Quote,
 };
 ---
 
@@ -120,7 +124,7 @@ const customComponents = {
             </div>
             <div class="flex flex-col">
               <span class="font-semibold text-base-content">{author}</span>
-              <span class="text-sm text-base-content/60">高三学生</span>
+              <span class="text-sm text-base-content/60">大学牛马</span>
             </div>
           </div>
 
@@ -161,6 +165,107 @@ const customComponents = {
         </div>
       </div>
     </main>
+
+    <script>
+      import mediumZoom from 'medium-zoom';
+      
+      // 初始化 medium-zoom，选择所有带有 data-zoom-alt 属性的图片
+      const zoom = mediumZoom('[data-zoom-alt]', {
+        margin: 24,
+        background: 'rgba(0, 0, 0, 0.8)',
+        zoomMargin: 0
+      });
+      
+      // 当图片被放大时，添加标题
+      zoom.on('open', (event) => {
+        const zoomedElement = event.target;
+        const caption = zoomedElement.getAttribute('data-zoom-alt');
+        
+        if (caption) {
+          // 获取 medium-zoom 创建的覆盖层
+          const overlay = document.querySelector('.medium-zoom-overlay');
+          
+          // 创建标题元素
+          const captionElement = document.createElement('div');
+          captionElement.className = 'medium-zoom-caption';
+          captionElement.textContent = caption;
+          
+          // 将标题添加到覆盖层（确保覆盖层存在）
+          if (overlay) {
+            overlay.appendChild(captionElement);
+          }
+        }
+      });
+      
+      // 当图片被缩小关闭时，移除标题
+      zoom.on('close', () => {
+        const caption = document.querySelector('.medium-zoom-caption');
+        if (caption) {
+          caption.remove();
+        }
+      });
+    </script>
+
+    <style>
+      .medium-zoom-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 0.875em;
+        max-width: 80%;
+        text-align: center;
+        font-style: italic;
+        z-index: 1050;
+        pointer-events: none; /* 确保标题不影响图片交互 */
+      }
+      
+      /* 确保覆盖层是相对定位，让标题可以绝对定位 */
+      .medium-zoom-overlay {
+        position: relative;
+      }
+    </style>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 处理脚注链接点击事件
+        // 查找所有脚注链接，包括带有 ↩ 符号的链接
+        document.querySelectorAll('a[href^="#"][href*="fn"]').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            if (targetId) {
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                // 计算滚动位置，考虑固定头部的高度和额外的边距
+                const targetRect = targetElement.getBoundingClientRect();
+                
+                // 根据链接类型调整滚动位置
+                if (targetId.includes('fnref')) {
+                  // 脚注到文章的链接
+                  const targetTop = targetRect.top + window.scrollY - 150; // 增加偏移量，确保内容可见
+                  window.scrollTo({
+                    top: targetTop,
+                    behavior: 'smooth'
+                  });
+                } else {
+                  // 文章到脚注的链接
+                  const targetTop = targetRect.top + window.scrollY - 100; // 适当调整偏移量
+                  window.scrollTo({
+                    top: targetTop,
+                    behavior: 'smooth'
+                  });
+                }
+              }
+            }
+          });
+        });
+      });
+    </script>
 
     <section
       class="my-16 flex flex-col items-center justify-center gap-4 animate-fade-in no-print"

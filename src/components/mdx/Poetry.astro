@@ -1,0 +1,156 @@
+---
+interface PoetryProps {
+  title?: string;
+  author?: string;
+  className?: string;
+}
+
+const { 
+  title = '', 
+  author = '', 
+  className = ''
+} = Astro.props;
+---
+
+<style>
+  /* 基础样式 */
+  .poetry-container {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    font-family: var(--font-serif, Georgia, serif);
+    line-height: 1.8;
+    text-align: center;
+    position: relative;
+  }
+
+  /* 诗歌内容样式 */
+  .poetry-container .poetry-content {
+    margin: 1rem 0;
+    white-space: pre-wrap;
+    font-size: 1.1em;
+    color: var(--color-text, #111827);
+  }
+
+  /* 诗歌标题样式 */
+  .poetry-container .poetry-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text, #111827);
+  }
+
+  /* 作者信息样式 */
+  .poetry-container .poetry-author {
+    font-size: 0.9em;
+    color: var(--color-muted, #6b7280);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  /* 装饰性引号 */
+  .poetry-container::before,
+  .poetry-container::after {
+    content: '"';
+    position: absolute;
+    font-size: 4rem;
+    color: var(--color-primary, #3b82f6);
+    opacity: 0.1;
+    font-family: serif;
+    font-weight: bold;
+  }
+
+  .poetry-container::before {
+    top: -1rem;
+    left: 1rem;
+  }
+
+  .poetry-container::after {
+    bottom: -2rem;
+    right: 1rem;
+    transform: rotate(180deg);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .poetry-container {
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .poetry-container .poetry-content {
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    .poetry-container::before,
+    .poetry-container::after {
+      font-size: 3rem;
+    }
+
+    .poetry-container::before {
+      top: -0.5rem;
+      left: 0.5rem;
+    }
+
+    .poetry-container::after {
+      bottom: -1.5rem;
+      right: 0.5rem;
+    }
+  }
+
+  /* 自定义类名支持 */
+  .poetry-container.custom {
+    /* 自定义样式示例，可根据需要扩展 */
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  /* ==================== 深色模式样式 ==================== */
+  /* 使用更具体的选择器确保样式优先级 */
+  html.dark .poetry-container .poetry-content,
+  body.dark .poetry-container .poetry-content,
+  .dark .poetry-container .poetry-content {
+    color: #ffffff !important;
+  }
+
+  html.dark .poetry-container .poetry-title,
+  body.dark .poetry-container .poetry-title,
+  .dark .poetry-container .poetry-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .poetry-container .poetry-author,
+  body.dark .poetry-container .poetry-author,
+  .dark .poetry-container .poetry-author {
+    color: #e5e7eb !important;
+  }
+
+  /* 深色模式下的装饰性引号 */
+  html.dark .poetry-container::before,
+  body.dark .poetry-container::before,
+  .dark .poetry-container::before,
+  html.dark .poetry-container::after,
+  body.dark .poetry-container::after,
+  .dark .poetry-container::after {
+    color: var(--color-primary, #60a5fa) !important;
+  }
+
+  /* 深色模式下的自定义类 */
+  html.dark .poetry-container.custom,
+  body.dark .poetry-container.custom,
+  .dark .poetry-container.custom {
+    background-color: rgba(59, 130, 246, 0.1) !important;
+    border-color: rgba(59, 130, 246, 0.3) !important;
+  }
+</style>
+
+<div class={`poetry-container ${className}`}>
+  {title && <div class="poetry-title">{title}</div>}
+  <div class="poetry-content">
+    <slot />
+  </div>
+  {author && <div class="poetry-author">— {author}</div>}
+</div>

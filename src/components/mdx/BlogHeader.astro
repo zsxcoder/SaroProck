@@ -87,6 +87,23 @@ function getFixedDelay(delay: number) {
     box-shadow: var(--box-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.1)), var(--box-shadow-3, 0 10px 25px rgba(0, 0, 0, 0.1));
   }
 
+  /* 深色模式适配 */
+  html.dark .blog-header {
+    color: var(--color-text, #f9fafb);
+  }
+
+  html.dark .header-subtitle {
+    opacity: 0.6;
+  }
+
+  html.dark .emoji-tail {
+    opacity: 0.1;
+  }
+
+  html.dark .blog-header:hover .emoji-tail {
+    opacity: 0.3;
+  }
+
   .header-title {
     font-family: 'Noto Sans SC', sans-serif;
     font-size: 1.5em;

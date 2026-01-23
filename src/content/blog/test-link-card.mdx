@@ -1,0 +1,130 @@
+---
+title: 测试 LinkCard.astro 组件
+description: 这是一篇用来测试 LinkCard.astro 组件效果的文章
+pubDate: 2026-01-23 19:00:00
+updated: 2026-01-23 19:00:00
+image: https://60s.kemeow.top/v2/bing?encoding=image
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import LinkCard from '../../components/mdx/LinkCard.astro';
+
+# 测试 LinkCard.astro 组件
+
+这篇文章用来测试我新创建的 LinkCard.astro 组件，该组件实现了带有背景图片、标题和描述的链接卡片功能。
+
+## 基本使用
+
+<LinkCard
+  title="Astro 官方网站"
+  description="构建现代、快速的网站"
+  link="https://astro.build"
+/>
+
+## 带有背景图片
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="Astro 官方网站"
+  description="构建现代、快速的网站"
+  link="https://astro.build"
+/>
+
+## 自动获取域名
+
+<LinkCard
+  title="GitHub 官方网站"
+  link="https://github.com"
+/>
+
+## 带有自定义描述
+
+<LinkCard
+  title="Google 搜索引擎"
+  description="全球最大的搜索引擎"
+  link="https://google.com"
+/>
+
+## 长标题和描述
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="这是一个非常长的标题，用于测试 LinkCard 组件的标题显示效果"
+  description="这是一个非常长的描述，用于测试 LinkCard 组件的描述显示效果。描述内容可以包含多个句子，用于详细介绍链接的内容和用途。"
+  link="https://example.com"
+/>
+
+## 响应式设计
+
+<LinkCard
+  title="响应式设计示例"
+  description="这个组件在不同屏幕尺寸下都能正常显示"
+  link="https://example.com/responsive-design"
+/>
+
+## 深色模式适配
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="深色模式适配"
+  description="这个组件支持深色模式，会根据系统主题自动调整样式"
+  link="https://example.com/dark-mode"
+/>
+
+## 网格布局
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="网格布局示例 1"
+  description="这个组件可以在网格布局中展示"
+  link="https://example.com/grid-1"
+/>
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="网格布局示例 2"
+  description="这个组件可以在网格布局中展示"
+  link="https://example.com/grid-2"
+/>
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="网格布局示例 3"
+  description="这个组件可以在网格布局中展示"
+  link="https://example.com/grid-3"
+/>
+
+<LinkCard
+  banner="https://60s.kemeow.top/v2/bing?encoding=image"
+  title="网格布局示例 4"
+  description="这个组件可以在网格布局中展示"
+  link="https://example.com/grid-4"
+/>
+
+## 结论
+
+LinkCard.astro 组件已经成功实现了带有背景图片、标题和描述的链接卡片功能。
+
+### 组件特性
+
+- **基本功能**：显示链接、标题和描述
+- **背景图片**：支持添加背景图片
+- **自动域名获取**：如果没有提供描述，会自动从链接中提取域名
+- **响应式设计**：适配不同屏幕尺寸
+- **深色模式适配**：适配博客的明暗主题
+- **悬停效果**：鼠标悬停时显示动画效果
+- **网格布局**：支持在网格布局中展示多个卡片
+- **无障碍支持**：添加了适当的 title 属性，提高可访问性
+
+### 组件优势
+
+1. **提升视觉效果**：带有背景图片的链接卡片比普通链接更吸引眼球
+2. **提供更多信息**：可以同时显示标题、描述和链接，让读者更好地了解链接内容
+3. **统一设计风格**：组件样式与博客的整体风格保持一致
+4. **易于使用**：API 简单直观，使用方便
+5. **响应式设计**：在不同设备上都能正常显示
+6. **支持网格布局**：可以在一行中展示多个链接卡片，节省页面空间
+
+通过使用 LinkCard.astro 组件，你可以在博客文章中更好地展示外部链接，提升文章的视觉效果和用户体验。

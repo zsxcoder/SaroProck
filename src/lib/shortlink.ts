@@ -8,20 +8,25 @@ const cache = new Map<string, string>();
  * @param input - The string to hash, e.g., "强连通分量"
  * @returns A promise that resolves to a short hex string, e.g., "e8a11b2"
  */
-async function generateShortHash(input: string): Promise<string> {
-  // 使用现代的 Web Crypto API
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input);
-  const hashBuffer = await crypto.subtle.digest("SHA-1", data);
+function generateShortHash(input: string): string {
+  // 使用简单的哈希算法，避免依赖 crypto.subtle.digest
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    const char = input.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // 转换为32位整数
+  }
 
-  // 将哈希值转换为16进制字符串
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hexHash = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  // 将哈希值转换为十六进制字符串
+  let hex = Math.abs(hash).toString(16);
 
-  // 返回哈希值的前7位，这足以在大多数情况下保证唯一性
-  return hexHash.substring(0, 7);
+  // 确保哈希值至少有7位
+  while (hex.length < 7) {
+    hex = "0" + hex;
+  }
+
+  // 返回前7位
+  return hex.substring(0, 7);
 }
 
 interface ShortLinkOptions {
@@ -42,8 +47,14 @@ export async function getShortLink({
   const publicUrl = import.meta.env.SINK_PUBLIC_URL;
   const apiKey = import.meta.env.SINK_API_KEY;
 
-  if (!publicUrl || !apiKey) {
-    console.warn("Sink 服务环境变量未完全设置，无法生成短链。");
+  if (
+    !publicUrl ||
+    !apiKey ||
+    publicUrl.includes("<") ||
+    publicUrl.includes(">") ||
+    /[\u4e00-\u9fa5]/.test(publicUrl)
+  ) {
+    console.warn("Sink 服务环境变量未完全设置或包含无效字符，无法生成短链。");
     return null;
   }
 
@@ -64,12 +75,14 @@ export async function getShortLink({
         bodyPayload.slug = slug;
       } else {
         // 如果 slug 不合规（包含中文等），则为其生成一个固定的哈希值
-        const hashedSlug = await generateShortHash(slug);
+        const hashedSlug = generateShortHash(slug);
         bodyPayload.slug = hashedSlug;
       }
     }
     // 如果没有传入 slug，则不发送 slug 字段，让 Sink 服务自己生成随机 slug
 
+    // 修复中文 URL 无法转换为 ByteString 的问题
+    // 使用 URLSearchParams 或 encodeURIComponent 确保 URL 是合法的
     const response = await fetch(apiEndpoint, {
       method: "POST",
       headers: {
@@ -98,6 +111,7 @@ export async function getShortLink({
     return null;
   } catch (error) {
     console.error(`Failed to get short link for ${longUrl}:`, error);
+    // 当遇到无法转换为 ByteString 的错误时，直接返回 null，避免构建失败
     return null;
   }
 }

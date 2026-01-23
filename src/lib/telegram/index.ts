@@ -17,6 +17,19 @@ export async function getChannelFeed(
   options: { before?: string; after?: string; q?: string } = {},
 ): Promise<ChannelInfo> {
   const html = await fetchTelegramHtml(Astro, options);
+
+  // 处理空 HTML 字符串的情况
+  if (!html) {
+    return {
+      title: "Telegram Channel",
+      description: "",
+      avatar: "",
+      subscribers: null,
+      photos: null,
+      posts: [],
+    };
+  }
+
   const $ = cheerio.load(html);
   const channel = getEnv(Astro, "CHANNEL")!;
 

@@ -1,0 +1,126 @@
+---
+interface LinkBannerProps {
+  banner?: string;
+  title: string;
+  description?: string;
+  link?: string;
+}
+
+const { banner, title, description, link } = Astro.props;
+
+// 获取链接的域名
+const getDomain = (url: string): string => {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname.replace('www.', '');
+  } catch {
+    return url;
+  }
+};
+
+// 生成标题
+const joinWith = (items: Array<string | undefined | null>): string => {
+  return items.filter(Boolean).join(' | ');
+};
+---
+
+<style>
+  .link-banner {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-bg-2, #f9fafb);
+    border: 1px solid var(--color-border, #e5e7eb);
+    margin: 1rem 0;
+    line-height: 1.4;
+  }
+
+  // 响应式设计
+  @media (max-width: 768px) {
+    article .link-banner {
+      max-width: 100%;
+      margin: 2rem auto;
+    }
+  }
+
+  .link-banner[a] {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .link-banner[a]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* 深色模式适配 */
+  html.dark .link-banner {
+    background-color: var(--color-bg-2, #1f2937);
+    border-color: var(--color-border, #374151);
+  }
+
+  .link-banner-bg {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2.4;
+    margin-bottom: -5%;
+    mask-image: linear-gradient(#FFF 50%, transparent);
+    object-fit: cover;
+  }
+
+  .link-banner-header {
+    /* 用于布局的占位元素 */
+  }
+
+  .link-banner-info {
+    padding: 0.5em 1em;
+  }
+
+  .link-banner-title {
+    font-size: 1.2em;
+    color: var(--color-text, #111827);
+    font-weight: 600;
+  }
+
+  .link-banner-desc {
+    margin-top: 0.5em;
+    font-size: 0.8em;
+    color: var(--color-muted, #6b7280);
+  }
+</style>
+
+{link ? (
+  <a 
+    href={link} 
+    class="link-banner"
+    title={joinWith([title, description, link])}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {banner && <img class="link-banner-bg" src={banner} alt={title} />}
+    <div class="link-banner-header" />
+    <div class="link-banner-info">
+      <div class="link-banner-title">
+        {title}
+      </div>
+      <div class="link-banner-desc">
+        {description || getDomain(link)}
+      </div>
+    </div>
+  </a>
+) : (
+  <div class="link-banner">
+    {banner && <img class="link-banner-bg" src={banner} alt={title} />}
+    <div class="link-banner-header" />
+    <div class="link-banner-info">
+      <div class="link-banner-title">
+        {title}
+      </div>
+      <div class="link-banner-desc">
+        {description}
+      </div>
+    </div>
+  </div>
+)}

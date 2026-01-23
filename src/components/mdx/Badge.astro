@@ -128,4 +128,23 @@ const tip = link
   .badge-text:empty {
     display: none;
   }
+
+  /* 深色模式适配 */
+  html.dark .badge {
+    border-color: var(--color-border, #374151);
+    background-color: var(--color-bg-2, #1f2937);
+    color: var(--color-text, #f9fafb);
+  }
+
+  @supports (color: color-mix(in srgb, transparent, transparent)) {
+    html.dark .badge {
+      border-color: color-mix(in srgb, currentcolor 10%, transparent);
+      background-color: color-mix(in srgb, currentcolor 5%, transparent);
+      color: color-mix(in srgb, currentcolor 80%, transparent);
+    }
+  }
+
+  html.dark .badge:hover {
+    color: var(--color-text, #f9fafb);
+  }
 </style>

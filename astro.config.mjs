@@ -19,12 +19,22 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['react', 'react-dom'],
+    },
+    esbuild: {
+      jsxFactory: 'React.createElement',
+      jsxFragment: 'React.Fragment',
+      jsxInject: 'import React from "react";',
+    },
   },
 
   integrations: [
     expressiveCode(),
     mdx(),
-    react(),
+    react({
+      jsxImportSource: 'react',
+    }),
     sitemap(),
     compress(),
     terser({ compress: true, mangle: true }),

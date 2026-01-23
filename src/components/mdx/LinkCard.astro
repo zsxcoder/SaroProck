@@ -1,106 +1,136 @@
 ---
-export interface LinkCardProps {
+interface LinkCardProps {
   title: string;
-  desc: string;
-  url: string;
-  img?: string;
-  badge?: string;
-  target?: string;
+  description?: string;
+  link: string;
+  banner?: string;
   icon?: string;
-  categories?: string[];
 }
 
-const {
-  title,
-  img,
-  desc,
-  url,
-  badge,
-  target = "_blank",
-  icon = "lucide:link",
-  categories = [],
-} = Astro.props as LinkCardProps;
+const { title, description, link, banner, icon } = Astro.props;
 
-import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
+// 获取链接的域名
+const getDomain = (url: string): string => {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname.replace('www.', '');
+  } catch {
+    return url;
+  }
+};
+
+// 生成标题
+const joinWith = (items: Array<string | undefined | null>): string => {
+  return items.filter(Boolean).join(' | ');
+};
 ---
 
-<div
-  class="not-prose card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-1 animate-fade-in-up border border-base-200"
->
-  <a
-    href={url}
-    target={target}
-    class="card-body p-4 md:p-6"
-    aria-label={`Visit ${title}: ${desc}`}
-    rel={target === "_blank" ? "noopener noreferrer" : undefined}
-  >
-    <div class="flex flex-col md:flex-row gap-4 items-center">
-      <div class="w-full md:w-30 h-30 shrink-0 bg-base-200 rounded-lg overflow-hidden">
-        {
-          img ? (
-            <Image
-              src={img}
-              width={120}
-              height={120}
-              format="webp"
-              alt={title}
-              loading="lazy"
-              class="w-full h-full object-cover"
-            />
-          ) : (
-            <div class="flex items-center justify-center w-full h-full bg-linear-to-br from-base-300 to-base-100">
-              <Icon name={icon} class="w-8 h-8 text-primary opacity-80" aria-hidden="true" />
-            </div>
-          )
-        }
-      </div>
-      <div class="flex-1 space-y-2 w-full">
-        <div class="flex items-center gap-2 flex-wrap">
-          <h2 class="card-title text-xl">{title}</h2>
-          {badge && <div class="badge badge-secondary badge-md font-medium">{badge}</div>}
-        </div>
-
-        {
-          categories.length > 0 && (
-            <div class="flex flex-wrap gap-1 my-1">
-              {categories.map((category) => (
-                <span class="badge badge-outline badge-sm">{category}</span>
-              ))}
-            </div>
-          )
-        }
-
-        <p class="text-base-content/80 line-clamp-2 text-sm">{desc}</p>
-        <div class="card-actions justify-end mt-2">
-          <div class="flex items-center gap-1 text-primary hover:text-primary-focus transition-colors">
-            <span class="text-sm font-medium">Visit {title}</span>
-            <Icon name="lucide:external-link" class="w-3.5 h-3.5" aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </a>
-</div>
-
 <style>
-  .card {
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(var(--color-border), 0.1);
+  .link-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-bg-2, #f9fafb);
+    border: 1px solid var(--color-border, #e5e7eb);
+    margin: 1rem 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+  // 响应式设计
+  @media (max-width: 768px) {
+    article .link-card {
+      max-width: 100%;
+      margin: 1rem auto;
     }
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.3s ease-out forwards;
+  @media (min-width: 769px) {
+    article .link-card {
+      max-width: 300px;
+      margin: 1rem;
+      display: inline-block;
+    }
+  }
+
+  .link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* 深色模式适配 */
+  html.dark .link-card {
+    background-color: var(--color-bg-2, #1f2937);
+    border-color: var(--color-border, #374151);
+  }
+
+  .link-card-banner {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.5;
+    object-fit: cover;
+  }
+
+  .link-card-info {
+    padding: 1em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .link-card-title {
+    font-size: 1.1em;
+    color: var(--color-text, #111827);
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+  }
+
+  .link-card-desc {
+    font-size: 0.875em;
+    color: var(--color-muted, #6b7280);
+    margin-bottom: 0.75em;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .link-card-footer {
+    font-size: 0.75em;
+    color: var(--color-muted, #6b7280);
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .link-card-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 </style>
+
+<a 
+  href={link} 
+  class="link-card"
+  title={joinWith([title, description, link])}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {banner && <img class="link-card-banner" src={banner} alt={title} />}
+  <div class="link-card-info">
+    <div class="link-card-title">
+      {title}
+    </div>
+    {description && <div class="link-card-desc">{description}</div>}
+    <div class="link-card-footer">
+      {icon && <img class="link-card-icon" src={icon} alt="" />}
+      <span>{getDomain(link)}</span>
+    </div>
+  </div>
+</a>

@@ -58,4 +58,10 @@ const tipContent = isExternal
     height: 0.875em;
     vertical-align: middle;
   }
+
+  /* 深色模式适配 */
+  html.dark .z-link {
+    background: linear-gradient(var(--color-primary-soft, #1e3a8a), var(--color-primary-soft, #1e3a8a)) no-repeat center bottom / 100% 0.1em;
+    color: var(--color-primary, #60a5fa);
+  }
 </style>

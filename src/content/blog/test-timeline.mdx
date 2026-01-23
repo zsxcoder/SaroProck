@@ -1,0 +1,147 @@
+---
+title: 测试 Timeline.astro 组件
+description: 这是一篇用来测试 Timeline.astro 组件效果的文章
+pubDate: 2026-01-23 23:00:00
+updated: 2026-01-23 23:00:00
+image: https://60s.kemeow.top/v2/bing?encoding=image
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import Timeline from '../../components/mdx/TimeLine.astro';
+
+# 测试 Timeline.astro 组件
+
+这篇文章用来测试我新创建的 Timeline.astro 组件，该组件实现了时间线展示功能。
+
+## 基本使用
+
+<Timeline>
+  <dt>2025 年 12 月</dt>
+  <dd>
+    <h3>完成 Astro 博客搭建</h3>
+    <p>使用 Astro 框架搭建了个人博客，支持 MDX 组件和响应式设计。</p>
+    <img src="https://60s.kemeow.top/v2/bing?encoding=image" alt="Astro 博客" style="width: 100%; max-width: 500px; border-radius: 8px; margin-top: 0.5rem;" data-zoom-alt="Astro 博客" />
+  </dd>
+  
+  <dt>2025 年 11 月</dt>
+  <dd>
+    <h3>学习 React 19</h3>
+    <p>深入学习了 React 19 的新特性，包括并发渲染和自动批处理。</p>
+    <ul>
+      <li>学习了 React 19 的核心概念</li>
+      <li>实践了多个 React 19 项目</li>
+      <li>撰写了 React 19 学习笔记</li>
+    </ul>
+  </dd>
+  
+  <dt>2025 年 10 月</dt>
+  <dd>
+    <h3>参与开源项目</h3>
+    <p>为多个开源项目贡献代码，包括 Astro 和 React 生态系统。</p>
+    <p>主要贡献了以下内容：</p>
+    <ul>
+      <li>修复了 Astro 组件的 bug</li>
+      <li>为 React 库添加了新功能</li>
+      <li>改进了文档和示例</li>
+    </ul>
+  </dd>
+</Timeline>
+
+## 多个时间线
+
+<Timeline>
+  <dt>2026 年 1 月</dt>
+  <dd>
+    <h3>创建 Timeline 组件</h3>
+    <p>成功创建了 Timeline.astro 组件，支持时间线展示和深色模式。</p>
+  </dd>
+</Timeline>
+
+<Timeline>
+  <dt>2026 年 2 月（计划）</dt>
+  <dd>
+    <h3>学习 TypeScript 5.5</h3>
+    <p>计划学习 TypeScript 5.5 的新特性，提升代码质量和开发效率。</p>
+  </dd>
+  
+  <dt>2026 年 3 月（计划）</dt>
+  <dd>
+    <h3>开发新的博客主题</h3>
+    <p>计划为博客开发一个新的主题，支持更多自定义选项和动画效果。</p>
+  </dd>
+</Timeline>
+
+## 复杂内容支持
+
+<Timeline>
+  <dt>2025 年 9 月</dt>
+  <dd>
+    <h3>复杂内容测试</h3>
+    <p>Timeline 组件支持复杂的内容结构，包括：</p>
+    <ul>
+      <li>标题和段落</li>
+      <li>有序和无序列表</li>
+      <li>图片和链接</li>
+      <li>代码块</li>
+    </ul>
+    
+    <h4>代码示例</h4>
+    ```javascript
+    // 这是一段 JavaScript 代码
+    function hello() {
+      console.log("Hello, Timeline!");
+    }
+    
+    hello();
+    ```
+    
+    <h4>图片示例</h4>
+    <img src="https://60s.kemeow.top/v2/bing?encoding=image" alt="复杂内容图片" style="width: 100%; max-width: 500px; border-radius: 8px; margin-top: 0.5rem;" data-zoom-alt="复杂内容图片" />
+  </dd>
+</Timeline>
+
+## 深色模式适配
+
+<Timeline>
+  <dt>主题适配</dt>
+  <dd>
+    <h3>深色模式支持</h3>
+    <p>Timeline 组件已经完全适配了博客的深色模式，在不同主题下都能提供良好的视觉体验。</p>
+    <p>主要适配内容包括：</p>
+    <ul>
+      <li>背景色和边框色的调整</li>
+      <li>文字颜色的适配</li>
+      <li>阴影效果的调整</li>
+    </ul>
+  </dd>
+</Timeline>
+
+## 响应式设计
+
+<Timeline>
+  <dt>响应式测试</dt>
+  <dd>
+    <h3>响应式布局</h3>
+    <p>Timeline 组件采用了响应式设计，在不同屏幕尺寸下都能正常显示。</p>
+    <p>主要特点：</p>
+    <ul>
+      <li>在桌面端展示完整的时间线效果</li>
+      <li>在移动端自动调整布局，确保良好的阅读体验</li>
+      <li>图片自动适应容器宽度</li>
+    </ul>
+  </dd>
+</Timeline>
+
+## 结论
+
+Timeline.astro 组件已经成功实现了时间线展示功能，支持：
+
+- 基本的时间线展示
+- 多个时间线并列使用
+- 复杂内容结构
+- 深色模式适配
+- 响应式设计
+
+该组件完全适配了博客的布局和样式，使用了与博客一致的 CSS 变量和设计规范，确保了整体风格的统一性。

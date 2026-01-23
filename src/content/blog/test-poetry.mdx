@@ -1,0 +1,170 @@
+---
+title: 测试 Poetry.astro 组件
+description: 这是一篇用来测试 Poetry.astro 组件效果的文章
+pubDate: 2026-01-23 21:00:00
+updated: 2026-01-23 21:00:00
+image: https://60s.kemeow.top/v2/bing?encoding=image
+tags: [测试, 组件]
+categories: [技术分享]
+draft: false
+---
+
+import Poetry from '../../components/mdx/Poetry.astro';
+
+# 测试 Poetry.astro 组件
+
+这篇文章用来测试我新创建的 Poetry.astro 组件，该组件实现了诗歌展示功能。
+
+## 基本使用
+
+<Poetry>
+床前明月光
+疑是地上霜
+举头望明月
+低头思故乡
+</Poetry>
+
+## 带有标题和作者
+
+<Poetry
+  title="静夜思"
+  author="李白"
+>
+床前明月光
+疑是地上霜
+举头望明月
+低头思故乡
+</Poetry>
+
+## 现代诗歌
+
+<Poetry
+  title="断章"
+  author="卞之琳"
+>
+你站在桥上看风景
+看风景的人在楼上看你
+明月装饰了你的窗子
+你装饰了别人的梦
+</Poetry>
+
+## 长诗歌
+
+<Poetry
+  title="再别康桥"
+  author="徐志摩"
+>
+轻轻的我走了，
+正如我轻轻的来；
+我轻轻的招手，
+作别西天的云彩。
+
+那河畔的金柳，
+是夕阳中的新娘；
+波光里的艳影，
+在我的心头荡漾。
+
+软泥上的青荇，
+油油的在水底招摇；
+在康河的柔波里，
+我甘心做一条水草！
+
+那榆荫下的一潭，
+不是清泉，是天上虹；
+揉碎在浮藻间，
+沉淀着彩虹似的梦。
+
+寻梦？撑一支长篙，
+向青草更青处漫溯；
+满载一船星辉，
+在星辉斑斓里放歌。
+
+但我不能放歌，
+悄悄是别离的笙箫；
+夏虫也为我沉默，
+沉默是今晚的康桥！
+
+悄悄的我走了，
+正如我悄悄的来；
+我挥一挥衣袖，
+不带走一片云彩。
+</Poetry>
+
+## 自定义类名
+
+<Poetry
+  title="自定义样式诗歌"
+  author="测试作者"
+  className="custom"
+>
+这是一首使用了自定义样式的诗歌
+自定义样式可以让诗歌看起来更加独特
+你可以根据自己的喜好调整样式
+让诗歌在页面中更加突出
+</Poetry>
+
+## 散文诗句
+
+<Poetry
+  title="春"
+  author="朱自清"
+>
+盼望着，盼望着，东风来了，春天的脚步近了。
+
+一切都像刚睡醒的样子，欣欣然张开了眼。山朗润起来了，水涨起来了，太阳的脸红起来了。
+
+小草偷偷地从土里钻出来，嫩嫩的，绿绿的。园子里，田野里，瞧去，一大片一大片满是的。坐着，躺着，打两个滚，踢几脚球，赛几趟跑，捉几回迷藏。风轻悄悄的，草软绵绵的。
+</Poetry>
+
+## 外国诗歌
+
+<Poetry
+  title="Stopping by Woods on a Snowy Evening"
+  author="Robert Frost"
+>
+Whose woods these are I think I know.
+His house is in the village though;
+He will not see me stopping here
+To watch his woods fill up with snow.
+
+My little horse must think it queer
+To stop without a farmhouse near
+Between the woods and frozen lake
+The darkest evening of the year.
+
+He gives his harness bells a shake
+To ask if there is some mistake.
+The only other sound's the sweep
+Of easy wind and downy flake.
+
+The woods are lovely, dark and deep,
+But I have promises to keep,
+And miles to go before I sleep,
+And miles to go before I sleep.
+</Poetry>
+
+## 结论
+
+Poetry.astro 组件已经成功实现了诗歌展示功能。
+
+### 组件特性
+
+- **基本功能**：显示诗歌内容
+- **标题支持**：可以添加诗歌标题
+- **作者支持**：可以添加诗歌作者
+- **自定义类名**：支持通过 CSS 类名自定义样式
+- **响应式设计**：在不同设备上都能正常显示
+- **深色模式适配**：适配博客的明暗主题
+- **装饰性引号**：添加了装饰性引号，提升视觉效果
+- **优雅的排版**：使用合适的字体和行高，提高可读性
+
+### 组件优势
+
+1. **提升视觉效果**：诗歌展示更加美观，吸引读者注意
+2. **统一设计风格**：组件样式与博客的整体风格保持一致
+3. **易于使用**：API 简单直观，使用方便
+4. **响应式设计**：在不同设备上都能正常显示
+5. **灵活的布局**：支持多种诗歌格式和长度
+6. **良好的可读性**：合适的字体和行高，提高阅读体验
+
+通过使用 Poetry.astro 组件，你可以在博客文章中更好地展示诗歌，提升文章的视觉效果和用户体验。

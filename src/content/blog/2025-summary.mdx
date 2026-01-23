@@ -9,35 +9,40 @@ categories: [总结]
 draft: false
 ---
 
-::alert{type="info" title="欢迎来到我的年末总结！"}
-一年马上要结束了，终于到我写年末总结了！我的年末总结大体还是总结我今年做了什么和明年的展望吧。
-::
+import Info from "../../components/mdx/Info.astro";
 
-::poetry
----
-title: 归去来兮辞
-author: 陶渊明
-footer: 明年加油
----
-**往者不可谏**，
-**来者犹可追**。
-::
+<Info>
+一年马上要结束了，终于到我写年末总结了！我的年末总结大体还是总结我今年做了什么和明年的展望吧。
+</Info>
+
+import Poetry from '../../components/mdx/Poetry.astro';
+
+<Poetry
+  title="归去来兮辞"
+  author="陶渊明"
+>
+往者不可谏，
+来者犹可追。
+</Poetry>
 
 ## 总结
-::quote
-#icon
-ヾ(•ω•`)o
-#default
+import Quote from '../../components/mdx/Quote.astro';
+
+<Quote icon="ヾ(•ω•`)o">
 今年算是没什么起色，依旧彷徨不定的一年吧。
-::
+</Quote>
 
 ### 2025.1
 
 年初考试，被早早结束甚至连复习作业都没有的电机与电气控制成功背刺，差两分过关。然后就是寒假学车，速成5天去考试，这次一次过，成功拿证！然后算是恶补准备开学补考，然后算是去实践了一段时间。之后就是年底过年，没什么好说的，近些年年味是越来越少，最多也就是去舅舅或者外婆家吃饭了，然后就和普通放假没区别。
 
 ---
+
+import Badge from '../../components/mdx/Badge.astro';
+
 ### 2025.2
-到了2月份，陪妈妈出去玩了几天，我不是个喜欢外出的人，而且社恐，不过陪妈妈出去玩还是乐意的。然后在11号下午逛Github时看到了 :badge[纸鹿]{link="https://www.zhilu.site"} 大佬的[博客项目](https://github.com/L33Z22L11/blog-v3)，很好看，于是使用！然后开始我正式学习修改博客的旅程。接下来几天就算是练手和尝试不同的博客，然后开始随便写写。后来时不时分享来自电报的项目在我的[频道](https://t.me/kemiaofx_me)上时不时分享我找到的资源。
+
+到了2月份，陪妈妈出去玩了几天，我不是个喜欢外出的人，而且社恐，不过陪妈妈出去玩还是乐意的。然后在11号下午逛Github时看到了 <Badge link="https://www.zhilu.site" text="纸鹿" /> 大佬的[博客项目](https://github.com/L33Z22L11/blog-v3)，很好看，于是使用！然后开始我正式学习修改博客的旅程。接下来几天就算是练手和尝试不同的博客，然后开始随便写写。后来时不时分享来自电报的项目在我的[频道](https://t.me/kemiaofx_me)上时不时分享我找到的资源。
 
 很快就开学了，开学正常准备补考，期间还看到4级裸考过关了。然后就是补考过关，然后在26号开始想写写日记，在obs和思源上，基本上一直在坚持，距今基本写了10个月，虽然文笔不怎么样，但一直在坚持。
 
@@ -57,7 +62,7 @@ footer: 明年加油
 
 ### 2025.5
 
-年后第一次回家就在劳动节，5天回去转了转，然后就回来实训，准备期末等等，期间发现了不少好的博客主题，不在一一列举。然后在[账号](https://github.com/kemiaofxjun)等继续测试，选中了好看的[solitude主题](https://github.com/everfu/hexo-theme-solitude)[^1]，以及后台[Qexo](https://github.com/Qexo/Qexo)[^1]。然后在 :badge[圣道云]{link="https://shengdaoyun.cn"}开始了typecho和WordPress博客的搭建。由于我的需求不大，最后选择了typecho。
+年后第一次回家就在劳动节，5天回去转了转，然后就回来实训，准备期末等等，期间发现了不少好的博客主题，不在一一列举。然后在[账号](https://github.com/kemiaofxjun)等继续测试，选中了好看的[solitude主题](https://github.com/everfu/hexo-theme-solitude)[^1]，以及后台[Qexo](https://github.com/Qexo/Qexo)[^1]。然后在 <Badge link="https://shengdaoyun.cn" text="圣道云" />开始了typecho和WordPress博客的搭建。由于我的需求不大，最后选择了typecho。
 
 ---
 
@@ -72,12 +77,12 @@ footer: 明年加油
 ### 2025.7
 
 暑假第一个月其实就是在实践和休息里面度过，陪老妈转了几天，然后我就肾结石了。
-::alert{type="warning" card}
-#title
-牢记
-#default
+
+import Warning from "../../components/mdx/Warning.astro";
+
+<Warning>
 少喝饮料多运动！
-::
+</Warning>
 睡醒痛的我死去活来，感人人要没了，后来去医院检查，差点动手术，后面吃药自然排出了。
 
 月底的时候搞了台服务器，然后玩了几天Halo，动态的博客还是不大适应，一般般吧，后面就放弃了，然后部署了[Ech0](https://github.com/lin-snow/Ech0)、[Moments](https://github.com/kingwrcy/moments)等服务，挺有意思的。

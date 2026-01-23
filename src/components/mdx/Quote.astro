@@ -1,0 +1,126 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface QuoteProps {
+  icon?: string;
+  source?: string;
+  className?: string;
+}
+
+const {
+  icon = 'ri:chat-3-line',
+  source = '',
+  className = ''
+} = Astro.props;
+---
+
+<style>
+  .quote {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--color-text-2, #6b7280);
+    margin: 1.5rem 0;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  /* 深色模式适配 */
+  html.dark .quote {
+    color: var(--color-text-2, #9ca3af);
+  }
+
+  /* 图标行 */
+  .icon-line {
+    position: relative;
+    opacity: 0.5;
+    min-height: 0.5em;
+    margin-bottom: -0.5em;
+    mask-image: linear-gradient(#FFF, transparent);
+    font-size: 4rem;
+    transition: all 0.2s;
+    z-index: -1;
+  }
+
+  /* 悬停效果 */
+  .quote:hover .icon-line {
+    opacity: 1;
+    transform: translateY(-0.5rem);
+  }
+
+  /* 图标样式 */
+  .icon-line svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    color: var(--color-primary, #3b82f6);
+  }
+
+  /* 自定义图标样式 */
+  .icon-line .custom-icon {
+    font-size: 1em;
+    color: var(--color-primary, #3b82f6);
+  }
+
+  /* 内容样式 */
+  .quote-content {
+    margin: 0;
+  }
+
+  /* 段落样式 */
+  .quote p {
+    margin: 0;
+  }
+
+  /* 来源样式 */
+  .quote-source {
+    font-size: 0.9em;
+    color: var(--color-muted, #6b7280);
+    font-style: italic;
+    text-align: right;
+    margin-top: 0.5rem;
+  }
+
+  /* 深色模式适配 */
+  html.dark .quote-source {
+    color: var(--color-muted, #9ca3af);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .quote {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      padding-left: 1.5rem;
+    }
+
+    .icon-line {
+      font-size: 3rem;
+    }
+  }
+
+  /* 自定义类名支持 */
+  .quote.custom {
+    /* 自定义样式示例，可根据需要扩展 */
+    color: var(--color-primary, #3b82f6);
+  }
+</style>
+
+<div class={`quote title-like ${className}`}>
+  <div class="icon-line">
+    <slot name="icon">
+      <slot name="#icon">
+        {icon && icon.includes(':') ? (
+          <Icon name={icon} />
+        ) : (
+          <span class="custom-icon">{icon || 'ri:chat-3-line'}</span>
+        )}
+      </slot>
+    </slot>
+  </div>
+  <div class="quote-content">
+    <slot name="default">
+      <slot />
+    </slot>
+  </div>
+  {source && <div class="quote-source">— {source}</div>}
+</div>

@@ -65,18 +65,13 @@ export async function fetchTelegramHtml(
       timeout: 10000,
     };
 
-    console.log(`Fetching from Telegram API: ${url}`, requestOptions);
+    console.log(`正在请求 Telegram API: ${url}`);
     html = await $fetch<string>(url, requestOptions);
-    console.log(`Successfully fetched from Telegram API: ${url}`);
+    console.log(`Telegram API 请求成功: ${url}`);
     cache.set(cacheKey, html);
   } catch (error: any) {
-    console.error(`Failed to fetch from Telegram API: ${url}`);
-    console.error(`Error message: ${error.message}`);
-    console.error(`Error stack: ${error.stack}`);
-    if (error.response) {
-      console.error(`Response status: ${error.response.status}`);
-      console.error(`Response body: ${await error.response.text()}`);
-    }
+    console.error(`Telegram API 请求失败: ${url}`);
+    console.error(`错误信息: ${error.message}`);
     // 请求失败时返回空字符串，避免网站崩溃
     html = "";
   }
